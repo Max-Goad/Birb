@@ -23,8 +23,10 @@ static func component_type_to_category(type: CraftingComponent.Type) -> Category
 var info: CraftingComponent
 var animation_name: String
 var cooldown: float = 0.0
+var delay_callable: Callable = func(): pass
 
 var _cooldown_timer: Timer
+var _delay_timer: Timer
 
 ### Signals
 signal finished
@@ -37,6 +39,11 @@ func _init() -> void:
 	_cooldown_timer.timeout.connect(func(): cooldown_complete.emit())
 	add_child(_cooldown_timer)
 
+	_delay_timer = Timer.new()
+	_delay_timer.one_shot = true
+	_delay_timer.timeout.connect(func(): delay_callable.call())
+	add_child(_delay_timer)
+
 func _ready():
 	if self.info.label:
 		self.name = self.info.label
@@ -48,6 +55,12 @@ func _ready():
 func execute(_parent: Node2D, _direction: Vector2):
 	assert(_cooldown_timer.is_stopped())
 	_cooldown_timer.start(cooldown)
+
+func execute_with_delay(fn: Callable, delay: float):
+	assert(delay > 0.0)
+	assert(_delay_timer.is_stopped())
+	delay_callable = fn
+	_delay_timer.start(delay)
 
 func on_set():
 	pass
