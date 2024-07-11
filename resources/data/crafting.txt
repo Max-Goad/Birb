@@ -1,0 +1,64 @@
+#####################
+# Master Component List
+#####################
+#
+# 1st Character: Label
+#
+# 2nd Character: Type
+#	A = Attack
+#	S = Support
+#	P = Passive
+#	U = Unlock
+#	X = Special
+#   R = Recipe (see below)
+#
+# Components with the same label are listed multiple times
+# to allow for multiple (alternative) recipes. Their types
+# are marked as "R" and the recipes are simply appended to
+# the existing type.
+#
+# 3rd Character: Recipe Type
+#	N = No Recipe
+#	H = L Crafting Horizontal (Left,Right)
+#	V = L Crafting Vertical (Top,Bottom)
+#	L = L Crafting (All 3 Spaces)
+#	3 = 3x3 Crafting
+#
+# Final Trailing Characters: Recipe
+#	_ = Empty Space
+#
+
+⬤,X,N
+厂,U,L,⬤,⬤,⬤
+工,U,3,一,一,一,_,丨,_,一,一,一
+丨,A,V,⬤,⬤
+一,A,H,⬤,⬤
+二,A,V,一,一
+三,A,V,一,二
+三,R,V,二,一
+十,A,3,_,丨,_,一,⬤,一,_,丨,_
+千,A,V,一,十
+口,U,3,⬤,一,⬤,丨,_,丨,⬤,一,⬤
+品,U,3,_,口,_,_,_,_,口,_,口
+# TODO: 日 recipe should probably change
+日,X,V,口,口
+# TODO: 月 recipe must change
+月,X,V,日,厂
+明,S,H,日,月
+早,P,V,日,十
+連,X,N
+楽,X,N
+鋏,X,N
+黒,X,N
+番,X,N
+薬,S,N
+氷,X,N
+
+
+
+
+
+
+
+
+

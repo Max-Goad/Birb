@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://ceio7up6qcp2a"]
+
+[ext_resource type="Script" path="res://scripts/ability/ui/ability_slot.gd" id="1_o1vtw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sswr0"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fgp2c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8fhr"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rm6b"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_svt3u"]
+font_size = 120
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nin2u"]
+font_size = 32
+
+[node name="Ability Slot 1" type="AspectRatioContainer"]
+custom_minimum_size = Vector2(64, 64)
+size_flags_vertical = 6
+script = ExtResource("1_o1vtw")
+
+[node name="Slot" type="Panel" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sswr0")
+
+[node name="ProgressBar" type="ProgressBar" parent="Slot"]
+material = SubResource("CanvasItemMaterial_fgp2c")
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_p8fhr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7rm6b")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Border" type="Label" parent="Slot"]
+layout_mode = 2
+offset_left = -36.0
+offset_top = -55.0
+offset_right = 101.0
+offset_bottom = 110.0
+text = "口"
+label_settings = SubResource("LabelSettings_svt3u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Slot"]
+layout_mode = 0
+offset_top = -5.0
+offset_right = 64.0
+offset_bottom = 59.0
+text = "A"
+label_settings = SubResource("LabelSettings_nin2u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="Slot"]
+process_mode = 1

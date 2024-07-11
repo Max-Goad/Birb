@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpullbef5px0o"]
+
+[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_r22x2"]
+[ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_efes4"]
+[ext_resource type="Texture2D" uid="uid://bi1dghmj0h5ba" path="res://resources/art/Sprout Lands Pack/Objects/Items/Egg items.png" id="2_qny2s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yag0k"]
+atlas = ExtResource("2_qny2s")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kdbvv"]
+
+[node name="One Hurtbox" type="Area2D"]
+top_level = true
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_r22x2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.375, 1.375)
+texture = SubResource("AtlasTexture_yag0k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kdbvv")
+
+[node name="Animation Finish" type="Timer" parent="."]
+wait_time = 0.33
+one_shot = true
+autostart = true
+
+[node name="Despawn" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node2D" parent="."]
+script = ExtResource("2_efes4")
+amount = 5
+
+[connection signal="timeout" from="Animation Finish" to="." method="finish"]
+[connection signal="timeout" from="Despawn" to="." method="despawn"]

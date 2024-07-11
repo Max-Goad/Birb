@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://csh1iurc1b413"]
+
+[ext_resource type="Theme" uid="uid://q5rrux06ucou" path="res://theme/test.theme" id="1_w25a4"]
+[ext_resource type="Script" path="res://scripts/ui/health_bar.gd" id="2_ncskn"]
+[ext_resource type="Script" path="res://scripts/ui/color_step.gd" id="3_546by"]
+
+[sub_resource type="Resource" id="Resource_1p5us"]
+script = ExtResource("3_546by")
+max_value = 25
+color = Color(0.9, 0.18, 0.18, 1)
+
+[sub_resource type="Resource" id="Resource_spw22"]
+script = ExtResource("3_546by")
+max_value = 50
+color = Color(0.9, 0.9, 0.18, 1)
+
+[sub_resource type="Resource" id="Resource_ew03a"]
+script = ExtResource("3_546by")
+max_value = 100
+color = Color(0.18, 0.9, 0.18, 1)
+
+[node name="Health Bar" type="ProgressBar"]
+offset_right = 150.0
+offset_bottom = 30.0
+theme = ExtResource("1_w25a4")
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("2_ncskn")
+color_steps = Array[ExtResource("3_546by")]([SubResource("Resource_1p5us"), SubResource("Resource_spw22"), SubResource("Resource_ew03a")])
+metadata/_edit_use_anchors_ = true

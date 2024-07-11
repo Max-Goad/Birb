@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://l3ufh23wc32f"]
+
+[ext_resource type="Script" path="res://scripts/components/health_bar_component.gd" id="1_q5v37"]
+[ext_resource type="PackedScene" uid="uid://csh1iurc1b413" path="res://resources/ui/health_bar.tscn" id="2_0mhen"]
+
+[node name="Health Bar Component" type="Node2D"]
+z_index = 1
+position = Vector2(-22, -30)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_q5v37")
+
+[node name="Health Bar" parent="." instance=ExtResource("2_0mhen")]
+metadata/_edit_lock_ = true

@@ -1,0 +1,125 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5ct7o83b8o0m"]
+
+[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_vhubc"]
+[ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_5evhu"]
+
+[sub_resource type="Animation" id="Animation_6qx2m"]
+resource_name = "main"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame 1:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frame 2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, false, true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Frame 3:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Frame 1:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Frame 2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true, false, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Frame 3:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3npqg"]
+_data = {
+"main": SubResource("Animation_6qx2m")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_roagf"]
+size = Vector2(30, 15)
+
+[node name="Stick Hurtbox" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_vhubc")
+max_collisions = 3
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+autoplay = "main"
+libraries = {
+"": SubResource("AnimationLibrary_3npqg")
+}
+
+[node name="Frame 1" type="CollisionShape2D" parent="."]
+position = Vector2(6, -26)
+rotation = -0.785398
+shape = SubResource("RectangleShape2D_roagf")
+
+[node name="Frame 3" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(23, 12)
+shape = SubResource("RectangleShape2D_roagf")
+disabled = true
+
+[node name="Frame 2" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(-12, 0)
+polygon = PackedVector2Array(30, 20, 50, 20, 50, -5, 44, -30, 23, -36, 2, -21, 22, -18, 30, -5)
+disabled = true
+
+[node name="DamageComponent" type="Node2D" parent="."]
+script = ExtResource("2_5evhu")
+amount = 10
+alt_amount = 5
+
+[connection signal="animation_finished" from="Animation" to="." method="despawn" unbinds=1]

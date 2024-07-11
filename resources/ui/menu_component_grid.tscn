@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://cip5e66b21iir"]
+
+[ext_resource type="Script" path="res://scripts/crafting/crafting_component_menu.gd" id="1_66ggp"]
+[ext_resource type="PackedScene" uid="uid://ce24dcdsu6pwp" path="res://resources/ui/menu_component_grid_button.tscn" id="2_3qfvc"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_fhsj2"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hhl3l"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_0ol0l"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_rkd78"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_6mjyj"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4w0rs"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_khx2c"]
+allow_unpress = true
+
+[node name="Component Grid" type="GridContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+script = ExtResource("1_66ggp")
+
+[node name="Button1" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+size_flags_vertical = 1
+button_group = SubResource("ButtonGroup_fhsj2")
+
+[node name="Button2" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hhl3l")
+
+[node name="Button3" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_0ol0l")
+
+[node name="Button4" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_rkd78")
+
+[node name="Button5" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_6mjyj")
+
+[node name="Button6" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_4w0rs")
+
+[node name="Button7" parent="." instance=ExtResource("2_3qfvc")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_khx2c")

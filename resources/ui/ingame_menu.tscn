@@ -1,0 +1,771 @@
+[gd_scene load_steps=23 format=3 uid="uid://dswk653r2ggha"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_root.gd" id="1_v28wr"]
+[ext_resource type="Script" path="res://scripts/ui/ingame_menu.gd" id="2_l4mlr"]
+[ext_resource type="Script" path="res://scripts/crafting/crafting_ui_slot.gd" id="3_qk6pw"]
+[ext_resource type="Script" path="res://scripts/ability/ui/ability_slot_group.gd" id="3_tx680"]
+[ext_resource type="PackedScene" uid="uid://ceio7up6qcp2a" path="res://resources/attacks/ability_slot.tscn" id="3_xmwum"]
+[ext_resource type="Script" path="res://scripts/crafting/crafting_button.gd" id="4_em4y8"]
+[ext_resource type="Script" path="res://scripts/crafting/crafting_clear_button.gd" id="5_kvo1i"]
+[ext_resource type="PackedScene" uid="uid://cip5e66b21iir" path="res://resources/ui/menu_component_grid.tscn" id="6_ov8pu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e3ca1"]
+line_spacing = 5.0
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdssv"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3ipu"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kxknf"]
+line_spacing = 5.0
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_18kcn"]
+font_size = 90
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_nucnp"]
+allow_unpress = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yxvdg"]
+load_path = "res://.godot/imported/Egg items.png-ad67ff55d8fd0512a4661226633dafa4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjslh"]
+atlas = SubResource("CompressedTexture2D_yxvdg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v3dxo"]
+load_path = "res://.godot/imported/Egg items.png-ad67ff55d8fd0512a4661226633dafa4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjqjm"]
+atlas = SubResource("CompressedTexture2D_v3dxo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_upwyh"]
+load_path = "res://.godot/imported/Egg items.png-ad67ff55d8fd0512a4661226633dafa4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqx3s"]
+atlas = SubResource("CompressedTexture2D_upwyh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wunoc"]
+load_path = "res://.godot/imported/Egg items.png-ad67ff55d8fd0512a4661226633dafa4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qscwy"]
+atlas = SubResource("CompressedTexture2D_wunoc")
+region = Rect2(64, 0, 16, 16)
+
+[node name="Menu Root" type="Control"]
+z_index = 2
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_v28wr")
+
+[node name="Tab Menu" type="TabContainer" parent="." node_paths=PackedStringArray("root")]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1240.0
+offset_bottom = 680.0
+script = ExtResource("2_l4mlr")
+root = NodePath("..")
+
+[node name="Abilities" type="MarginContainer" parent="Tab Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBox" type="HBoxContainer" parent="Tab Menu/Abilities"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Left Side" type="PanelContainer" parent="Tab Menu/Abilities/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox"]
+layout_mode = 2
+text = "Abilities"
+label_settings = SubResource("LabelSettings_e3ca1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ability Slot Area Margin" type="MarginContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin"]
+layout_mode = 2
+
+[node name="Attacks" type="PanelContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdssv")
+
+[node name="Hbox" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 75
+alignment = 1
+script = ExtResource("3_tx680")
+selectable = true
+
+[node name="Ability Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Ability Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 2/Slot" index="2"]
+text = "B"
+
+[node name="Ability Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 3/Slot" index="2"]
+text = "C"
+
+[node name="Ability Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 4/Slot" index="2"]
+text = "D"
+
+[node name="Passives" type="PanelContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_i3ipu")
+
+[node name="Hbox" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 75
+alignment = 1
+script = ExtResource("3_tx680")
+selectable = true
+category = 1
+
+[node name="Passive Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Passive Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 2/Slot" index="2"]
+text = "B"
+
+[node name="Passive Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 3/Slot" index="2"]
+text = "C"
+
+[node name="Passive Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+layout_mode = 2
+
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 4/Slot" index="2"]
+text = "D"
+
+[node name="Right Side" type="PanelContainer" parent="Tab Menu/Abilities/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/Abilities/HBox/Right Side"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Tab Menu/Abilities/HBox/Right Side/VBox"]
+layout_mode = 2
+text = "Components"
+label_settings = SubResource("LabelSettings_kxknf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Component Container" type="MarginContainer" parent="Tab Menu/Abilities/HBox/Right Side/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Tab Menu/Abilities/HBox/Right Side/VBox/Component Container"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Component Grid" parent="Tab Menu/Abilities/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+layout_mode = 2
+columns = 1
+
+[node name="L Crafting" type="MarginContainer" parent="Tab Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBox" type="HBoxContainer" parent="Tab Menu/L Crafting"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Left Side" type="PanelContainer" parent="Tab Menu/L Crafting/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/L Crafting/HBox/Left Side"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Tab Menu/L Crafting/HBox/Left Side/VBox"]
+layout_mode = 2
+text = "L Crafting"
+label_settings = SubResource("LabelSettings_e3ca1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crafting Area Margin" type="MarginContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="Crafting Area Columns" type="HBoxContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Crafting Grid" type="AspectRatioContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Grid Margin" type="MarginContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Grid Grid" type="GridContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="Corner" type="AspectRatioContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Corner" type="PanelContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Corner" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 0
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Corner/Corner"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="AspectRatioContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Right" type="PanelContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Right" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 1
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Right/Right"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="AspectRatioContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bottom" type="PanelContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Bottom" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 2
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/Bottom/Bottom"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Other" type="VBoxContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Reagent Margin" type="MarginContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Reagent Panel" type="GridContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin"]
+layout_mode = 2
+columns = 2
+
+[node name="Reagent 1" type="TextureButton" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_kjslh")
+stretch_mode = 4
+
+[node name="Reagent 2" type="TextureButton" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_bjqjm")
+stretch_mode = 4
+
+[node name="Reagent 3" type="TextureButton" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_yqx3s")
+stretch_mode = 4
+
+[node name="Reagent 4" type="TextureButton" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_qscwy")
+stretch_mode = 4
+
+[node name="ButtonContainer" type="MarginContainer" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Craft Button" type="Button" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/ButtonContainer" node_paths=PackedStringArray("root")]
+layout_mode = 2
+text = "Craft"
+script = ExtResource("4_em4y8")
+root = NodePath("../../../../../../../../../..")
+
+[node name="Clear Button" type="Button" parent="Tab Menu/L Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other" node_paths=PackedStringArray("root")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Clear All"
+script = ExtResource("5_kvo1i")
+root = NodePath("../../../../../../../../..")
+
+[node name="Right Side" type="PanelContainer" parent="Tab Menu/L Crafting/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/L Crafting/HBox/Right Side"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Tab Menu/L Crafting/HBox/Right Side/VBox"]
+layout_mode = 2
+text = "Components"
+label_settings = SubResource("LabelSettings_kxknf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Component Container" type="MarginContainer" parent="Tab Menu/L Crafting/HBox/Right Side/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Tab Menu/L Crafting/HBox/Right Side/VBox/Component Container"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Component Grid" parent="Tab Menu/L Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+layout_mode = 2
+columns = 1
+
+[node name="3x3 Crafting" type="MarginContainer" parent="Tab Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBox" type="HBoxContainer" parent="Tab Menu/3x3 Crafting"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Left Side" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox"]
+layout_mode = 2
+text = "3x3 Crafting"
+label_settings = SubResource("LabelSettings_e3ca1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crafting Area Margin" type="MarginContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="Crafting Area Columns" type="HBoxContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Crafting Grid" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Grid Margin" type="MarginContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Grid Grid" type="GridContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
+
+[node name="UL" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UL" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UL" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 0
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UL/UL"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UM" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UM" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UM" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 1
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UM/UM"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UR" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UR" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UR" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 2
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/UR/UR"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ML" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ML" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/ML" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 3
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/ML/ML"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MM" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MM" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/MM" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 4
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/MM/MM"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MR" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MR" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/MR" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 5
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/MR/MR"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BL" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BL" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BL" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 6
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BL/BL"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BM" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BM" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BM" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 7
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BM/BM"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BR" type="AspectRatioContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BR" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BR" node_paths=PackedStringArray("root")]
+layout_mode = 2
+script = ExtResource("3_qk6pw")
+slot_index = 8
+root = NodePath("../../../../../../../../../../../..")
+
+[node name="Label" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Crafting Grid/Grid Margin/Grid Grid/BR/BR"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_18kcn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Other" type="VBoxContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Reagent Margin" type="MarginContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Reagent Panel" type="GridContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin"]
+layout_mode = 2
+columns = 2
+
+[node name="Reagent 1" type="TextureButton" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_kjslh")
+stretch_mode = 4
+
+[node name="Reagent 2" type="TextureButton" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_bjqjm")
+stretch_mode = 4
+
+[node name="Reagent 3" type="TextureButton" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_yqx3s")
+stretch_mode = 4
+
+[node name="Reagent 4" type="TextureButton" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/Reagent Margin/Reagent Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nucnp")
+texture_normal = SubResource("AtlasTexture_qscwy")
+stretch_mode = 4
+
+[node name="ButtonContainer" type="MarginContainer" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Craft Button" type="Button" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other/ButtonContainer" node_paths=PackedStringArray("root")]
+layout_mode = 2
+text = "Craft"
+script = ExtResource("4_em4y8")
+root = NodePath("../../../../../../../../../..")
+
+[node name="Clear Button" type="Button" parent="Tab Menu/3x3 Crafting/HBox/Left Side/VBox/Crafting Area Margin/Crafting Area Columns/Other" node_paths=PackedStringArray("root")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Clear All"
+script = ExtResource("5_kvo1i")
+root = NodePath("../../../../../../../../..")
+
+[node name="Right Side" type="PanelContainer" parent="Tab Menu/3x3 Crafting/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Tab Menu/3x3 Crafting/HBox/Right Side"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox"]
+layout_mode = 2
+text = "Components"
+label_settings = SubResource("LabelSettings_kxknf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Component Container" type="MarginContainer" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox/Component Container"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Component Grid" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+layout_mode = 2
+columns = 1
+
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 1"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 2"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 3"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 4"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 1"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 2"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 3"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 4"]
