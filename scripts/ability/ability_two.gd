@@ -7,7 +7,7 @@ var speed: float
 var damage: int
 var delay: float
 
-var _delay_timer: Timer
+var _projectile_delay_timer: Timer
 ### Signals
 
 ### Engine Functions
@@ -20,16 +20,18 @@ func _init(speed, damage, delay) -> void:
 	self.damage = damage
 	self.delay = delay
 
-	_delay_timer = Timer.new()
-	_delay_timer.one_shot = true
-	add_child(_delay_timer)
+	_projectile_delay_timer = Timer.new()
+	_projectile_delay_timer.one_shot = true
+	add_child(_projectile_delay_timer)
 
 ### Public Functions
 func execute(parent: Node2D, direction: Vector2):
 	super.execute(parent, direction)
-	_fire_projectile(parent, direction)
-	_delay_timer.timeout.connect(_fire_second_projectile.bind(parent, direction))
-	_delay_timer.start(delay)
+	var execute_fn = func():
+		_fire_projectile(parent, direction)
+		_projectile_delay_timer.timeout.connect(_fire_second_projectile.bind(parent, direction))
+		_projectile_delay_timer.start(delay)
+	super.execute_with_delay(execute_fn, 0.1)
 
 ### Private Functions
 func _fire_projectile(parent: Node2D, direction: Vector2, callback = func():pass):
@@ -44,4 +46,4 @@ func _fire_projectile(parent: Node2D, direction: Vector2, callback = func():pass
 
 func _fire_second_projectile(parent: Node2D, direction: Vector2):
 	_fire_projectile(parent, direction, func(): self.finished.emit())
-	_delay_timer.timeout.disconnect(_fire_second_projectile.bind(parent, direction))
+	_projectile_delay_timer.timeout.disconnect(_fire_second_projectile.bind(parent, direction))

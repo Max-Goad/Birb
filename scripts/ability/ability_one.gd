@@ -20,6 +20,10 @@ func _init(speed, damage) -> void:
 ### Public Functions
 func execute(parent: Node2D, direction: Vector2):
 	super.execute(parent, direction)
+	super.execute_with_delay(_fire.bind(parent, direction), 0.1)
+
+### Private Functions
+func _fire(parent: Node2D, direction: Vector2):
 	var hurtbox: Hurtbox = pl_hb_one.instantiate()
 	hurtbox.position = parent.position
 	hurtbox.scale = parent.scale
@@ -28,5 +32,3 @@ func execute(parent: Node2D, direction: Vector2):
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)
 	hurtbox.damage_component.amount = self.damage
-
-### Private Functions
