@@ -1,7 +1,7 @@
 class_name Fast extends Ability
 
 ### Variables
-var player: Player
+var multiplier = 1.2
 
 ### Signals
 
@@ -17,13 +17,16 @@ func execute(_parent: Node2D, _direction: Vector2):
 
 func on_set():
 	print("fast set")
-	# TODO: How to get player?
-	# self.player.top_speed *= 1.5
-	# self.player.acceleration *= 1.5
+	var player: Player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
+	# TODO: Should this be a component?
+	player.top_speed *= self.multiplier
+	player.acceleration *= self.multiplier
 
 func on_unset():
 	print("fast unset")
-	# self.player.top_speed /= 1.5
-	# self.player.acceleration /= 1.5
+	var player: Player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
+	# TODO: Should this be a component?
+	player.top_speed /= self.multiplier
+	player.acceleration /= self.multiplier
 
 ### Private Functions

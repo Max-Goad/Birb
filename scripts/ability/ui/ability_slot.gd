@@ -32,8 +32,9 @@ func _process(_delta: float) -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_released():
-		if Ability.component_type_to_category(Crafting.current_component.type) == self.category:
-			Abilities.set_ability(self.category, self.slot_id, Crafting.current_component)
+		if Crafting.current_component != null:
+			if Ability.component_type_to_category(Crafting.current_component.type) == self.category:
+				Abilities.set_ability(self.category, self.slot_id, Crafting.current_component)
 
 ### Public Functions
 

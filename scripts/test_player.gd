@@ -24,6 +24,7 @@ var knockback := false
 
 ### Engine Functions
 func _ready() -> void:
+	self.add_to_group(Data.GROUP_PLAYER)
 	health.on_damage.connect(_on_health_damage)
 	health.on_death.connect(_on_death)
 	Data.component_unlocked.connect(_on_component_unlocked)

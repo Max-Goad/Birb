@@ -79,10 +79,10 @@ func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
 	else:
 		ability.finished.disconnect(_on_ability_finished.bind(slot))
 		ability.cooldown_complete.disconnect(_on_ability_cooldown.bind(slot))
+		ability.on_unset()
 		remove_child(ability)
 		if fill_with_null:
 			_assign_ability_to_slot(category, NullAbility.new(), slot)
-		ability.on_unset()
 		ability_reset.emit(category, slot)
 
 
