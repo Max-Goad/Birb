@@ -9,16 +9,12 @@ enum Direction {
 }
 
 ### Variables
-@export_category("Movement")
-@export var top_speed: float
-@export_range(0.01,1.0) var acceleration := 1.0
-@export_range(0.01,1.0) var deceleration := 1.0
-
 var last_direction := Vector2.DOWN
 var knockback := false
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
+@onready var speed: MovementSpeedComponent = $MovementSpeedComponent
 
 ### Signals
 
@@ -40,7 +36,7 @@ func _process(_delta: float) -> void:
 			_process_velocity(direction)
 			_process_attack(last_direction)
 		_process_animation(direction)
-	self.velocity = self.velocity.move_toward(Vector2.ZERO, self.top_speed * self.deceleration)
+	self.velocity = self.velocity.move_toward(Vector2.ZERO, speed.top_speed * speed.deceleration)
 	move_and_slide()
 
 
@@ -50,7 +46,7 @@ func _process(_delta: float) -> void:
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
-	self.velocity = self.velocity.move_toward(direction * self.top_speed, self.top_speed * self.acceleration)
+	self.velocity = self.velocity.move_toward(direction * speed.top_speed, speed.top_speed * speed.acceleration)
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
 		self.last_direction = direction
@@ -107,5 +103,5 @@ func _on_death():
 func _apply_knockback(direction: Vector2, factor: float):
 	if direction == Vector2.ZERO:
 		direction = -self.last_direction
-	self.velocity = direction * self.top_speed * factor
+	self.velocity = direction * speed.top_speed * factor
 	knockback = true

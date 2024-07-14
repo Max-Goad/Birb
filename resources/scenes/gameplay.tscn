@@ -1,8 +1,9 @@
-[gd_scene load_steps=125 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=126 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_t8kj5"]
 [ext_resource type="Script" path="res://scripts/test_player.gd" id="3_p7l5b"]
+[ext_resource type="Script" path="res://resources/scenes/movement_speed_component.gd" id="4_i8qad"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_c1dqk"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="7_htkjs"]
@@ -811,9 +812,6 @@ scale = Vector2(3, 3)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_p7l5b")
-top_speed = 500.0
-acceleration = 0.2
-deceleration = 0.1
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player"]
 texture_filter = 1
@@ -834,6 +832,12 @@ health_component = NodePath("../HealthComponent")
 [node name="DamageIndicator Component" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("7_ixeq5")]
 health_component = NodePath("../HealthComponent")
 position_dither = 0
+
+[node name="MovementSpeedComponent" type="Node" parent="Player"]
+script = ExtResource("4_i8qad")
+top_speed = 500.0
+acceleration = 0.2
+deceleration = 0.1
 
 [node name="Mushroom" type="Node2D" parent="."]
 position = Vector2(813, 387)
