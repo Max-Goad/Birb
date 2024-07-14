@@ -3,9 +3,9 @@
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_t8kj5"]
 [ext_resource type="Script" path="res://scripts/test_player.gd" id="3_p7l5b"]
-[ext_resource type="Script" path="res://resources/scenes/movement_speed_component.gd" id="4_i8qad"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_c1dqk"]
+[ext_resource type="Script" path="res://scripts/components/speed_component.gd" id="7_5ao0n"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="7_htkjs"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ixeq5"]
 [ext_resource type="Texture2D" uid="uid://bf6kvy2itm786" path="res://resources/art/Sprout Lands Pack/Objects/Mushrooms, Flowers, Stones.png" id="8_ysgv7"]
@@ -833,8 +833,8 @@ health_component = NodePath("../HealthComponent")
 health_component = NodePath("../HealthComponent")
 position_dither = 0
 
-[node name="MovementSpeedComponent" type="Node" parent="Player"]
-script = ExtResource("4_i8qad")
+[node name="SpeedComponent" type="Node" parent="Player"]
+script = ExtResource("7_5ao0n")
 top_speed = 500.0
 acceleration = 0.2
 deceleration = 0.1

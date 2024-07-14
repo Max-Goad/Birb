@@ -14,7 +14,7 @@ var knockback := false
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
-@onready var speed: MovementSpeedComponent = $MovementSpeedComponent
+@onready var speed: SpeedComponent = $SpeedComponent
 
 ### Signals
 
