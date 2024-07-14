@@ -1,5 +1,11 @@
 extends Node
 
+### Constants
+const MAX_SAVE_SLOT_SIZE: int = 7
+const MAX_SAVE_NAME_SIZE: int = 20
+
+const GROUP_PLAYER: String = "player"
+
 ### Save Data Variables
 var saves: Array[SaveData]
 var current_save: SaveData
@@ -14,9 +20,6 @@ var default_component := CraftingComponent.new()
 var default_recipe_type := CraftingRecipe.Type.L_CRAFTING
 
 ### Misc Variables
-const max_save_slot_size: int = 7
-const max_save_name_size: int = 20
-
 var crafting_file_parser := CraftingFileParser.new()
 
 ### Signals
@@ -27,7 +30,7 @@ signal ability_slot_unlocked(category, total) # always emit total
 ### Engine Functions
 func _ready() -> void:
 	# saves.clear()
-	# saves.resize(max_slot_size)
+	# saves.resize(MAX_SAVE_SLOT_SIZE)
 	# saves.fill(null)
 	_load_game_references()
 	load_all_files()
@@ -72,9 +75,9 @@ func load_file(slot: int):
 # Take all files and put their Dictionaries into memory
 func load_all_files():
 	saves.clear()
-	saves.resize(max_save_slot_size)
+	saves.resize(MAX_SAVE_SLOT_SIZE)
 	saves.fill(null)
-	for slot in max_save_slot_size:
+	for slot in MAX_SAVE_SLOT_SIZE:
 		if not save_exists(slot):
 			continue
 		var file = FileAccess.open(file_name(slot), FileAccess.READ)
