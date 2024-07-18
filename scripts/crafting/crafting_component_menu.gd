@@ -40,9 +40,10 @@ func _generate_buttons_until(limit: int):
 		_adjust_columns()
 
 func _adjust_columns():
+	# No more than 5 columns (to allow for scroll to activate)
 	# Purposefully doing integer division to ignore remainders
 	@warning_ignore("integer_division")
-	self.columns = ((buttons.size() - 1) / 7) + 1
+	self.columns = min(((buttons.size() - 1) / 7) + 1, 5)
 
 func _on_button_toggled(on: bool, i: int):
 	if on:
