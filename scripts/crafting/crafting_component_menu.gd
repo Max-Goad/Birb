@@ -58,3 +58,4 @@ func _on_component_unlocked(component: CraftingComponent):
 	var button = get_button(component)
 	button.disabled = false
 	button.text = component.label
+	button.modulate = CraftingComponent.color(component.type)
