@@ -14,6 +14,9 @@ static func component_type_to_category(type: CraftingComponent.Type) -> Category
 			return Category.ACTIVE
 		CraftingComponent.Type.SUPPORT:
 			return Category.ACTIVE
+		# TODO: Could SPECIAL be BOTH active AND passive?
+		CraftingComponent.Type.SPECIAL:
+			return Category.ACTIVE
 		CraftingComponent.Type.PASSIVE:
 			return Category.PASSIVE
 		_:
