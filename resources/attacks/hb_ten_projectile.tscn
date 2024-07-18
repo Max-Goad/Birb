@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cldb7qrc12msp"]
+
+[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_1os5b"]
+[ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_l3scy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_af1gl"]
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr0lt"]
+size = Vector2(22, 4)
+
+[node name="Ten Projectile" type="Area2D"]
+script = ExtResource("1_1os5b")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.9999
+offset_top = 20.0001
+offset_right = 22.0001
+offset_bottom = 56.0001
+grow_horizontal = 2
+grow_vertical = 2
+text = "一"
+label_settings = SubResource("LabelSettings_af1gl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jr0lt")
+
+[node name="DamageComponent" type="Node2D" parent="."]
+script = ExtResource("2_l3scy")

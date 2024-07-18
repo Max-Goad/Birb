@@ -32,7 +32,7 @@ var _cooldown_timer: Timer
 var _delay_timer: Timer
 
 ### Signals
-signal finished
+signal finished # Indicates when control should be given back to player
 signal cooldown_complete
 
 ### Engine Functions
@@ -89,6 +89,9 @@ static func from_component(component: CraftingComponent) -> Ability:
 			return Two.new(25, 10, 0.1)
 		"三":
 			return Three.new(25, 10)
+		"十":
+			# tf, pf, id, ed, pd, et
+			return Ten.new(5.0, 100.0, 5, 25, 10)
 		"早":
 			return Fast.new()
 		"薬":
