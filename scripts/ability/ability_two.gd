@@ -8,6 +8,7 @@ var damage: int
 var delay: float
 
 var _projectile_delay_timer: Timer
+
 ### Signals
 
 ### Engine Functions

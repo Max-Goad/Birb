@@ -52,6 +52,8 @@ func despawn():
 
 ### Private Functions
 func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_index: int):
+	if finished_emitted or freed_emitted:
+		return
 	if body in ignored_nodes:
 		return
 	if collided_ids.has(body_rid) or collided_ids.size() > max_collisions:
@@ -64,6 +66,8 @@ func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_
 			despawn()
 
 func _hit_area(area_rid: RID, area: Area2D, _area_shape_index: int, local_shape_index: int):
+	if finished_emitted or freed_emitted:
+		return
 	if area in ignored_nodes:
 		return
 	if collided_ids.has(area_rid) or collided_ids.size() > max_collisions:
