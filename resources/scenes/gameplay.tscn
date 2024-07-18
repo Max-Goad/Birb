@@ -1002,9 +1002,9 @@ script = ExtResource("16_d1kmd")
 label = "二"
 slot = 1
 
-[node name="Assign 三 to Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
+[node name="Assign 十 to Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "三"
+label = "十"
 slot = 2
 
 [node name="Assign 薬 to Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
