@@ -91,7 +91,10 @@ static func from_component(component: CraftingComponent) -> Ability:
 			return Three.new(25, 10)
 		"十":
 			# tf, pf, id, ed, pd, et
-			return Ten.new(35.0, 50.0, 5, 25, 10)
+			return Ten.new(35.0, 50.0, 5, 20, 10)
+		"百":
+			# tf, pf, id, ed, pd, et
+			return Hundred.new(35.0, 5, 50)
 		"早":
 			return Fast.new()
 		"薬":
