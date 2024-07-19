@@ -119,6 +119,9 @@ func _get_slots(category: Ability.Category) -> Array[Ability]:
 			return []
 
 func _on_ability_finished(_slot: int):
+	call_deferred("_clear_current_active")
+
+func _clear_current_active():
 	current_active = NullAbility.new()
 
 func _on_ability_cooldown(slot: int):

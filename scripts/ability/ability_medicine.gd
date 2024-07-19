@@ -19,9 +19,7 @@ func execute(parent: Node2D, direction: Vector2):
 	var health := _find_health_component(parent)
 	assert(health)
 	health.heal(amount)
-	# If we call finish immediately, it can screw up the call ordering
-	# So we use call_deferred to mimic the async behavior
-	call_deferred("_finish")
+	finished.emit()
 
 ### Private Functions
 func _find_health_component(parent: Node2D) -> HealthComponent:
@@ -29,6 +27,3 @@ func _find_health_component(parent: Node2D) -> HealthComponent:
 		if child is HealthComponent:
 			return child
 	return null
-
-func _finish():
-	self.finished.emit()
