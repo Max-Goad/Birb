@@ -14,7 +14,7 @@ region = Rect2(16, 64, 16, 16)
 [node name="Ten Explosion" type="Area2D"]
 texture_filter = 1
 script = ExtResource("1_4v58i")
-max_collisions = 10
+max_collisions = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_inef7")

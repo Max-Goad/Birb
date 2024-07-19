@@ -9,7 +9,6 @@ font_size = 24
 [node name="Ten Bomb" type="Area2D"]
 texture_filter = 1
 script = ExtResource("1_v0eyj")
-max_collisions = 3
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
