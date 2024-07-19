@@ -103,7 +103,7 @@ static func from_component(component: CraftingComponent) -> Ability:
 			return Legs.new(1.1)
 		"大":
 			# scale, damage
-			return Big.new(1.5, 1.5)
+			return Big.new(1.5, 1.2)
 		"小":
 			# scale, damage (incoming)
 			return Small.new(0.667, 1.5)

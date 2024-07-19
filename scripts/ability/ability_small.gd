@@ -23,11 +23,14 @@ func on_set():
 	# TODO: Change this to a modifier
 	player.scale *= scale_modifier
 	player.modifiers.add("damage_incoming", self, damage_incoming_modifier)
+	# TODO: This kinda sucks
+	player.health.damage_modifier_fn = player.modifiers.gett.bind("damage_incoming")
 
 func on_unset():
 	if player:
 		# TODO: Change this to a modifier
 		player.scale /= scale_modifier
 		player.modifiers.remove("damage_incoming", self)
+		player.health.damage_modifier_fn = Callable()
 
 ### Private Functions
