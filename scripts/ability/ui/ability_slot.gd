@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 	if not cooldown.is_stopped():
 		var percent_left = (cooldown.time_left * 100.0 / cooldown.wait_time)
 		progress_bar.value = 100 - percent_left
-		print("percent left = %s" % percent_left)
+		#print("percent left = %s" % percent_left)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_released():
