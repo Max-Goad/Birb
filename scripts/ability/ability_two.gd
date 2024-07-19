@@ -37,6 +37,7 @@ func execute(parent: Node2D, direction: Vector2):
 ### Private Functions
 func _fire_projectile(parent: Node2D, direction: Vector2, callback = func():pass):
 	var hurtbox: Hurtbox = projecile_template.instantiate()
+	hurtbox.top_level = true # Do not follow parent's transforms
 	hurtbox.position = parent.position
 	hurtbox.scale = parent.scale
 	hurtbox.velocity = Math.dither_v_rot(Math.vector8dir(direction) * Math.dither_f(self.speed, 2.5), deg_to_rad(10))

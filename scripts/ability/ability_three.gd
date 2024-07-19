@@ -27,14 +27,15 @@ func execute(parent: Node2D, direction: Vector2):
 		var b = _create_projectile(parent, Math.vector8dir(direction).rotated(deg_to_rad(10.0)))
 		var c = _create_projectile(parent, Math.vector8dir(direction).rotated(deg_to_rad(-10.0)))
 
-		a.ignore_all([b,c,parent])
+		Hurtbox.mutual_ignore([a,b,c])
+		a.ignore(parent)
+		b.ignore(parent)
+		c.ignore(parent)
 		parent.add_child(a)
-		a.damage_component.amount = self.damage
-		b.ignore_all([a,c,parent])
 		parent.add_child(b)
-		b.damage_component.amount = self.damage
-		c.ignore_all([a,b,parent])
 		parent.add_child(c)
+		a.damage_component.amount = self.damage
+		b.damage_component.amount = self.damage
 		c.damage_component.amount = self.damage
 
 	super.execute_with_delay(execute_fn, 0.1)
