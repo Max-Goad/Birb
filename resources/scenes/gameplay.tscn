@@ -825,6 +825,8 @@ shape = SubResource("CircleShape2D_vh0j4")
 
 [node name="HealthComponent" type="Node2D" parent="Player"]
 script = ExtResource("5_g402e")
+current_hp = 1000
+max_hp = 1000
 
 [node name="HealthBarComponent" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
 health_component = NodePath("../HealthComponent")
@@ -999,7 +1001,7 @@ label = "一"
 
 [node name="Assign 二 to Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "二"
+label = "百"
 slot = 1
 
 [node name="Assign 十 to Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
