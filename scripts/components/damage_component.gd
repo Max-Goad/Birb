@@ -20,13 +20,13 @@ func _ready() -> void:
 
 ### Public Functions
 func apply(node: Node2D, alt = false) -> bool:
-	print("apply to %s" % node.name)
+	print("DamageComponent: %s -> %s" % [self.get_parent().name, node.name])
 	var health_component = _find_health_component(node)
 	if not health_component:
-		print("can't find health component")
+		print("DamageComponent: can't find health component")
 		return false
-	print("prnt pos = %s" % get_parent().position)
-	print("body pos = %s" % node.position)
+	print("DamageComponent: prnt pos = %s" % get_parent().position)
+	print("DamageComponent: body pos = %s" % node.position)
 	var direction = node.position - get_parent().position
 	if not alt:
 		health_component.damage(amount, type, direction.normalized())
