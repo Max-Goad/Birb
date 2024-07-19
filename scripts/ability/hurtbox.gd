@@ -1,13 +1,21 @@
 class_name Hurtbox extends Area2D
 
+const MUTUAL_IGNORE = true
+const NON_MUTUAL_IGNORE = false
+
 ### Variables
 var velocity = Vector2.ZERO
+var deceleration = 0.0
+var angular_velocity = 0.0
+var angular_deceleration = 0.0
+
 var ignored_nodes: Dictionary = {}
 var collided_ids: Dictionary = {}
 
 @export var max_collisions = 1
 @export var frame_alt_damage: Array[bool]
 
+# @onready var speed_component: SpeedComponent = $SpeedComponent
 @onready var damage_component: DamageComponent = $DamageComponent
 
 ### Signals
@@ -18,19 +26,35 @@ var freed_emitted = false
 
 ### Engine Functions
 func _ready() -> void:
+	# assert(speed_component)
+	assert(damage_component)
 	body_shape_entered.connect(_hit_body)
 	area_shape_entered.connect(_hit_area)
 
 func _process(_delta: float) -> void:
 	self.position += velocity
+	self.rotate(deg_to_rad(angular_velocity))
+	self.velocity = velocity.move_toward(Vector2.ZERO, velocity.length() * deceleration)
+	self.angular_velocity = move_toward(angular_velocity, 0.0, angular_deceleration)
 
 ### Public Functions
 func ignore(node: Node2D):
-	self.ignored_nodes[node] = null
+	if node != self:
+		self.ignored_nodes[node] = node.name
+
+func ignore_hurtbox(hurtbox: Hurtbox, mutual: bool):
+	ignore(hurtbox)
+	if mutual:
+		hurtbox.ignore(self)
 
 func ignore_all(nodes: Array[Node2D]):
 	for node in nodes:
 		self.ignore(node)
+
+static func mutual_ignore(hurtboxes: Array[Hurtbox]):
+	for i in hurtboxes.size():
+		for j in hurtboxes.size() - 1:
+			hurtboxes[i].ignore_hurtbox(hurtboxes[j+1], Hurtbox.MUTUAL_IGNORE)
 
 # Use this function if you want to free up the calling object without
 # despawning related hurtbox objects (such as projectiles)
