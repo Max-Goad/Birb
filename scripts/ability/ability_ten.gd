@@ -54,7 +54,7 @@ func _throw_bomb(direction: Vector2):
 	current_bomb.angular_velocity = Math.rand_negative(Math.dither_f(10.0, 5.0))
 	current_bomb.angular_deceleration = Math.dither_f(0.3, 0.15)
 	current_bomb.ignore(current_parent)
-	current_bomb.finished.connect(_on_bomb_finished)
+	current_bomb.finished.connect(func(): call_deferred("_on_bomb_finished"))
 	current_parent.add_child(current_bomb)
 	current_bomb.damage_component.amount = impact_damage
 
@@ -68,8 +68,7 @@ func _spawn_explosion():
 	current_explosion.top_level = true # Do not follow parent's transforms
 	current_explosion.position = current_bomb.position
 	current_explosion.scale = current_bomb.scale
-	# TODO: Should the explosion ignore the parent?
-	current_explosion.ignore(current_parent)
+	# current_explosion.ignore(current_parent)
 	current_explosion.finished.connect(_on_explosion_finished)
 	current_parent.add_child(current_explosion)
 	current_explosion.damage_component.amount = explosion_damage
