@@ -16,9 +16,7 @@ var knockback := false
 @onready var health: HealthComponent = $HealthComponent
 @onready var speed: SpeedComponent = $SpeedComponent
 
-# TODO: what's the best way to implement this?
-# {name: {ID: value}}
-var modifiers: Dictionary = {}
+var modifiers := ModifierMap.new()
 
 ### Signals
 
@@ -43,20 +41,7 @@ func _process(_delta: float) -> void:
 	self.velocity = self.velocity.move_toward(Vector2.ZERO, speed.top_speed * speed.deceleration)
 	move_and_slide()
 
-
 ### Public Functions
-func add_modifier(key: String, applier: Object, value: float):
-	var value_pair = modifiers.get(key, {})
-	value_pair[applier] = value
-	modifiers[key] = value_pair
-
-func remove_modifier(key: String, applier: Object):
-	assert(key in modifiers)
-	assert(applier in modifiers[key])
-	modifiers[key].erase(applier)
-
-func modifier(key: String) -> float:
-	return modifiers.get(key, {}).values().reduce(func(a,b): return a*b, 1.0)
 
 ### Private Functions
 func _process_velocity(direction: Vector2):

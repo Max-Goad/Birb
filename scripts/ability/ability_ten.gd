@@ -56,7 +56,7 @@ func _throw_bomb(direction: Vector2):
 	current_bomb.ignore(current_parent)
 	current_bomb.finished.connect(func(): call_deferred("_on_bomb_finished"))
 	current_parent.add_child(current_bomb)
-	current_bomb.damage_component.amount = int(impact_damage * current_parent.modifier("damage"))
+	current_bomb.damage_component.amount = int(impact_damage * current_parent.modifiers.gett("damage"))
 
 func _on_bomb_finished():
 	_spawn_explosion()
@@ -71,7 +71,7 @@ func _spawn_explosion():
 	# current_explosion.ignore(current_parent)
 	current_explosion.finished.connect(_on_explosion_finished)
 	current_parent.add_child(current_explosion)
-	current_explosion.damage_component.amount = int(explosion_damage * current_parent.modifier("damage"))
+	current_explosion.damage_component.amount = int(explosion_damage * current_parent.modifiers.gett("damage"))
 
 	# There's a small amount of time when both are still alive/active
 	current_explosion.ignore_hurtbox(current_bomb, Hurtbox.MUTUAL_IGNORE)
@@ -90,7 +90,7 @@ func _spawn_all_projectiles():
 		projectile.rotation_degrees = current_bomb.rotation_degrees + added_rotation
 		projectile.velocity = Vector2.RIGHT.rotated(projectile.rotation) * projectile_force
 		current_parent.add_child(projectile)
-		projectile.damage_component.amount = int(projectile_damage * current_parent.modifier("damage"))
+		projectile.damage_component.amount = int(projectile_damage * current_parent.modifiers.gett("damage"))
 		spawned_projectiles.append(projectile)
 
 	# Projectiles, Bomb, and Explosion should ignore each other

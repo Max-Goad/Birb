@@ -22,12 +22,12 @@ func on_set():
 	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
 	# TODO: Change this to a modifier
 	player.scale *= scale_multiplier
-	player.add_modifier("damage", self, damage_multiplier)
+	player.modifiers.add("damage", self, damage_multiplier)
 
 func on_unset():
 	if player:
 		# TODO: Change this to a modifier
 		player.scale /= self.scale_multiplier
-		player.remove_modifier("damage", self)
+		player.modifiers.remove("damage", self)
 
 ### Private Functions

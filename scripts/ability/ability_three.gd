@@ -34,9 +34,9 @@ func execute(parent: Player, direction: Vector2):
 		parent.add_child(a)
 		parent.add_child(b)
 		parent.add_child(c)
-		a.damage_component.amount = int(damage * parent.modifier("damage"))
-		b.damage_component.amount = int(damage * parent.modifier("damage"))
-		c.damage_component.amount = int(damage * parent.modifier("damage"))
+		a.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
+		b.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
+		c.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
 
 	super.execute_with_delay(execute_fn, 0.1)
 
