@@ -12,8 +12,6 @@ region = Rect2(0, 0, 16, 16)
 
 [node name="One Hurtbox" type="Area2D"]
 top_level = true
-collision_layer = 2
-collision_mask = 2
 script = ExtResource("1_r22x2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
