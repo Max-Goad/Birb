@@ -61,3 +61,4 @@ autostart = true
 [connection signal="timeout" from="Explosion Timer" to="." method="despawn"]
 [connection signal="timeout" from="Clear Ignored Nodes" to="." method="clear_ignores"]
 [connection signal="timeout" from="Arm Bomb" to="." method="reset_collisions" binds= [0]]
+[connection signal="timeout" from="Arm Bomb" to="Label" method="set_modulate" binds= [Color(0.75, 0.1875, 0.1875, 1)]]
