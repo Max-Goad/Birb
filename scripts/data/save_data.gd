@@ -5,7 +5,7 @@ var save_name: String
 var components_unlocked := {0:null} # key-only Set
 var recipe_types_unlocked := {} # key-only Set
 var active_ability_slots_unlocked = 1
-var passive_ability_slots_unlocked = 2
+var passive_ability_slots_unlocked = 1
 
 
 static func serialize(sd: SaveData) -> Dictionary:

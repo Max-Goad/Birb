@@ -87,6 +87,7 @@ func _on_component_unlocked(component: CraftingComponent):
 			Data.unlock_ability_slot(Ability.Category.ACTIVE, 1)
 		"品":
 			Data.unlock_ability_slot(Ability.Category.ACTIVE, 2)
+			Data.unlock_ability_slot(Ability.Category.PASSIVE, 1)
 		_:
 			pass
 

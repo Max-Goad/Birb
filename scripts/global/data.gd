@@ -130,11 +130,15 @@ func unlock_ability_slot(category: Ability.Category, num_unlocked: int) -> void:
 		current_save.active_ability_slots_unlocked += num_unlocked
 	elif category == Ability.Category.PASSIVE:
 		current_save.passive_ability_slots_unlocked += num_unlocked
-
 	notify_ability_slots(category)
 
 func notify_ability_slots(category: Ability.Category):
-	ability_slot_unlocked.emit(category, current_save.active_ability_slots_unlocked)
+	match category:
+		Ability.Category.ACTIVE:
+			ability_slot_unlocked.emit(category, current_save.active_ability_slots_unlocked)
+		Ability.Category.PASSIVE:
+			ability_slot_unlocked.emit(category, current_save.passive_ability_slots_unlocked)
+
 
 func clear():
 	pass
