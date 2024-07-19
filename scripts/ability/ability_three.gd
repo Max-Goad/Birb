@@ -20,7 +20,7 @@ func _init(speed, damage) -> void:
 	self.damage = damage
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var execute_fn = func():
 		var a = _create_projectile(parent, Math.vector8dir(direction))

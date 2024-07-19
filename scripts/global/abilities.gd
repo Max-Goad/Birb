@@ -88,7 +88,7 @@ func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
 
 # Only active abilities can be executed (theoretically)
 # but I kept the naming scheme to be consistent
-func execute_ability(slot: int, executer: Node2D, direction: Vector2) -> bool:
+func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
 	print("execute ability in slot %s" % slot)
 	if has_ability(Ability.Category.ACTIVE, slot):
 		var ability = get_ability(Ability.Category.ACTIVE, slot)

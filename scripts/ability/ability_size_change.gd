@@ -15,7 +15,7 @@ func _init(component_label: String, scale_multiplier: float, damage_multiplier: 
 	self.damage_multiplier = damage_multiplier
 
 ### Public Functions
-func execute(_parent: Node2D, _direction: Vector2):
+func execute(_parent: Player, _direction: Vector2):
 	pass
 
 func on_set():

@@ -24,7 +24,7 @@ func _init(tf, id, ed, et = 1.0) -> void:
 
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var execute_fn = func():
 		_throw_bomb(parent, direction)
@@ -32,7 +32,7 @@ func execute(parent: Node2D, direction: Vector2):
 	super.execute_with_delay(execute_fn, 0.1)
 
 ### Private Functions
-func _throw_bomb(parent: Node2D, direction: Vector2):
+func _throw_bomb(parent: Player, direction: Vector2):
 	var bomb = pl_hb_hundred_bomb.instantiate()
 	bomb.top_level = true # Do not follow parent's transforms
 	bomb.position = parent.position

@@ -55,7 +55,7 @@ func _ready():
 
 
 ### Public Functions
-func execute(_parent: Node2D, _direction: Vector2):
+func execute(_parent: Player, _direction: Vector2):
 	assert(_cooldown_timer.is_stopped())
 	_cooldown_timer.start(cooldown)
 

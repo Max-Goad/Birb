@@ -26,7 +26,7 @@ func _init(speed, damage, delay) -> void:
 	add_child(_projectile_delay_timer)
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var execute_fn = func():
 		_fire_projectile(parent, direction)
@@ -35,7 +35,7 @@ func execute(parent: Node2D, direction: Vector2):
 	super.execute_with_delay(execute_fn, 0.1)
 
 ### Private Functions
-func _fire_projectile(parent: Node2D, direction: Vector2, callback = func():pass):
+func _fire_projectile(parent: Player, direction: Vector2, callback = func():pass):
 	var hurtbox: Hurtbox = projecile_template.instantiate()
 	hurtbox.top_level = true # Do not follow parent's transforms
 	hurtbox.position = parent.position

@@ -13,7 +13,7 @@ func _init(multiplier: float) -> void:
 	self.multiplier = multiplier
 
 ### Public Functions
-func execute(_parent: Node2D, _direction: Vector2):
+func execute(_parent: Player, _direction: Vector2):
 	pass
 
 func on_set():

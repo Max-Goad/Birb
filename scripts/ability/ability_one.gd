@@ -18,12 +18,12 @@ func _init(speed, damage) -> void:
 	self.damage = damage
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	super.execute_with_delay(_fire.bind(parent, direction), 0.1)
 
 ### Private Functions
-func _fire(parent: Node2D, direction: Vector2):
+func _fire(parent: Player, direction: Vector2):
 	var hurtbox: Hurtbox = pl_hb_one.instantiate()
 	hurtbox.top_level = true # Do not follow parent's transforms
 	hurtbox.position = parent.position

@@ -14,7 +14,7 @@ func _init(amount: int) -> void:
 	self.amount = amount
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var health := _find_health_component(parent)
 	assert(health)
@@ -22,7 +22,7 @@ func execute(parent: Node2D, direction: Vector2):
 	finished.emit()
 
 ### Private Functions
-func _find_health_component(parent: Node2D) -> HealthComponent:
+func _find_health_component(parent: Player) -> HealthComponent:
 	for child in parent.get_children():
 		if child is HealthComponent:
 			return child

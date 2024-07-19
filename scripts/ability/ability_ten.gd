@@ -33,7 +33,7 @@ func _init(tf, pf, id, ed, pd, et = 1.0) -> void:
 
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	assert(current_bomb == null)
 	assert(current_explosion == null)
 	super.execute(parent, direction)

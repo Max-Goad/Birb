@@ -19,7 +19,7 @@ func _init(multiplier, effect_time) -> void:
 	self.effect_time = effect_time
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	self.player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
 	player.speed.apply_multiplier(self, self.multiplier)

@@ -14,7 +14,7 @@ func _init() -> void:
 	self.cooldown = 0.5
 
 ### Public Functions
-func execute(parent: Node2D, direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var hurtbox: Node2D = pl_hb_stick.instantiate()
 	hurtbox.ignore(parent)
