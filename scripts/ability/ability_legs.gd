@@ -18,10 +18,14 @@ func execute(_parent: Player, _direction: Vector2):
 
 func on_set():
 	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
-	player.speed.apply_multiplier(self, self.multiplier)
+	player.modifiers.add("movement_top_speed", self, multiplier)
+	player.modifiers.add("movement_acceleration", self, multiplier)
+	player.modifiers.add("movement_deceleration", self, multiplier)
 
 func on_unset():
 	if player:
-		player.speed.remove_multiplier(self)
+		player.modifiers.remove("movement_top_speed", self)
+		player.modifiers.remove("movement_acceleration", self)
+		player.modifiers.remove("movement_deceleration", self)
 
 ### Private Functions

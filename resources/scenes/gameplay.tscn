@@ -1016,7 +1016,7 @@ slot = 3
 
 [node name="Assign Passive 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "儿"
+label = "大"
 category = 1
 
 [node name="Unpause" type="Node" parent="Unlock Everything Jim/Triggers"]

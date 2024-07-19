@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 			_process_velocity(direction)
 			_process_attack(last_direction)
 		_process_animation(direction)
-	self.velocity = self.velocity.move_toward(Vector2.ZERO, speed.top_speed * speed.deceleration)
+	_process_velocity_deceleration()
 	move_and_slide()
 
 ### Public Functions
@@ -47,7 +47,9 @@ func _process(_delta: float) -> void:
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
-	self.velocity = self.velocity.move_toward(direction * speed.top_speed, speed.top_speed * speed.acceleration)
+	var mod_speed = speed.top_speed * modifiers.gett("movement_top_speed")
+	var mod_accel = speed.acceleration * modifiers.gett("movement_acceleration")
+	self.velocity = self.velocity.move_toward(direction * mod_speed, mod_speed * mod_accel)
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
 		self.last_direction = direction
@@ -82,6 +84,11 @@ func _process_attack(direction: Vector2):
 	elif Input.is_action_just_pressed("player_action_4"):
 		Abilities.execute_ability(3, self, direction)
 
+func _process_velocity_deceleration():
+	var mod_speed: float = speed.top_speed * modifiers.gett("movement_top_speed")
+	var mod_decel: float = speed.deceleration * modifiers.gett("movement_deceleration")
+	self.velocity = velocity.move_toward(Vector2.ZERO, mod_speed * mod_decel)
+
 func _on_component_unlocked(component: CraftingComponent):
 	match component.label:
 		"口":
@@ -105,5 +112,6 @@ func _on_death():
 func _apply_knockback(direction: Vector2, factor: float):
 	if direction == Vector2.ZERO:
 		direction = -self.last_direction
+	# Note: this speed should not be affected by modifiers
 	self.velocity = direction * speed.top_speed * factor
 	knockback = true
