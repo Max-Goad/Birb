@@ -995,28 +995,28 @@ label = "一"
 [node name="Debug Unlock ALL Components" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("15_de8on")
 
-[node name="Assign 一 to Slot 1" type="Node" parent="Unlock Everything Jim/Triggers"]
+[node name="Assign Slot 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
 label = "一"
 
-[node name="Assign 二 to Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
+[node name="Assign Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
 label = "百"
 slot = 1
 
-[node name="Assign 十 to Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
+[node name="Assign Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
 label = "十"
 slot = 2
 
-[node name="Assign 薬 to Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
-script = ExtResource("16_d1kmd")
-label = "薬"
-slot = 3
-
-[node name="Assign 早 to Passive 1" type="Node" parent="Unlock Everything Jim/Triggers"]
+[node name="Assign Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
 label = "早"
+slot = 3
+
+[node name="Assign Passive 1" type="Node" parent="Unlock Everything Jim/Triggers"]
+script = ExtResource("16_d1kmd")
+label = "儿"
 category = 1
 
 [node name="Unpause" type="Node" parent="Unlock Everything Jim/Triggers"]

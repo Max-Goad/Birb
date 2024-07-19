@@ -96,7 +96,11 @@ static func from_component(component: CraftingComponent) -> Ability:
 			# tf, pf, id, ed, pd, et
 			return Hundred.new(35.0, 5, 50)
 		"早":
-			return Fast.new()
+			# multiplier, effect time
+			return Fast.new(1.5, 3.0)
+		"儿":
+			# multiplier
+			return Legs.new(1.1)
 		"薬":
 			return Medicine.new(10)
 		_:
