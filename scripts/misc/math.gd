@@ -71,6 +71,16 @@ static func dither_c(c: Color, percent: float) -> Color:
 				 c.g + randf_range(-percent/2, percent/2),
 				 c.b  + randf_range(-percent/2, percent/2))
 
+## Random
+# Return one of the two values at random
+static func rand_pick(v1: Variant, v2: Variant) -> Variant:
+	return [v1, v2][randi() % 2]
+
+# Return either the value or the negative of the value at random
+static func rand_negative(v: Variant) -> Variant:
+	return rand_pick(v, -v)
+
+
 ## Flags
 static func flag_set(bitmask: int, position: int) -> int:
 	assert(position < 32, "attempting to set a bit in position > 32")
