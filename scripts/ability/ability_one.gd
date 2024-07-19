@@ -32,4 +32,4 @@ func _fire(parent: Player, direction: Vector2):
 	hurtbox.ignore(parent)
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)
-	hurtbox.damage_component.amount = self.damage
+	hurtbox.damage_component.amount = int(damage * parent.modifier("damage"))

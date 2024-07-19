@@ -19,13 +19,15 @@ func execute(_parent: Player, _direction: Vector2):
 	pass
 
 func on_set():
-	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
-	player.scale *= self.scale_multiplier
-	# TODO: Damage multiplication?
+	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
+	# TODO: Change this to a modifier
+	player.scale *= scale_multiplier
+	player.add_modifier("damage", self, damage_multiplier)
 
 func on_unset():
 	if player:
+		# TODO: Change this to a modifier
 		player.scale /= self.scale_multiplier
-		# TODO: Damage multiplication?
+		player.remove_modifier("damage", self)
 
 ### Private Functions

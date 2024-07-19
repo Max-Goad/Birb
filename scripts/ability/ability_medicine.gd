@@ -18,7 +18,7 @@ func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var health := _find_health_component(parent)
 	assert(health)
-	health.heal(amount)
+	health.heal(int(amount * parent.modifier("heal")))
 	finished.emit()
 
 ### Private Functions

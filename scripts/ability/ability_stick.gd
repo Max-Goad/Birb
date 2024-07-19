@@ -21,6 +21,7 @@ func execute(parent: Player, direction: Vector2):
 	_position_hurtbox(hurtbox, direction)
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)
+	# TODO: Damage? Damage modifier?
 
 ### Private Functions
 func _position_hurtbox(hurtbox: Node2D, direction: Vector2):

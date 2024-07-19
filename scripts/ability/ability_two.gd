@@ -44,7 +44,7 @@ func _fire_projectile(parent: Player, direction: Vector2, callback = func():pass
 	hurtbox.finished.connect(callback)
 	hurtbox.ignore(parent)
 	parent.add_child(hurtbox)
-	hurtbox.damage_component.amount = self.damage
+	hurtbox.damage_component.amount = int(damage * parent.modifier("damage"))
 
 func _fire_second_projectile(parent: Node2D, direction: Vector2):
 	_fire_projectile(parent, direction, func(): self.finished.emit())
