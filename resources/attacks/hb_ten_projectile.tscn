@@ -10,7 +10,9 @@ font_size = 24
 size = Vector2(22, 4)
 
 [node name="Ten Projectile" type="Area2D"]
+texture_filter = 1
 script = ExtResource("1_1os5b")
+max_collisions = 3
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -19,10 +21,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -17.9999
-offset_top = 20.0001
-offset_right = 22.0001
-offset_bottom = 56.0001
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "一"
@@ -35,3 +37,10 @@ shape = SubResource("RectangleShape2D_jr0lt")
 
 [node name="DamageComponent" type="Node2D" parent="."]
 script = ExtResource("2_l3scy")
+
+[node name="Despawn Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Despawn Timer" to="." method="despawn"]

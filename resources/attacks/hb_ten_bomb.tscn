@@ -1,18 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh8v7trsi058f"]
+[gd_scene load_steps=4 format=3 uid="uid://dh8v7trsi058f"]
 
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_v0eyj"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_p3s4w"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_af1gl"]
-font_size = 240
-font_color = Color(0.8, 0.16, 0.16, 1)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_inef7"]
+font_size = 24
 
 [node name="Ten Bomb" type="Area2D"]
+texture_filter = 1
 script = ExtResource("1_v0eyj")
 max_collisions = 3
-frame_alt_damage = Array[bool]([true, true])
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -32,8 +29,14 @@ label_settings = SubResource("LabelSettings_af1gl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_inef7")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-2, -11, -2, -3, -11, -3, -11, 0, -2, 0, -2, 11, 2, 11, 2, 0, 11, 0, 11, -3, 2, -3, 2, -11)
 
 [node name="DamageComponent" type="Node2D" parent="."]
 script = ExtResource("2_p3s4w")
+
+[node name="Explosion Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Explosion Timer" to="." method="despawn"]

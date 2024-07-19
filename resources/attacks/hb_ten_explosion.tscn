@@ -1,18 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkywkgw5o8rqh"]
+[gd_scene load_steps=6 format=3 uid="uid://bkywkgw5o8rqh"]
 
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_4v58i"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_3a73h"]
+[ext_resource type="Texture2D" uid="uid://cmfcljg7o24ka" path="res://resources/art/Sprout Lands Pack/Objects/Items/All items.png" id="3_bdgi0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_inef7"]
-radius = 50.0
+radius = 25.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33r6r"]
+atlas = ExtResource("3_bdgi0")
+region = Rect2(16, 64, 16, 16)
 
 [node name="Ten Explosion" type="Area2D"]
+texture_filter = 1
 script = ExtResource("1_4v58i")
 max_collisions = 10
-frame_alt_damage = Array[bool]([true, true])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_inef7")
 
 [node name="DamageComponent" type="Node2D" parent="."]
 script = ExtResource("2_3a73h")
+amount = 50
+type = 1
+
+[node name="Despawn Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(3.5, 3.5)
+texture = SubResource("AtlasTexture_33r6r")
+
+[connection signal="timeout" from="Despawn Timer" to="." method="despawn"]
