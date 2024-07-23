@@ -37,10 +37,10 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
-		print("Textbox Cancelled (Keyboard)")
+		print("Textbox: cancelled (keyboard)")
 		finish()
 
 func _gui_input(event: InputEvent) -> void:
 	if cancellable and event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT] and event.is_released():
-		print("Textbox Cancelled (Mouse)")
+		print("Textbox: cancelled (mouse)")
 		finish()

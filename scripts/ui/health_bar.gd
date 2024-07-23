@@ -7,7 +7,7 @@ var fill : StyleBoxFlat
 ### Public Functions
 func change_value(v: int) -> void:
 	self.value += v
-	print("%s / %s" % [self.value, self.max_value])
+	print("HealthBar: %s / %s" % [self.value, self.max_value])
 
 func current_color() -> Color:
 	for cs in self.color_steps:

@@ -52,7 +52,7 @@ func _on_button_toggled(on: bool, i: int):
 		Crafting.current_component = Data.default_component
 
 func _on_component_unlocked(component: CraftingComponent):
-	print("component updated (%s)" % component)
+	print("CraftingComponentMenu: component updated (%s)" % component)
 	if not has_button(component):
 		_generate_buttons_until(component.id)
 	var button = get_button(component)

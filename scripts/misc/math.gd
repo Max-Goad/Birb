@@ -85,7 +85,7 @@ static func rand_negative(v: Variant) -> Variant:
 static func flag_set(bitmask: int, position: int) -> int:
 	assert(position < 32, "attempting to set a bit in position > 32")
 	var out = bitmask | (1 << position)
-	# print("%s -> %s" % [flag_str(bitmask), flag_str(out)])
+	# print("Math: %s -> %s" % [flag_str(bitmask), flag_str(out)])
 	return out
 
 static func flag_unset(bitmask: int, position: int) -> int:
@@ -95,7 +95,7 @@ static func flag_unset(bitmask: int, position: int) -> int:
 static func flag_is_set(bitmask: int, position: int) -> bool:
 	var out = bool(bitmask & (1 << position))
 	# print(flag_str(bitmask))
-	# print("pos %s set? %s" % [position, out])
+	# print("Math: pos %s set? %s" % [position, out])
 	return out
 
 static func flag_to_array(bitmask: int) -> Array[int]:

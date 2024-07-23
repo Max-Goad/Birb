@@ -69,7 +69,7 @@ func _generate_astar() -> AStar2D:
 		var node = nodes[i]
 		out.add_point(i, node.position)
 		node_to_index[node] = i
-		print("Node %s (%d)" % [node.name, i])
+		print("NavMap: Node %s (%d)" % [node.name, i])
 
 	for connection in connections:
 		var a: Destination = get_node(connection.a)

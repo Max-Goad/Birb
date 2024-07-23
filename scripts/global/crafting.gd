@@ -43,7 +43,7 @@ func update_slot(i, c: CraftingComponent):
 	# TODO: Is this "toggle" behavior what I want long-term?
 	if current_slots[i] == c:
 		c = Data.default_component
-	print("update slot (%s) with (%s)" % [i,c.label])
+	print("Crafting: update slot (%s) with (%s)" % [i,c.label])
 	current_slots[i] = c
 	slot_updated.emit(i, c)
 
@@ -58,10 +58,10 @@ func craft():
 		if recipe.components == _current_slot_components():
 			var result_component: CraftingComponent = Data.components_by_name[recipe.result]
 			if Data.is_component_unlocked(result_component.id):
-				print("recipe result already known...")
+				print("Crafting: recipe result already known...")
 				craft_failure_already_known.emit()
 			else:
-				print("matched recipe!")
+				print("Crafting: matched recipe!")
 				Data.unlock_component(result_component)
 				craft_success.emit()
 			return

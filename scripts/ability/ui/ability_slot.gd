@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 	if not cooldown.is_stopped():
 		var percent_left = (cooldown.time_left * 100.0 / cooldown.wait_time)
 		progress_bar.value = 100 - percent_left
-		#print("percent left = %s" % percent_left)
+		#print("AbilitySlot: percent left = %s" % percent_left)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_released():
@@ -42,7 +42,7 @@ func _gui_input(event: InputEvent) -> void:
 func _on_ability_set(category: Ability.Category, slot: int, ability: Ability):
 	if self.slot_id != slot or category != self.category:
 		return
-	print("[AbilitySlot] on ability set to %s (slot %s)" % [ability.info.label, slot])
+	print("AbilitySlot: on ability set to %s (slot %s)" % [ability.info.label, slot])
 	color = CraftingComponent.color(ability.info.type)
 	self.ability = ability
 	self.modulate = color
@@ -53,7 +53,7 @@ func _on_ability_set(category: Ability.Category, slot: int, ability: Ability):
 func _on_ability_reset(category: Ability.Category, slot: int):
 	if self.slot_id != slot or category != self.category:
 		return
-	print("[AbilitySlot] on ability reset (slot %s)" % [slot])
+	print("AbilitySlot:  on ability reset (slot %s)" % [slot])
 	color = Color.WHITE
 	self.modulate = color
 	label.text = ""
@@ -62,7 +62,7 @@ func _on_ability_executed(slot: int, time: float):
 	if self.slot_id != slot or self.category != Ability.Category.ACTIVE:
 		return
 	progress_bar.value = 0
-	print("execute with time %s" % time)
+	print("AbilitySlot: execute with time %s" % time)
 	cooldown.start(time)
 	self.modulate = color * Color.GRAY
 

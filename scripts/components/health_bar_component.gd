@@ -33,8 +33,8 @@ func _on_health_heal(amount: int):
 func _update_visibility():
 	var full = health_component.current_hp >= health_component.max_hp
 	var empty = health_component.current_hp <= 0
-	print("curr %s, max %s" % [health_component.current_hp, health_component.max_hp])
-	print("full %s, hwf %s, empty %s, hwe %s" % [full, hide_when_full, empty, hide_when_empty])
+	print("HealthBarComponent: curr %s, max %s" % [health_component.current_hp, health_component.max_hp])
+	print("HealthBarComponent: full %s, hwf %s, empty %s, hwe %s" % [full, hide_when_full, empty, hide_when_empty])
 	if (full and hide_when_full) or (empty and hide_when_empty):
 		self.visible = false
 	else:

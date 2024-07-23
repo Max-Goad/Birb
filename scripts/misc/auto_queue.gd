@@ -33,7 +33,7 @@ signal complete
 
 ### Public Functions
 func push_back(f : Callable, s : Signal):
-	#print("queue push")
+	#print("AutoQueue: push")
 	var node = QueueNode.new()
 	node.f = f
 	node.s = s
@@ -41,7 +41,7 @@ func push_back(f : Callable, s : Signal):
 	queue.push_back(node)
 
 func push_back_auto(f : Callable):
-	#print("queue push (auto)")
+	#print("AutoQueue: push (auto)")
 	var node = AutoQueueNode.new()
 	node.f = f
 	node.conn(_on_complete)
@@ -49,21 +49,21 @@ func push_back_auto(f : Callable):
 
 func start():
 	if not running and queue.size() > 0:
-		#print("queue start")
+		#print("AutoQueue: start")
 		running = true
 		_next()
 
 ### Private Functions
 func _next():
-	#print("queue next node")
+	#print("AutoQueue: next node")
 	var node = queue.pop_front()
 	node.run()
 
 func _on_complete():
-	#print("queue node complete")
+	#print("AutoQueue: node complete")
 	if queue.size() > 0:
 		_next()
 	else:
-		#print("queue end")
+		#print("AutoQueue: end")
 		running = false
 		complete.emit()

@@ -54,7 +54,7 @@ func set_ability(category: Ability.Category, slot: int, component: CraftingCompo
 	elif component in Data.abilities:
 		ability = Data.abilities[component]
 	else:
-		print("trying to use component that doesn't have an ability!")
+		print("Abilities: trying to use component that doesn't have an ability!")
 		return
 	# Unset slot and leave empty (NOT null)
 	unset_ability(category, slot, _DO_NOT_FILL_WITH_NULL)
@@ -63,14 +63,14 @@ func set_ability(category: Ability.Category, slot: int, component: CraftingCompo
 	if not is_default_component and find_ability_slot(category, ability) != -1:
 		unset_ability(category, find_ability_slot(category, ability), _FILL_WITH_NULL)
 
-	print("set ability %s as %s" % [slot, ability.info.label])
+	print("Abilities: set ability %s as %s" % [slot, ability.info.label])
 	_assign_ability_to_slot(category, ability, slot)
 	ability.on_set()
 	ability_set.emit(category, slot, ability)
 
 # TODO: Should this be private?
 func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
-	print("unset ability %s" % [slot])
+	print("Abilities: unset ability %s" % [slot])
 	var ability: Ability = _get_slots(category)[slot]
 	if ability == null:
 		pass
@@ -89,22 +89,22 @@ func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
 # Only active abilities can be executed (theoretically)
 # but I kept the naming scheme to be consistent
 func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
-	print("execute ability in slot %s" % slot)
+	print("Abilities: execute ability in slot %s" % slot)
 	if has_ability(Ability.Category.ACTIVE, slot):
 		var ability = get_ability(Ability.Category.ACTIVE, slot)
 		if ability.is_null():
-			print("execute ability is null")
+			print("Abilities: execute ability is null")
 			return false
 		if not ability.ready():
-			print("execute ability not ready")
+			print("Abilities: execute ability not ready")
 			return false
 		current_active = ability
 		current_active.execute(executer, direction)
 		ability_executed.emit(slot, current_active.cooldown)
-		print("execute ability success")
+		print("Abilities: execute ability success")
 		return true
 	else:
-		print("execute ability slot %s doesn't exist" % slot)
+		print("Abilities: execute ability slot %s doesn't exist" % slot)
 		return false
 
 ### Private Functions
@@ -125,7 +125,7 @@ func _clear_current_active():
 	current_active = NullAbility.new()
 
 func _on_ability_cooldown(slot: int):
-	print("ability %s cooldown finished" % slot)
+	print("Abilities: ability %s cooldown finished" % slot)
 	ability_ready.emit(slot)
 
 func _on_ability_slot_unlocked(category: Ability.Category, total_slots: int):

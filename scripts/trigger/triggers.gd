@@ -6,6 +6,6 @@ func _ready() -> void:
 func execute():
 	for trigger in get_children():
 		assert(trigger is Trigger, "Non-Trigger child found under triggers")
-		print("Trigger: %s" % trigger.name)
+		print("Triggers: execute trigger %s" % trigger.name)
 		await trigger.execute()
 

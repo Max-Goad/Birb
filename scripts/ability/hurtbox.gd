@@ -94,7 +94,7 @@ func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_
 		return
 	if collided_ids.has(body_rid) or collided_ids.size() > max_collisions:
 		return
-	print("hit body %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
+	print("Hurtbox: hit body %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
 	var success = damage_component.apply(body, _index_is_alt(local_shape_index))
 	if success:
 		collided_ids[body_rid] = null
@@ -114,7 +114,7 @@ func _hit_area(area_rid: RID, area: Area2D, _area_shape_index: int, local_shape_
 		# Hurtboxes are supposed to deal damage, not receive it
 		success = true
 	else:
-		# print("hit area %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
+		# print("Hurtbox: hit area %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
 		success = damage_component.apply(area.get_parent(), _index_is_alt(local_shape_index))
 	if success:
 		collided_ids[area_rid] = null

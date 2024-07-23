@@ -24,7 +24,7 @@ func clear():
 func _on_unlocked(category: Ability.Category, new_total: int):
 	if category != self.category:
 		return
-	print("ui handling ability slot unlocked (%s -> %s)" % [currently_unlocked, new_total])
+	print("AbilitySlotGroup: ui handling ability slot unlocked (%s -> %s)" % [currently_unlocked, new_total])
 	var new_slots = new_total - currently_unlocked
 	for i in new_slots:
 		var new_slot = template.instantiate()
@@ -33,6 +33,6 @@ func _on_unlocked(category: Ability.Category, new_total: int):
 		if not selectable:
 			new_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(new_slot)
-		print("new ability slot created")
+		print("AbilitySlotGroup: new ability slot created")
 	currently_unlocked = new_total
 

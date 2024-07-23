@@ -17,7 +17,7 @@ signal selected
 func reach():
 	for trigger in triggers.get_children():
 		assert(trigger is Trigger, "Non-Trigger child found under destination triggers")
-		print("Trigger: %s" % trigger.name)
+		print("Destination: execute trigger %s" % trigger.name)
 		await trigger.execute()
 
 ### Engine Functions

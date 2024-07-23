@@ -59,7 +59,7 @@ func save_file(slot: int, save_name = "Test"):
 
 	# The save data loaded into memory has to be updated too
 	saves[slot] = current_save
-	print("saved file to slot %d: %s" % [slot, save_data_string])
+	print("Data: saved file to slot %d: %s" % [slot, save_data_string])
 
 func can_load_file(slot: int):
 	return slot < saves.size() and saves[slot] != null
@@ -71,7 +71,7 @@ func load_file(slot: int):
 		return
 	clear()
 	current_save = saves[slot]
-	print("loaded file from slot %d" % slot)
+	print("Data: loaded file from slot %d" % slot)
 
 
 # Take all files and put their Dictionaries into memory
@@ -86,7 +86,7 @@ func load_all_files():
 		var save_string = file.get_line()
 		var save_dict = JSON.parse_string(save_string)
 		saves[slot] = SaveData.deserialize(save_dict)
-		print("loaded slot %d from file: %s" % [slot, save_string])
+		print("Data: loaded slot %d from file: %s" % [slot, save_string])
 
 func erase_file(slot: int):
 	if not save_exists(slot):

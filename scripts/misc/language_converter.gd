@@ -339,5 +339,5 @@ func _get_combined_unicode(line, c, v) -> Result:
 		var unicode = String.chr(ci + vi - CV_SHARED_OFFSETS)
 		assert(not unicode.is_empty())
 		assert(_is_valid_unicode(unicode))
-		# print("Combining %s(%s) and %s(%s) to make %s(%s)" % [c, ci, v, vi - CV_SHARED_OFFSETS, unicode, unicode.unicode_at(0)])
+		# print("LanguageConverter: Combining %s(%s) and %s(%s) to make %s(%s)" % [c, ci, v, vi - CV_SHARED_OFFSETS, unicode, unicode.unicode_at(0)])
 		return Result.new(true, line.substr(2), unicode)
