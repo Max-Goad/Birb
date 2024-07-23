@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=129 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_t8kj5"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://scripts/ui/menu_controller.gd" id="16_6n8mp"]
 [ext_resource type="Script" path="res://scripts/trigger/assign_ability_to_slot.gd" id="16_d1kmd"]
 [ext_resource type="Script" path="res://scripts/ability/ui/ability_slot_group.gd" id="17_5gbct"]
+[ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="18_d8yv1"]
 [ext_resource type="PackedScene" uid="uid://ceio7up6qcp2a" path="res://resources/attacks/ability_slot.tscn" id="18_rhwno"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0msk4"]
@@ -781,6 +782,15 @@ region = Rect2(112, 48, 16, 16)
 atlas = ExtResource("8_ysgv7")
 region = Rect2(32, 48, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_50vrv"]
+atlas = ExtResource("8_ysgv7")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yorui"]
+line_spacing = -18.0
+font = ExtResource("18_d8yv1")
+font_size = 54
+
 [node name="gameplay" type="Node2D"]
 texture_filter = 1
 
@@ -1027,6 +1037,43 @@ activate_pause = false
 script = ExtResource("14_fbi57")
 node = NodePath("../..")
 
+[node name="Language Jane" type="Node2D" parent="."]
+position = Vector2(410, 276)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Language Jane"]
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_50vrv")
+
+[node name="Area2D" type="Area2D" parent="Language Jane"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Language Jane/Area2D"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_6hx3b")
+
+[node name="Triggers" type="Node" parent="Language Jane"]
+process_mode = 3
+script = ExtResource("10_ubny5")
+
+[node name="Pause" type="Node" parent="Language Jane/Triggers"]
+script = ExtResource("11_prhlh")
+
+[node name="Textbox" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("canvas")]
+script = ExtResource("11_8042s")
+text = "./0123456789:"
+settings = SubResource("LabelSettings_yorui")
+canvas = NodePath("../../../UI Canvas")
+
+[node name="Free" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("node")]
+script = ExtResource("14_fbi57")
+node = NodePath("../..")
+
+[node name="Unpause" type="Node" parent="Language Jane/Triggers"]
+script = ExtResource("11_prhlh")
+activate_pause = false
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("bound", "follow")]
 offset = Vector2(0, -20)
 script = ExtResource("10_g5hj0")
@@ -1135,6 +1182,7 @@ text = "D"
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Unlock Everything Jim/Area2D" to="Unlock Everything Jim/Triggers" method="execute" unbinds=1]
+[connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2"]
