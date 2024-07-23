@@ -787,9 +787,9 @@ atlas = ExtResource("8_ysgv7")
 region = Rect2(16, 64, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_yorui"]
-line_spacing = -18.0
+line_spacing = 0.0
 font = ExtResource("18_d8yv1")
-font_size = 54
+font_size = 100
 
 [node name="gameplay" type="Node2D"]
 texture_filter = 1
@@ -1062,7 +1062,8 @@ script = ExtResource("11_prhlh")
 
 [node name="Textbox" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("canvas")]
 script = ExtResource("11_8042s")
-text = "./0123456789:"
+text = "./0123456789:
+./0123456789:"
 settings = SubResource("LabelSettings_yorui")
 canvas = NodePath("../../../UI Canvas")
 
