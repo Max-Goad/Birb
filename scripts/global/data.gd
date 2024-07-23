@@ -21,6 +21,7 @@ var default_recipe_type := CraftingRecipe.Type.L_CRAFTING
 
 ### Misc Variables
 var crafting_file_parser := CraftingFileParser.new()
+var language_converter := LanguageConverter.new()
 
 ### Signals
 signal component_unlocked
@@ -32,6 +33,7 @@ func _ready() -> void:
 	# saves.clear()
 	# saves.resize(MAX_SAVE_SLOT_SIZE)
 	# saves.fill(null)
+	_test_language_conversion("res://resources/data/language.txt")
 	_load_game_references()
 	load_all_files()
 	if save_exists(0):
@@ -166,3 +168,11 @@ func _load_game_references():
 func _generate_abilities():
 	for component in components_by_id.values():
 		abilities[component] = Ability.from_component(component)
+
+func _test_language_conversion(filename):
+	var file = FileAccess.open(filename, FileAccess.READ)
+	while not file.eof_reached():
+		var symbols = language_converter.string_to_symbols(file.get_line())
+		print(symbols)
+		var output = language_converter.symbols_to_unicode(symbols)
+		print(output)
