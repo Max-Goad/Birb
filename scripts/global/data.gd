@@ -174,5 +174,9 @@ func _test_language_conversion(filename):
 	while not file.eof_reached():
 		var symbols = language_converter.string_to_symbols(file.get_line())
 		print(symbols)
-		var output = language_converter.symbols_to_unicode(symbols)
-		print(output)
+		var _output = language_converter.symbols_to_unicode(symbols)
+		print(_output)
+		var _output_integers = []
+		for character in _output:
+			_output_integers.append(character.unicode_at(0))
+		print(_output_integers)
