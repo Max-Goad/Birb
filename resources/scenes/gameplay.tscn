@@ -789,7 +789,7 @@ region = Rect2(16, 64, 16, 16)
 [sub_resource type="LabelSettings" id="LabelSettings_yorui"]
 line_spacing = 0.0
 font = ExtResource("18_d8yv1")
-font_size = 100
+font_size = 70
 
 [node name="gameplay" type="Node2D"]
 texture_filter = 1
@@ -1062,9 +1062,11 @@ script = ExtResource("11_prhlh")
 
 [node name="Textbox" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("canvas")]
 script = ExtResource("11_8042s")
-text = "./0123456789:
-./0123456789:"
+text = "128184
+1497921074901102957
+8652961561985"
 settings = SubResource("LabelSettings_yorui")
+text_speed = 35.0
 canvas = NodePath("../../../UI Canvas")
 
 [node name="Free" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("node")]
