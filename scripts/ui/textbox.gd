@@ -5,6 +5,7 @@ class_name Textbox extends Control
 @onready var timer: Timer= $Timer
 
 @export_multiline var text: String
+@export var settings: LabelSettings
 @export var cancellable: bool = true
 @export var finished: bool = false
 
@@ -28,6 +29,7 @@ func finish():
 func _ready():
 	if text:
 		label.text = text
+		label.label_settings = settings
 	timer.one_shot = true
 	timer.timeout.connect(finish)
 	if timeout_override:
