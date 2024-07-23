@@ -176,7 +176,7 @@ func _test_language_conversion(filename):
 		print(symbols)
 		var _output = language_converter.symbols_to_unicode(symbols)
 		print(_output)
-		var _output_integers = []
-		for character in _output:
-			_output_integers.append(character.unicode_at(0))
-		print(_output_integers)
+		# var _output_integers = []
+		# for character in _output:
+		#	 _output_integers.append(character.unicode_at(0))
+		# print(_output_integers)
