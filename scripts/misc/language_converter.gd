@@ -11,10 +11,10 @@ class Result:
 		self.parsed = parsed
 
 const UNICODE_OFFSET = 33 # All before are control
+const VOWELS = 13		# Includes "no vowel" vowel
+const CONSONENTS = 25	# Includes "no consonent" consonent
 const PUNCTUATIONS = 10
-const VOWELS = 12
-const CONSONENTS = 24
-const TOTAL_COMBINATIONS = ((CONSONENTS+1) * (VOWELS+1)) + PUNCTUATIONS
+const TOTAL_COMBINATIONS = (CONSONENTS * VOWELS) + PUNCTUATIONS
 
 ### Public Functions
 func string_to_unicode(input: String) -> String:
@@ -215,107 +215,106 @@ func _next_unicode(line: String) -> Result:
 func _get_unicode_integer(symbol) -> int:
 	assert(_is_valid_symbol(symbol))
 	match symbol:
-		# Punctutation
-		# 	Order:
-		#		No particular reasoning
-		#	Value:
-		#		i + UNICODE_OFFSET
-		#	10 values are reserved, only some are used
-		" ":
-			return 0 + UNICODE_OFFSET
-		".":
-			return 1 + UNICODE_OFFSET
-		",":
-			return 2 + UNICODE_OFFSET
-		"?":
-			return 3 + UNICODE_OFFSET
-		"!":
-			return 4 + UNICODE_OFFSET
-		# 5-9 are currently reserved but not used
-
 		# Vowels
 		# 	Order:
 		#		clockwise from the top,
 		#		then clockwise i dipthongs,
 		# 		then au
 		#	Value:
-		#		i + PUNCTUATIONS + UNICODE_OFFSET
+		#		i + UNICODE_OFFSET
+
+		# 0 is reserved for "no vowel"
+
 		"i":
-			return 0 + PUNCTUATIONS + UNICODE_OFFSET
+			return 1 + UNICODE_OFFSET
 		"u":
-			return 1 + PUNCTUATIONS + UNICODE_OFFSET
+			return 2 + UNICODE_OFFSET
 		"o":
-			return 2 + PUNCTUATIONS + UNICODE_OFFSET
+			return 3 + UNICODE_OFFSET
 		"ɑ":
-			return 3 + PUNCTUATIONS + UNICODE_OFFSET
+			return 4 + UNICODE_OFFSET
 		"ʌ":
-			return 4 + PUNCTUATIONS + UNICODE_OFFSET
+			return 5 + UNICODE_OFFSET
 		"a":
-			return 5 + PUNCTUATIONS + UNICODE_OFFSET
+			return 6 + UNICODE_OFFSET
 		"e":
-			return 6 + PUNCTUATIONS + UNICODE_OFFSET
+			return 7 + UNICODE_OFFSET
 		"ɪ":
-			return 7 + PUNCTUATIONS + UNICODE_OFFSET
+			return 8 + UNICODE_OFFSET
 		"ᴏ":
-			return 8 + PUNCTUATIONS + UNICODE_OFFSET
-		"ᴇ":
-			return 9 + PUNCTUATIONS + UNICODE_OFFSET
+			return 9 + UNICODE_OFFSET
 		"ᴀ":
-			return 10 + PUNCTUATIONS + UNICODE_OFFSET
+			return 10 + UNICODE_OFFSET
+		"ᴇ":
+			return 11 + UNICODE_OFFSET
 		"ᴜ":
-			return 11 + PUNCTUATIONS + UNICODE_OFFSET
+			return 12 + UNICODE_OFFSET
 
 		# Consonents
 		#		Order follows IPA chart
-		#		Value is ((VOWELS+1)*i) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+		#		Value is (VOWELS*i) + VOWELS + UNICODE_OFFSET
 		"m":
-			return ((VOWELS+1)*0) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*0) + VOWELS + UNICODE_OFFSET
 		"n":
-			return ((VOWELS+1)*1) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*1) + VOWELS + UNICODE_OFFSET
 		"ŋ":
-			return ((VOWELS+1)*2) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*2) + VOWELS + UNICODE_OFFSET
 		"p":
-			return ((VOWELS+1)*3) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*3) + VOWELS + UNICODE_OFFSET
 		"b":
-			return ((VOWELS+1)*4) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*4) + VOWELS + UNICODE_OFFSET
 		"t":
-			return ((VOWELS+1)*5) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*5) + VOWELS + UNICODE_OFFSET
 		"d":
-			return ((VOWELS+1)*6) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*6) + VOWELS + UNICODE_OFFSET
 		"k":
-			return ((VOWELS+1)*7) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*7) + VOWELS + UNICODE_OFFSET
 		"g":
-			return ((VOWELS+1)*8) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*8) + VOWELS + UNICODE_OFFSET
 		"f":
-			return ((VOWELS+1)*9) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*9) + VOWELS + UNICODE_OFFSET
 		"v":
-			return ((VOWELS+1)*10) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*10) + VOWELS + UNICODE_OFFSET
 		"θ":
-			return ((VOWELS+1)*11) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*11) + VOWELS + UNICODE_OFFSET
 		"ð":
-			return ((VOWELS+1)*12) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*12) + VOWELS + UNICODE_OFFSET
 		"s":
-			return ((VOWELS+1)*13) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*13) + VOWELS + UNICODE_OFFSET
 		"z":
-			return ((VOWELS+1)*14) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*14) + VOWELS + UNICODE_OFFSET
 		"ʃ":
-			return ((VOWELS+1)*15) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*15) + VOWELS + UNICODE_OFFSET
 		"ʒ":
-			return ((VOWELS+1)*16) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*16) + VOWELS + UNICODE_OFFSET
 		"ʧ":
-			return ((VOWELS+1)*17) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*17) + VOWELS + UNICODE_OFFSET
 		"ʤ":
-			return ((VOWELS+1)*18) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*18) + VOWELS + UNICODE_OFFSET
 		"h":
-			return ((VOWELS+1)*19) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*19) + VOWELS + UNICODE_OFFSET
 		"w":
-			return ((VOWELS+1)*20) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*20) + VOWELS + UNICODE_OFFSET
 		"l":
-			return ((VOWELS+1)*21) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*21) + VOWELS + UNICODE_OFFSET
 		"r":
-			return ((VOWELS+1)*22) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*22) + VOWELS + UNICODE_OFFSET
 		"j":
-			return ((VOWELS+1)*23) + PUNCTUATIONS + VOWELS + UNICODE_OFFSET
+			return (VOWELS*23) + VOWELS + UNICODE_OFFSET
+
+		# Punctutation
+		#	Last 10 values are reserved, only some are used
+		" ":
+			return 0 + UNICODE_OFFSET + (TOTAL_COMBINATIONS - PUNCTUATIONS)
+		".":
+			return 1 + UNICODE_OFFSET + (TOTAL_COMBINATIONS - PUNCTUATIONS)
+		",":
+			return 2 + UNICODE_OFFSET + (TOTAL_COMBINATIONS - PUNCTUATIONS)
+		"?":
+			return 3 + UNICODE_OFFSET + (TOTAL_COMBINATIONS - PUNCTUATIONS)
+		"!":
+			return 4 + UNICODE_OFFSET + (TOTAL_COMBINATIONS - PUNCTUATIONS)
+		# 5-9 are currently reserved but not used
 	return -1
 
 func _get_unicode(line, symbol) -> Result:
@@ -336,8 +335,9 @@ func _get_combined_unicode(line, c, v) -> Result:
 	else:
 		# When we combine a consonent and a vowel, we have to
 		# not "double count" the offsets that both share!
-		var CV_SHARED_OFFSETS = UNICODE_OFFSET + PUNCTUATIONS
+		var CV_SHARED_OFFSETS = UNICODE_OFFSET
 		var unicode = String.chr(ci + vi - CV_SHARED_OFFSETS)
 		assert(not unicode.is_empty())
 		assert(_is_valid_unicode(unicode))
+		# print("Combining %s(%s) and %s(%s) to make %s(%s)" % [c, ci, v, vi - CV_SHARED_OFFSETS, unicode, unicode.unicode_at(0)])
 		return Result.new(true, line.substr(2), unicode)
