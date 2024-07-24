@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvxitv8qu6bak"]
+
+[ext_resource type="Script" path="res://scripts/misc/vector_visualizer.gd" id="1_tpml7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1mvb"]
+size = Vector2(10.9589, 2)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_tcgtc"]
+points = PackedVector2Array(0, -3, 0, 3, 5, 0)
+
+[node name="VectorVisualizer" type="Node2D"]
+scale = Vector2(0.73, 1)
+script = ExtResource("1_tpml7")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(4.10959, 0)
+shape = SubResource("RectangleShape2D_t1mvb")
+debug_color = Color(1, 1, 1, 0.41)
+
+[node name="Arrow" type="CollisionShape2D" parent="."]
+position = Vector2(9.58904, 0)
+shape = SubResource("ConvexPolygonShape2D_tcgtc")
+debug_color = Color(1, 1, 1, 0.41)
