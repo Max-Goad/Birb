@@ -8,6 +8,8 @@ font_size = 24
 
 [node name="Ten Bomb" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_v0eyj")
 damage_component = NodePath("DamageComponent")
 

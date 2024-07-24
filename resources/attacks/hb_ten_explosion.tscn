@@ -13,6 +13,8 @@ region = Rect2(16, 64, 16, 16)
 
 [node name="Ten Explosion" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_4v58i")
 max_collisions = 100
 damage_component = NodePath("DamageComponent")
