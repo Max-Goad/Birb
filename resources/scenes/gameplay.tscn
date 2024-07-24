@@ -1,6 +1,7 @@
-[gd_scene load_steps=139 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=136 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
+[ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_t8kj5"]
 [ext_resource type="Script" path="res://scripts/test_player.gd" id="3_p7l5b"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
@@ -8,10 +9,9 @@
 [ext_resource type="Script" path="res://scripts/components/speed_component.gd" id="7_5ao0n"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="7_htkjs"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ixeq5"]
-[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="8_monug"]
 [ext_resource type="Texture2D" uid="uid://bf6kvy2itm786" path="res://resources/art/Sprout Lands Pack/Objects/Mushrooms, Flowers, Stones.png" id="8_ysgv7"]
-[ext_resource type="Script" path="res://scripts/components/pathfinding_component.gd" id="9_qq760"]
 [ext_resource type="Script" path="res://scripts/camera/map_bounded_follow_camera.gd" id="10_g5hj0"]
+[ext_resource type="PackedScene" uid="uid://btrabe1j0w66f" path="res://resources/enemies/han.tscn" id="10_jqyq4"]
 [ext_resource type="Script" path="res://scripts/trigger/triggers.gd" id="10_ubny5"]
 [ext_resource type="Script" path="res://scripts/trigger/textbox_trigger.gd" id="11_8042s"]
 [ext_resource type="PackedScene" uid="uid://bvxitv8qu6bak" path="res://resources/ui/vector_visualizer.tscn" id="11_p0qqt"]
@@ -804,18 +804,6 @@ _data = {
 "null": SubResource("Animation_bjqq2")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_7m4fk"]
-font_size = 100
-font_color = Color(0.8, 0.8, 0.8, 1)
-outline_size = 20
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fn3oe"]
-size = Vector2(99, 94)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
-size = Vector2(42, 100)
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_of8vk"]
 load_path = "res://.godot/imported/Mushrooms, Flowers, Stones.png-2265fe1c70948934c8005f0cee7a5c22.ctex"
 
@@ -862,6 +850,14 @@ layer_1/tile_data = PackedInt32Array(1245220, 524291, 0, 1114148, 131075, 2, 104
 layer_2/name = "Objects"
 layer_2/tile_data = PackedInt32Array()
 
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(1384, 387)
+script = ExtResource("2_ig4is")
+template = ExtResource("10_jqyq4")
+target = NodePath("../Player")
+unlimited = true
+maximum = 3
+
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(554, 339)
 scale = Vector2(3, 3)
@@ -906,90 +902,6 @@ scale = Vector2(2.19, 3)
 origin = NodePath("..")
 target = NodePath("..")
 debug_color = Color(0.360784, 0.498039, 1, 0.411765)
-
-[node name="Test Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(1012, 383)
-collision_layer = 2
-collision_mask = 2
-
-[node name="Label" type="Label" parent="Test Enemy"]
-texture_filter = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -68.5
-offset_right = 50.0
-offset_bottom = 68.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "犯"
-label_settings = SubResource("LabelSettings_7m4fk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Hitbox" type="CollisionShape2D" parent="Test Enemy"]
-position = Vector2(1.5, 4)
-shape = SubResource("RectangleShape2D_fn3oe")
-
-[node name="Hurtbox" type="Area2D" parent="Test Enemy" node_paths=PackedStringArray("damage_component")]
-collision_layer = 2
-script = ExtResource("8_monug")
-max_collisions = 100
-ignore_repeat_collisions = false
-damage_component = NodePath("../DamageComponent")
-
-[node name="Rectangle" type="CollisionShape2D" parent="Test Enemy/Hurtbox"]
-position = Vector2(-30, 3)
-shape = SubResource("RectangleShape2D_2jy4h")
-debug_color = Color(0.7, 0.233333, 0, 0.419608)
-
-[node name="DamageComponent" type="Node2D" parent="Test Enemy"]
-script = ExtResource("7_htkjs")
-amount = 5
-
-[node name="PathfindingComponent" type="Node" parent="Test Enemy" node_paths=PackedStringArray("character", "target", "speed")]
-script = ExtResource("9_qq760")
-character = NodePath("..")
-target = NodePath("../../Player")
-speed = NodePath("../SpeedComponent")
-
-[node name="SpeedComponent" type="Node" parent="Test Enemy"]
-script = ExtResource("7_5ao0n")
-top_speed = 100.0
-acceleration = 0.2
-deceleration = 0.1
-
-[node name="HealthComponent" type="Node2D" parent="Test Enemy"]
-script = ExtResource("5_g402e")
-invul_seconds = 0.5
-
-[node name="HealthBarComponent" parent="Test Enemy" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
-position = Vector2(-64, -82)
-scale = Vector2(0.8, 0.8)
-health_component = NodePath("../HealthComponent")
-hide_when_full = true
-
-[node name="Damage Indicator Component" parent="Test Enemy" node_paths=PackedStringArray("health_component") instance=ExtResource("7_ixeq5")]
-position = Vector2(-2, -31)
-health_component = NodePath("../HealthComponent")
-damage_color = Color(0.619608, 0.619608, 0.619608, 1)
-
-[node name="VectorVisualizer" parent="Test Enemy" node_paths=PackedStringArray("origin", "target") instance=ExtResource("11_p0qqt")]
-scale = Vector2(7.3, 10)
-origin = NodePath("..")
-target = NodePath("../../Player")
-debug_color = Color(0.360784, 0.498039, 1, 0.411765)
-
-[node name="VectorVisualizer2" parent="Test Enemy" node_paths=PackedStringArray("origin", "target") instance=ExtResource("11_p0qqt")]
-rotation = -3.04582
-scale = Vector2(7.3, 10)
-mode = 1
-origin = NodePath("..")
-target = NodePath("../../Player")
-debug_color = Color(1, 0.968627, 0.360784, 0.411765)
 
 [node name="Mushroom" type="Node2D" parent="."]
 position = Vector2(813, 387)
@@ -1319,13 +1231,8 @@ layout_mode = 2
 [node name="Label" parent="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 4/Slot" index="2"]
 text = "D"
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-
 [connection signal="on_invulnerable_start" from="Player/HealthComponent" to="Player/SpriteEffects" method="play" binds= ["damage_flicker"]]
 [connection signal="on_invulnerable_stop" from="Player/HealthComponent" to="Player/SpriteEffects" method="stop" binds= [false]]
-[connection signal="on_death" from="Test Enemy/HealthComponent" to="Test Enemy" method="queue_free"]
 [connection signal="body_entered" from="Mushroom/Area2D" to="Mushroom/DamageComponent" method="apply"]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
