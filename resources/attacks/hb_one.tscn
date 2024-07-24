@@ -10,9 +10,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdbvv"]
 
-[node name="One Hurtbox" type="Area2D"]
+[node name="One Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component")]
 top_level = true
 script = ExtResource("1_r22x2")
+damage_component = NodePath("DamageComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

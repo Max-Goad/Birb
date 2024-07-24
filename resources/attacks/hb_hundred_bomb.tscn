@@ -12,10 +12,11 @@ size = Vector2(18, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plfsy"]
 size = Vector2(22, 5)
 
-[node name="Hundred Bomb" type="Area2D"]
+[node name="Hundred Bomb" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
 script = ExtResource("1_5c0wq")
 max_collisions = 100
+damage_component = NodePath("DamageComponent")
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8

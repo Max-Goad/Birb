@@ -16,7 +16,7 @@ var collided_ids: Dictionary = {}
 @export var frame_alt_damage: Array[bool]
 
 # @onready var speed_component: SpeedComponent = $SpeedComponent
-@onready var damage_component: DamageComponent = $DamageComponent
+@export var damage_component: DamageComponent
 
 ### Signals
 signal finished

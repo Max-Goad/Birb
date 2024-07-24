@@ -11,10 +11,11 @@ radius = 25.0
 atlas = ExtResource("3_bdgi0")
 region = Rect2(16, 64, 16, 16)
 
-[node name="Ten Explosion" type="Area2D"]
+[node name="Ten Explosion" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
 script = ExtResource("1_4v58i")
 max_collisions = 100
+damage_component = NodePath("DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_inef7")

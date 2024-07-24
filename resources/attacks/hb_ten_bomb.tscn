@@ -6,9 +6,10 @@
 [sub_resource type="LabelSettings" id="LabelSettings_af1gl"]
 font_size = 24
 
-[node name="Ten Bomb" type="Area2D"]
+[node name="Ten Bomb" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
 script = ExtResource("1_v0eyj")
+damage_component = NodePath("DamageComponent")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1

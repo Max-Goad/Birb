@@ -11,10 +11,11 @@ radius = 50.0
 atlas = ExtResource("3_3xlnv")
 region = Rect2(16, 64, 16, 16)
 
-[node name="Hundred Explosion" type="Area2D"]
+[node name="Hundred Explosion" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
 script = ExtResource("1_ahlyp")
 max_collisions = 100
+damage_component = NodePath("DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_inef7")

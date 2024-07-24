@@ -9,9 +9,10 @@ font_size = 24
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jr0lt"]
 size = Vector2(22, 4)
 
-[node name="Ten Projectile" type="Area2D"]
+[node name="Ten Projectile" type="Area2D" node_paths=PackedStringArray("damage_component")]
 texture_filter = 1
 script = ExtResource("1_1os5b")
+damage_component = NodePath("DamageComponent")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
