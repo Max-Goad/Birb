@@ -89,17 +89,17 @@ _data = {
 size = Vector2(30, 15)
 
 [node name="Stick Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component")]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_vhubc")
 max_collisions = 3
 damage_component = NodePath("DamageComponent")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
-autoplay = "main"
 libraries = {
 "": SubResource("AnimationLibrary_3npqg")
 }
+autoplay = "main"
 
 [node name="Frame 1" type="CollisionShape2D" parent="."]
 position = Vector2(6, -26)

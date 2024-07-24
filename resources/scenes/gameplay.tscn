@@ -855,12 +855,13 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
-unlimited = true
-maximum = 3
+maximum = 0
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(554, 339)
 scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("3_p7l5b")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player"]
@@ -913,6 +914,7 @@ texture = SubResource("AtlasTexture_dnrtw")
 
 [node name="Area2D" type="Area2D" parent="Mushroom"]
 collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mushroom/Area2D"]
 position = Vector2(-2, -2)
@@ -947,8 +949,8 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_snetv")
 
 [node name="Area2D" type="Area2D" parent="Big L Kitty Flower"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Big L Kitty Flower/Area2D"]
 position = Vector2(-2, -2)
@@ -987,8 +989,8 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_ymgkn")
 
 [node name="Area2D" type="Area2D" parent="Good Juice Kitty Flower"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Good Juice Kitty Flower/Area2D"]
 position = Vector2(-2, -2)
@@ -1027,8 +1029,8 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_15p8w")
 
 [node name="Area2D" type="Area2D" parent="Unlock Everything Jim"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Unlock Everything Jim/Area2D"]
 position = Vector2(-2, -2)
@@ -1097,8 +1099,8 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_50vrv")
 
 [node name="Area2D" type="Area2D" parent="Language Jane"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Language Jane/Area2D"]
 position = Vector2(-2, -2)

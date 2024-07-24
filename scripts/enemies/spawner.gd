@@ -40,7 +40,7 @@ func _ready() -> void:
 	timer = Timer.new()
 	timer.timeout.connect(spawn_enemy)
 	add_child(timer)
-	if autostart:
+	if autostart and should_spawn_enemy():
 		start()
 
 func _validate_property(property: Dictionary) -> void:
@@ -59,13 +59,16 @@ func stop():
 	print("Spawner: start")
 	timer.stop()
 
+func should_spawn_enemy() -> bool:
+	return unlimited or (spawned_enemies.size() < maximum)
+
 func spawn_enemy():
 	print("Spawner: spawn enemy")
 	var enemy = template.instantiate()
 	_prepare_spawned_enemy(enemy)
 	add_child(enemy)
 	spawned_enemies.push_back(enemy)
-	if spawned_enemies.size() >= maximum:
+	if not should_spawn_enemy():
 		stop()
 
 ### Private Functions
