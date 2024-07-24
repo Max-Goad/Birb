@@ -13,6 +13,7 @@ var ignored_nodes: Dictionary = {}
 var collided_ids: Dictionary = {}
 
 @export var max_collisions = 1
+@export var ignore_repeat_collisions = true
 @export var frame_alt_damage: Array[bool]
 
 # @onready var speed_component: SpeedComponent = $SpeedComponent
@@ -92,7 +93,7 @@ func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_
 		return
 	if body in ignored_nodes:
 		return
-	if collided_ids.has(body_rid) or collided_ids.size() > max_collisions:
+	if ignore_repeat_collisions and collided_ids.has(body_rid) or collided_ids.size() > max_collisions:
 		return
 	print("Hurtbox: hit body %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
 	var success = damage_component.apply(body, _index_is_alt(local_shape_index))
@@ -106,7 +107,7 @@ func _hit_area(area_rid: RID, area: Area2D, _area_shape_index: int, local_shape_
 		return
 	if area in ignored_nodes:
 		return
-	if collided_ids.has(area_rid) or collided_ids.size() > max_collisions:
+	if ignore_repeat_collisions and collided_ids.has(area_rid) or collided_ids.size() > max_collisions:
 		return
 
 	var success = false
