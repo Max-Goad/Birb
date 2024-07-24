@@ -3,11 +3,12 @@ A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
 - Implement more abilities
-- Add enemy spawners
-	- We can use the enemy spawners for passive effects
-	- Enemies that have already been spawned from a spawner should be kept
-	  track of BY the spawner, so we don't need to find them when we apply
-	  passive effects
+	- Add "King" crown ability (Use Fun as a template!)
+- Fix collisions between enemies and player
+	- Safest thing is to just avoid physics collisions between
+	  player and enemy hitboxes
+	- Enemies should be able to collide with each other though
+	- Hurtboxes are different! Enemy hurtboxes should only hurt the player!
 
 ## TODO (long-term):
 - Implement Save/Load
