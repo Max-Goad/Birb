@@ -5,6 +5,7 @@ const MAX_SAVE_SLOT_SIZE: int = 7
 const MAX_SAVE_NAME_SIZE: int = 20
 
 const GROUP_PLAYER: String = "player"
+const GROUP_SPAWNER: String = "spawner"
 
 ### Save Data Variables
 var saves: Array[SaveData]

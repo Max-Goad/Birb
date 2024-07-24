@@ -29,12 +29,13 @@ enum Behavior
 @export var radius: float = 1.0
 
 var timer: Timer
-var spawned_enemies: Array = []
+var spawned_enemies: Array[Enemy] = []
+var spawn_callbacks: Dictionary = {}
 
 ### Signals
 
 ### Engine Functions
-func _ready() -> void:
+func _ready():
 	if Engine.is_editor_hint():
 		return
 	timer = Timer.new()
@@ -43,7 +44,7 @@ func _ready() -> void:
 	if autostart and should_spawn_enemy():
 		start()
 
-func _validate_property(property: Dictionary) -> void:
+func _validate_property(property: Dictionary):
 	if ((property.name == "maximum" and unlimited)
 	 or (property.name == "location" and behavior != Behavior.LOCATION)
 	 or (property.name == "radius" and behavior != Behavior.RADIUS)
@@ -71,6 +72,21 @@ func spawn_enemy():
 	if not should_spawn_enemy():
 		stop()
 
+func connect_on_spawn(key: Object, callback: Callable):
+	assert(key not in spawn_callbacks)
+	print("Spawner: connected on spawn callback")
+	spawn_callbacks[key] = callback
+	for enemy in spawned_enemies:
+		callback.call(enemy)
+
+func disconnect_on_spawn(key: Object, reset_fn: Callable = func(_e): pass):
+	if key not in spawn_callbacks:
+		return
+	print("Spawner: disconnected on spawn callback")
+	spawn_callbacks.erase(key)
+	for enemy in spawned_enemies:
+		reset_fn.call(enemy)
+
 ### Private Functions
 func _prepare_spawned_enemy(enemy: Enemy):
 	if behavior == Behavior.LOCATION:
@@ -78,4 +94,7 @@ func _prepare_spawned_enemy(enemy: Enemy):
 	elif behavior == Behavior.RADIUS:
 		enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
 	enemy.target = target
+	for callback in spawn_callbacks.values():
+		callback.call(enemy)
+
 

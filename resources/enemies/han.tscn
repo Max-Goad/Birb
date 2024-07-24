@@ -34,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -68.5
-offset_right = 50.0
-offset_bottom = 68.5
+offset_left = -66.0
+offset_top = -35.5
+offset_right = 34.0
+offset_bottom = 101.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "犯"
@@ -46,10 +46,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 4)
+position = Vector2(-14.5, 37)
 shape = SubResource("RectangleShape2D_fn3oe")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
+position = Vector2(-16, 33)
 collision_layer = 2
 script = ExtResource("1_twxsa")
 max_collisions = 100
@@ -62,6 +63,7 @@ shape = SubResource("RectangleShape2D_2jy4h")
 debug_color = Color(0.7, 0.233333, 0, 0.419608)
 
 [node name="DamageComponent" type="Node2D" parent="."]
+position = Vector2(-16, 33)
 script = ExtResource("2_lqa66")
 amount = 5
 
@@ -77,27 +79,30 @@ acceleration = 0.2
 deceleration = 0.1
 
 [node name="HealthComponent" type="Node2D" parent="."]
+position = Vector2(-16, 33)
 script = ExtResource("5_ymoot")
 invul_seconds = 0.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]
-position = Vector2(-64, -82)
+position = Vector2(-80, -49)
 scale = Vector2(0.8, 0.8)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
 
 [node name="Damage Indicator Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_ahpku")]
-position = Vector2(-2, -31)
+position = Vector2(-18, 2)
 health_component = NodePath("../HealthComponent")
 damage_color = Color(0.619608, 0.619608, 0.619608, 1)
 
 [node name="Vector To Target" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
+position = Vector2(-16, 33)
 scale = Vector2(5, 6.849)
 mode = 1
 origin = NodePath("..")
 debug_color = Color(1, 0.3, 0.3, 0.411765)
 
 [node name="Velocity Visualization" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
+position = Vector2(-16, 33)
 scale = Vector2(3.65, 5)
 origin = NodePath("..")
 debug_color = Color(0.3, 0.766667, 1, 0.411765)

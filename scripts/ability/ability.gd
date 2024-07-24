@@ -106,7 +106,10 @@ static func from_component(component: CraftingComponent) -> Ability:
 			return Big.new(1.5, 1.2)
 		"小":
 			# scale, damage (incoming)
-			return Small.new(0.667, 1.5)
+			return Smull.new(0.667, 1.5)
+			# return NullAbility.new()
+		"楽":
+			return Fun.new()
 		"薬":
 			# amount
 			return Medicine.new(10)

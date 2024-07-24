@@ -1,4 +1,4 @@
-class_name Small extends Ability
+class_name Smull extends Ability
 
 ### Variables
 var scale_modifier: float

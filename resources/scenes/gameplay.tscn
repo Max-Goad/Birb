@@ -850,14 +850,15 @@ layer_1/tile_data = PackedInt32Array(1245220, 524291, 0, 1114148, 131075, 2, 104
 layer_2/name = "Objects"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target") groups=["spawner"]]
 position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
-maximum = 0
+maximum = 3
+rate = 0.3
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 position = Vector2(554, 339)
 scale = Vector2(3, 3)
 collision_layer = 2

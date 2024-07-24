@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://wt8oug8tnyj1"]
+
+[ext_resource type="Texture2D" uid="uid://mo25h5qeey7t" path="res://resources/art/Sprout Lands Pack/Animals/Chicken_Baby/Chicken_Baby_Brown.png" id="1_frhn5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbyp5"]
+atlas = ExtResource("1_frhn5")
+region = Rect2(16, 134, 16, 8)
+
+[node name="Silly Little Hat" type="Sprite2D"]
+scale = Vector2(5, 5)
+texture = SubResource("AtlasTexture_jbyp5")
+offset = Vector2(0, -4)
