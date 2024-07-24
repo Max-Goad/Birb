@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=133 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_t8kj5"]
@@ -760,6 +760,47 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vh0j4"]
 
+[sub_resource type="Animation" id="Animation_woc0h"]
+resource_name = "damage_flicker"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1), Color(1, 0.75, 0.75, 0.27451), Color(1, 0.74902, 0.74902, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bjqq2"]
+resource_name = "null"
+
+[sub_resource type="Animation" id="Animation_xg1dk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_134ir"]
+_data = {
+"RESET": SubResource("Animation_xg1dk"),
+"damage_flicker": SubResource("Animation_woc0h"),
+"null": SubResource("Animation_bjqq2")
+}
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_of8vk"]
 load_path = "res://.godot/imported/Mushrooms, Flowers, Stones.png-2265fe1c70948934c8005f0cee7a5c22.ctex"
 
@@ -837,6 +878,7 @@ shape = SubResource("CircleShape2D_vh0j4")
 script = ExtResource("5_g402e")
 current_hp = 1000
 max_hp = 1000
+invul_seconds = 1.0
 
 [node name="HealthBarComponent" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
 health_component = NodePath("../HealthComponent")
@@ -844,6 +886,11 @@ health_component = NodePath("../HealthComponent")
 [node name="DamageIndicator Component" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("7_ixeq5")]
 health_component = NodePath("../HealthComponent")
 position_dither = 0
+
+[node name="SpriteEffects" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_134ir")
+}
 
 [node name="SpeedComponent" type="Node" parent="Player"]
 script = ExtResource("7_5ao0n")
@@ -1180,6 +1227,8 @@ layout_mode = 2
 [node name="Label" parent="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 4/Slot" index="2"]
 text = "D"
 
+[connection signal="on_invulnerable_start" from="Player/HealthComponent" to="Player/SpriteEffects" method="play" binds= ["damage_flicker"]]
+[connection signal="on_invulnerable_stop" from="Player/HealthComponent" to="Player/SpriteEffects" method="stop" binds= [false]]
 [connection signal="body_entered" from="Mushroom/Area2D" to="Mushroom/DamageComponent" method="apply"]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]

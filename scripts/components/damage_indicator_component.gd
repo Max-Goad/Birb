@@ -6,6 +6,7 @@ const pl_damage_indicator = preload("res://resources/ui/damage_indicator.tscn")
 @export var health_component: HealthComponent
 
 @export var speed = 0.5
+@export var ignore_zero = true
 @export var damage_color = Color.BROWN
 @export var heal_color = Color.PALE_GREEN
 @export var position_dither = 50
@@ -23,10 +24,14 @@ func _ready() -> void:
 
 ### Private Functions
 func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _direction: Vector2):
+	if amount == 0 and ignore_zero:
+		return
 	_spawn_damage_indicator(-amount, damage_color)
 
 
 func _on_health_heal(amount: int):
+	if amount == 0 and ignore_zero:
+		return
 	_spawn_damage_indicator(amount, heal_color)
 
 func _spawn_damage_indicator(amount: int, color: Color = Color.WHITE):
