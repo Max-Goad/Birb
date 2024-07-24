@@ -1,8 +1,9 @@
-extends Node
+class_name PathfindingComponent extends Node
 
 enum Strategy
 {
-	FOLLOW = 0,
+	NONE,
+	FOLLOW
 }
 
 ### Variables
@@ -16,7 +17,6 @@ enum Strategy
 ### Engine Functions
 func _ready() -> void:
 	assert(character)
-	assert(target)
 	assert(speed)
 
 func _process(delta: float) -> void:
@@ -24,10 +24,14 @@ func _process(delta: float) -> void:
 	character.move_and_slide()
 
 ### Public Functions
+func follow(target: Node2D):
+	self.strategy = Strategy.FOLLOW
+	self.target = target
 
 ### Private Functions
 func _process_strategy(delta):
 	match strategy:
 		Strategy.FOLLOW:
-			character.velocity = character.velocity.move_toward(target.position - character.position, speed.top_speed * delta)
+			if target:
+				character.velocity = character.velocity.move_toward(target.global_position - character.global_position, speed.top_speed * delta)
 

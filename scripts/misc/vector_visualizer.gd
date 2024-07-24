@@ -25,6 +25,7 @@ enum Mode
 
 ### Engine Functions
 func _ready() -> void:
+	assert(body and arrow)
 	body.debug_color = debug_color
 	arrow.debug_color = debug_color
 
@@ -35,7 +36,7 @@ func _process(_delta: float) -> void:
 	if mode == Mode.ONE_VECTOR:
 		arrow_vector = origin.get(vector_name)
 	else:
-		arrow_vector = (target.position - origin.position)
+		arrow_vector = (target.global_position - origin.global_position)
 	if visible:
 		if arrow_vector == Vector2.ZERO:
 			hide()
