@@ -40,11 +40,14 @@ func _fire_projectile(parent: Player, direction: Vector2, callback = func():pass
 	hurtbox.top_level = true # Do not follow parent's transforms
 	hurtbox.position = parent.position
 	hurtbox.scale = parent.scale
-	hurtbox.velocity = Math.dither_v_rot(Math.vector8dir(direction) * Math.dither_f(self.speed, 2.5), deg_to_rad(10))
+	var clamped_direction = Math.vector8dir(direction) * Math.dither_f(self.speed, 5)
+	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
+	hurtbox.velocity = dithered_direction
+	hurtbox.rotate(dithered_direction.angle())
 	hurtbox.finished.connect(callback)
 	hurtbox.ignore(parent)
 	parent.add_child(hurtbox)
-	hurtbox.damage_component.amount = int(parent.modifiers.apply("damage", damage))
+	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
 
 func _fire_second_projectile(parent: Node2D, direction: Vector2):
 	_fire_projectile(parent, direction, func(): self.finished.emit())

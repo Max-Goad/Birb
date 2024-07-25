@@ -45,8 +45,12 @@ func _create_projectile(parent: Node2D, direction: Vector2) -> Hurtbox:
 	var hurtbox: Hurtbox = projecile_template.instantiate()
 	hurtbox.position = parent.position
 	hurtbox.scale = parent.scale
-	hurtbox.velocity = Math.dither_v_rot(direction, deg_to_rad(10)) * Math.dither_f(self.speed, 5)
+	var clamped_direction = Math.vector8dir(direction) * Math.dither_f(self.speed, 5)
+	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
+	hurtbox.velocity = dithered_direction
+	hurtbox.rotate(dithered_direction.angle())
 	hurtbox.finished.connect(_projectile_finished)
+	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
 	return hurtbox
 
 func _projectile_finished():

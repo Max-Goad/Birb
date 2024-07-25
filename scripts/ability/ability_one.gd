@@ -28,7 +28,10 @@ func _fire(parent: Player, direction: Vector2):
 	hurtbox.top_level = true # Do not follow parent's transforms
 	hurtbox.position = parent.position
 	hurtbox.scale = parent.scale
-	hurtbox.velocity = Math.dither_v_rot(Math.vector8dir(direction) * Math.dither_f(self.speed, 5), deg_to_rad(10))
+	var clamped_direction = Math.vector8dir(direction) * Math.dither_f(self.speed, 5)
+	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
+	hurtbox.velocity = dithered_direction
+	hurtbox.rotate(dithered_direction.angle())
 	hurtbox.ignore(parent)
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)

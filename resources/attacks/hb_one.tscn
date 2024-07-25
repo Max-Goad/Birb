@@ -1,14 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpullbef5px0o"]
+[gd_scene load_steps=5 format=3 uid="uid://cpullbef5px0o"]
 
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_r22x2"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_efes4"]
-[ext_resource type="Texture2D" uid="uid://bi1dghmj0h5ba" path="res://resources/art/Sprout Lands Pack/Objects/Items/Egg items.png" id="2_qny2s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yag0k"]
-atlas = ExtResource("2_qny2s")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="LabelSettings" id="LabelSettings_mv7d4"]
+font_size = 24
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kdbvv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuji7"]
+size = Vector2(44, 14)
 
 [node name="One Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component")]
 top_level = true
@@ -17,13 +16,27 @@ collision_mask = 6
 script = ExtResource("1_r22x2")
 damage_component = NodePath("DamageComponent")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Label" type="Label" parent="."]
 texture_filter = 1
-scale = Vector2(1.375, 1.375)
-texture = SubResource("AtlasTexture_yag0k")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "一"
+label_settings = SubResource("LabelSettings_mv7d4")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_kdbvv")
+position = Vector2(-11, 0)
+shape = SubResource("RectangleShape2D_nuji7")
 
 [node name="Animation Finish" type="Timer" parent="."]
 wait_time = 0.33
