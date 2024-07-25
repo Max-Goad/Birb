@@ -862,7 +862,6 @@ rate = 0.3
 position = Vector2(554, 339)
 scale = Vector2(3, 3)
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("3_p7l5b")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player"]
@@ -913,11 +912,11 @@ scale = Vector2(2, 2)
 scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_dnrtw")
 
-[node name="Area2D" type="Area2D" parent="Mushroom"]
-collision_layer = 2
+[node name="Hurtbox" type="Area2D" parent="Mushroom"]
+collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mushroom/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mushroom/Hurtbox"]
 position = Vector2(-2, -2)
 shape = SubResource("CircleShape2D_6hx3b")
 
@@ -950,7 +949,7 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_snetv")
 
 [node name="Area2D" type="Area2D" parent="Big L Kitty Flower"]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Big L Kitty Flower/Area2D"]
@@ -990,7 +989,7 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_ymgkn")
 
 [node name="Area2D" type="Area2D" parent="Good Juice Kitty Flower"]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Good Juice Kitty Flower/Area2D"]
@@ -1030,7 +1029,7 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_15p8w")
 
 [node name="Area2D" type="Area2D" parent="Unlock Everything Jim"]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Unlock Everything Jim/Area2D"]
@@ -1100,8 +1099,8 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_50vrv")
 
 [node name="Area2D" type="Area2D" parent="Language Jane"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Language Jane/Area2D"]
 position = Vector2(-2, -2)
@@ -1236,11 +1235,12 @@ text = "D"
 
 [connection signal="on_invulnerable_start" from="Player/HealthComponent" to="Player/SpriteEffects" method="play" binds= ["damage_flicker"]]
 [connection signal="on_invulnerable_stop" from="Player/HealthComponent" to="Player/SpriteEffects" method="stop" binds= [false]]
-[connection signal="body_entered" from="Mushroom/Area2D" to="Mushroom/DamageComponent" method="apply"]
+[connection signal="body_entered" from="Mushroom/Hurtbox" to="Mushroom/DamageComponent" method="apply"]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Unlock Everything Jim/Area2D" to="Unlock Everything Jim/Triggers" method="execute" unbinds=1]
+[connection signal="area_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]

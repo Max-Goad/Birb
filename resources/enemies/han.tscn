@@ -23,8 +23,8 @@ size = Vector2(99, 94)
 size = Vector2(42, 100)
 
 [node name="Han" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_ht6gj")
 
 [node name="Label" type="Label" parent="."]
@@ -51,7 +51,8 @@ shape = SubResource("RectangleShape2D_fn3oe")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
 position = Vector2(-16, 33)
-collision_layer = 2
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_twxsa")
 max_collisions = 100
 ignore_repeat_collisions = false
@@ -81,7 +82,6 @@ deceleration = 0.1
 [node name="HealthComponent" type="Node2D" parent="."]
 position = Vector2(-16, 33)
 script = ExtResource("5_ymoot")
-invul_seconds = 0.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]
 position = Vector2(-80, -49)
