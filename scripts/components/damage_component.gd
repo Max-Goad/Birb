@@ -1,4 +1,4 @@
-class_name DamageComponent extends Node2D
+class_name DamageComponent extends Node
 
 enum DamageType {
 	NORMAL = 0,
@@ -25,7 +25,7 @@ func _ready() -> void:
 	pass
 
 ### Public Functions
-func set_enabled(value):
+func set_enabled(value = true):
 	print("DamageComponent: set enabled (%s)" % value)
 	enabled = value
 

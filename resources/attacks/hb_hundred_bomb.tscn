@@ -45,7 +45,7 @@ shape = SubResource("RectangleShape2D_npilr")
 position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_plfsy")
 
-[node name="DamageComponent" type="Node2D" parent="."]
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_g1qev")
 
 [node name="Explosion Timer" type="Timer" parent="."]
@@ -63,6 +63,6 @@ autostart = true
 
 [connection signal="timeout" from="Explosion Timer" to="." method="despawn"]
 [connection signal="timeout" from="Clear Ignored Nodes" to="." method="clear_ignores"]
+[connection signal="timeout" from="Arm Bomb" to="DamageComponent" method="set_enabled"]
 [connection signal="timeout" from="Arm Bomb" to="." method="set_modulate" binds= [Color(0.74902, 0.188235, 0.188235, 1)]]
 [connection signal="timeout" from="Arm Bomb" to="." method="reset_collisions" flags=3 binds= [0]]
-[connection signal="timeout" from="Arm Bomb" to="DamageComponent" method="set_enabled" binds= [false]]

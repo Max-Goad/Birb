@@ -1,4 +1,4 @@
-class_name HealthComponent extends Node2D
+class_name HealthComponent extends Node
 
 ### Variables
 @export var current_hp: int = 100

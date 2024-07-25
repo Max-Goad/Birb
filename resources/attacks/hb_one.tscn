@@ -35,7 +35,7 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="DamageComponent" type="Node2D" parent="."]
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_efes4")
 amount = 5
 

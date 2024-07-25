@@ -118,7 +118,7 @@ position = Vector2(-12, 0)
 polygon = PackedVector2Array(30, 20, 50, 20, 50, -5, 44, -30, 23, -36, 2, -21, 22, -18, 30, -5)
 disabled = true
 
-[node name="DamageComponent" type="Node2D" parent="."]
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_5evhu")
 amount = 10
 alt_amount = 5

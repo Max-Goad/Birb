@@ -37,7 +37,7 @@ vertical_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jr0lt")
 
-[node name="DamageComponent" type="Node2D" parent="."]
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_l3scy")
 
 [node name="Despawn Timer" type="Timer" parent="."]

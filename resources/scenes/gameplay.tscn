@@ -873,7 +873,7 @@ animation = &"slash_up"
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_vh0j4")
 
-[node name="HealthComponent" type="Node2D" parent="Player"]
+[node name="HealthComponent" type="Node" parent="Player"]
 script = ExtResource("5_g402e")
 current_hp = 1000
 max_hp = 1000
@@ -920,11 +920,11 @@ collision_mask = 2
 position = Vector2(-2, -2)
 shape = SubResource("CircleShape2D_6hx3b")
 
-[node name="DamageComponent" type="Node2D" parent="Mushroom"]
+[node name="DamageComponent" type="Node" parent="Mushroom"]
 script = ExtResource("7_htkjs")
 amount = 5
 
-[node name="HealthComponent" type="Node2D" parent="Mushroom"]
+[node name="HealthComponent" type="Node" parent="Mushroom"]
 script = ExtResource("5_g402e")
 current_hp = 1000
 max_hp = 1000

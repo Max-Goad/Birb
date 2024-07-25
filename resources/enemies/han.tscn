@@ -63,8 +63,7 @@ position = Vector2(-30, 3)
 shape = SubResource("RectangleShape2D_2jy4h")
 debug_color = Color(0.7, 0.233333, 0, 0.419608)
 
-[node name="DamageComponent" type="Node2D" parent="."]
-position = Vector2(-16, 33)
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_lqa66")
 amount = 5
 
@@ -79,8 +78,7 @@ top_speed = 200.0
 acceleration = 0.5
 deceleration = 0.1
 
-[node name="HealthComponent" type="Node2D" parent="."]
-position = Vector2(-16, 33)
+[node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_ymoot")
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]

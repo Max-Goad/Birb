@@ -22,7 +22,7 @@ damage_component = NodePath("DamageComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_inef7")
 
-[node name="DamageComponent" type="Node2D" parent="."]
+[node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_3a73h")
 amount = 50
 type = 1
