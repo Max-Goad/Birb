@@ -10,7 +10,6 @@ enum Direction {
 
 ### Variables
 var last_direction := Vector2.DOWN
-var knockback := false
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
@@ -27,12 +26,8 @@ func _ready() -> void:
 	Data.component_unlocked.connect(_on_component_unlocked)
 
 func _process(_delta: float) -> void:
-	if knockback:
-		if self.velocity == Vector2.ZERO:
-			knockback = false
-
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if not knockback:
+	if not movement.locked:
 		if Abilities.current_active.is_null():
 			_process_velocity(direction)
 			_process_attack(last_direction)
