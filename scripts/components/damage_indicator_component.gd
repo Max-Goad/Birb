@@ -36,7 +36,7 @@ func _on_health_heal(amount: int):
 
 func _spawn_damage_indicator(amount: int, color: Color = Color.WHITE):
 	var di = pl_damage_indicator.instantiate()
-	di.position = Math.dither_v_pos(self.get_parent().position + self.position, self.position_dither)
+	di.position = Math.dither_v_pos(self.get_parent().global_position + self.position, self.position_dither)
 	di.scale = self.scale
 	di.damage = amount
 	di.color = Math.dither_c(color, float(self.color_dither)/100)
