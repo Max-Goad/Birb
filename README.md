@@ -2,11 +2,10 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Implement more abilities
-	- Add "King" crown ability (Use Fun as a template!)
 - Knockback
 	- Fix knockback direciton
-	- Any more knockback code in Player to remove?
+- Implement more abilities
+	- Add "King" crown ability (Use Fun as a template!)
 
 ## TODO (long-term):
 - Implement Save/Load
