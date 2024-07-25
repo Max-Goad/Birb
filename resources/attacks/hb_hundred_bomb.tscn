@@ -57,7 +57,7 @@ one_shot = true
 autostart = true
 
 [node name="Arm Bomb" type="Timer" parent="."]
-wait_time = 0.45
+wait_time = 2.45
 one_shot = true
 autostart = true
 
