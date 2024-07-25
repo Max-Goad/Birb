@@ -14,7 +14,7 @@ var knockback := false
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
-@onready var speed: SpeedComponent = $SpeedComponent
+@onready var movement: MovementComponent = $MovementComponent
 
 var modifiers := ModifierMap.new()
 
@@ -39,7 +39,6 @@ func _process(_delta: float) -> void:
 			_process_attack(last_direction)
 		_process_animation(direction)
 	_process_velocity_deceleration()
-	move_and_slide()
 
 ### Public Functions
 
@@ -47,9 +46,9 @@ func _process(_delta: float) -> void:
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
-	var mod_speed = speed.top_speed * modifiers.gett("movement_top_speed")
-	var mod_accel = speed.acceleration * modifiers.gett("movement_acceleration")
-	self.velocity = self.velocity.move_toward(direction * mod_speed, mod_speed * mod_accel)
+	var mod_speed = movement.top_speed * modifiers.gett("movement_top_speed")
+	var mod_accel = movement.acceleration * modifiers.gett("movement_acceleration")
+	movement.move_velocity_toward(direction * mod_speed, mod_speed * mod_accel)
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
 		self.last_direction = direction
@@ -85,9 +84,9 @@ func _process_attack(direction: Vector2):
 		Abilities.execute_ability(3, self, direction)
 
 func _process_velocity_deceleration():
-	var mod_speed: float = speed.top_speed * modifiers.gett("movement_top_speed")
-	var mod_decel: float = speed.deceleration * modifiers.gett("movement_deceleration")
-	self.velocity = velocity.move_toward(Vector2.ZERO, mod_speed * mod_decel)
+	var mod_speed: float = movement.top_speed * modifiers.gett("movement_top_speed")
+	var mod_decel: float = movement.deceleration * modifiers.gett("movement_deceleration")
+	movement.move_velocity_toward(Vector2.ZERO, mod_speed * mod_decel)
 
 func _on_component_unlocked(component: CraftingComponent):
 	match component.label:
@@ -113,5 +112,5 @@ func _apply_knockback(direction: Vector2, factor: float):
 	if direction == Vector2.ZERO:
 		direction = -self.last_direction
 	# Note: this speed should not be affected by modifiers
-	self.velocity = direction * speed.top_speed * factor
+	movement.apply_velocity(direction * movement.top_speed * factor)
 	knockback = true

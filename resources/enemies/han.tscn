@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_lqa66"]
 [ext_resource type="Script" path="res://scripts/components/pathfinding_component.gd" id="3_wfenn"]
-[ext_resource type="Script" path="res://scripts/components/speed_component.gd" id="4_537gj"]
+[ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="5_f15e5"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_ymoot"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_nhxlq"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ahpku"]
@@ -68,17 +68,16 @@ position = Vector2(-16, 33)
 script = ExtResource("2_lqa66")
 amount = 5
 
-[node name="PathfindingComponent" type="Node" parent="." node_paths=PackedStringArray("character", "speed")]
+[node name="PathfindingComponent" type="Node" parent="." node_paths=PackedStringArray("movement")]
 script = ExtResource("3_wfenn")
-character = NodePath("..")
-speed = NodePath("../SpeedComponent")
+movement = NodePath("../MovementComponent")
 
-[node name="SpeedComponent" type="Node" parent="."]
-script = ExtResource("4_537gj")
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("5_f15e5")
+character = NodePath("..")
 top_speed = 200.0
 acceleration = 0.5
 deceleration = 0.1
-rotation_speed = 1.0
 
 [node name="HealthComponent" type="Node2D" parent="."]
 position = Vector2(-16, 33)
