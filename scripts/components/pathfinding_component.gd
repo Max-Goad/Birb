@@ -29,9 +29,16 @@ func follow(target: Node2D):
 	self.target = target
 
 ### Private Functions
-func _process_strategy(delta):
+func _process_strategy(_delta):
 	match strategy:
 		Strategy.FOLLOW:
 			if target:
-				character.velocity = character.velocity.move_toward(target.global_position - character.global_position, speed.top_speed * delta)
-
+				var target_direction = (target.global_position - character.global_position).normalized()
+				var target_angle = character.velocity.angle_to(target_direction)
+				var angle = move_toward(0, target_angle, speed.rotation_speed / 10)
+				var direction = character.velocity.normalized().rotated(angle)
+				if direction == Vector2.ZERO:
+					direction = target_direction
+				var target_speed = speed.top_speed
+				var magnitude = move_toward(character.velocity.length(), target_speed, target_speed * speed.acceleration / 10)
+				character.velocity = direction * magnitude

@@ -75,9 +75,10 @@ speed = NodePath("../SpeedComponent")
 
 [node name="SpeedComponent" type="Node" parent="."]
 script = ExtResource("4_537gj")
-top_speed = 100.0
-acceleration = 0.2
+top_speed = 200.0
+acceleration = 0.5
 deceleration = 0.1
+rotation_speed = 1.0
 
 [node name="HealthComponent" type="Node2D" parent="."]
 position = Vector2(-16, 33)
