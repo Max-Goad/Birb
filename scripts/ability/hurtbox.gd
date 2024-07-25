@@ -18,6 +18,7 @@ var collided_ids: Dictionary = {}
 
 # @onready var speed_component: SpeedComponent = $SpeedComponent
 @export var damage_component: DamageComponent
+@export var raycast: RayCast2D
 
 ### Signals
 signal finished
@@ -33,8 +34,13 @@ func _ready() -> void:
 	area_shape_entered.connect(_hit_area)
 
 func _process(_delta: float) -> void:
-	self.position += velocity
+	if _check_raycast():
+		print("Hurtbox: raycast collision detected")
+		self.global_position = raycast.get_collision_point()
+	else:
+		self.position += velocity
 	self.rotate(deg_to_rad(angular_velocity))
+	# Dampen velocities
 	self.velocity = velocity.move_toward(Vector2.ZERO, velocity.length() * deceleration)
 	self.angular_velocity = move_toward(angular_velocity, 0.0, angular_deceleration)
 
@@ -74,13 +80,13 @@ func reset_collisions(max_collisions = self.max_collisions):
 # Finish will only ever be called once, so despawn() will only emit
 # the finished signal if it has not been emitted before
 func finish():
-	print("hurtbox: finish %s" % not finished_emitted)
+	print("Hurtbox: finish %s" % not finished_emitted)
 	if not finished_emitted:
 		finished.emit()
 		finished_emitted = true
 
 func despawn():
-	print("hurtbox: despawn %s" % not freed_emitted)
+	print("Hurtbox: despawn %s" % not freed_emitted)
 	if not freed_emitted:
 		finish()
 		queue_free()
@@ -88,6 +94,14 @@ func despawn():
 		freed_emitted = true
 
 ### Private Functions
+func _check_raycast() -> bool:
+	if not raycast:
+		return false
+	raycast.global_rotation = 0.0
+	raycast.target_position = self.velocity
+	raycast.force_raycast_update()
+	return raycast.is_colliding()
+
 func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_index: int):
 	if finished_emitted or freed_emitted:
 		return

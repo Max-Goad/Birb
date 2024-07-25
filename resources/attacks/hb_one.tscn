@@ -7,14 +7,15 @@
 font_size = 24
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuji7"]
-size = Vector2(44, 14)
+size = Vector2(22, 14)
 
-[node name="One Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component")]
+[node name="One Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component", "raycast")]
 top_level = true
 collision_layer = 16
 collision_mask = 6
 script = ExtResource("1_r22x2")
 damage_component = NodePath("DamageComponent")
+raycast = NodePath("RayCast2D")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -35,7 +36,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-11, 0)
 shape = SubResource("RectangleShape2D_nuji7")
 
 [node name="Animation Finish" type="Timer" parent="."]
@@ -51,6 +51,11 @@ autostart = true
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_efes4")
 amount = 5
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(50, 0)
+collision_mask = 4
+collide_with_areas = true
 
 [connection signal="timeout" from="Animation Finish" to="." method="finish"]
 [connection signal="timeout" from="Despawn" to="." method="despawn"]
