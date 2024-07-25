@@ -58,7 +58,7 @@ func start():
 	timer.start(1.0 / rate)
 
 func stop():
-	print("Spawner: start")
+	print("Spawner: stop")
 	timer.stop()
 
 func should_spawn_enemy() -> bool:
@@ -97,5 +97,3 @@ func _prepare_spawned_enemy(enemy: Enemy):
 	enemy.target = target
 	for callback in spawn_callbacks.values():
 		callback.call(enemy)
-
-

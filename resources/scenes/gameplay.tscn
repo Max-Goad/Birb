@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=138 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://scripts/ability/ui/ability_slot_group.gd" id="17_5gbct"]
 [ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="18_d8yv1"]
 [ext_resource type="PackedScene" uid="uid://ceio7up6qcp2a" path="res://resources/attacks/ability_slot.tscn" id="18_rhwno"]
+[ext_resource type="Script" path="res://scripts/trigger/signal_trigger.gd" id="23_dy1sb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0msk4"]
 atlas = ExtResource("2_t8kj5")
@@ -856,6 +857,7 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
+autostart = false
 rate = 0.3
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -1129,6 +1131,9 @@ settings = SubResource("LabelSettings_yorui")
 text_speed = 35.0
 canvas = NodePath("../../../UI Canvas")
 
+[node name="Signal" type="Node" parent="Language Jane/Triggers"]
+script = ExtResource("23_dy1sb")
+
 [node name="Free" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("node")]
 script = ExtResource("14_fbi57")
 node = NodePath("../..")
@@ -1249,6 +1254,7 @@ text = "D"
 [connection signal="body_entered" from="Unlock Everything Jim/Area2D" to="Unlock Everything Jim/Triggers" method="execute" unbinds=1]
 [connection signal="area_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
+[connection signal="trigger" from="Language Jane/Triggers/Signal" to="Spawner" method="start"]
 
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2"]
