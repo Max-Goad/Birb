@@ -8,7 +8,7 @@ enum Strategy
 
 ### Variables
 @export var strategy = Strategy.FOLLOW
-@export var movement: MovementComponent
+@export var movement: CharacterMovementComponent
 @export var target: Node2D
 
 ### Signals

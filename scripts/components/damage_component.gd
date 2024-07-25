@@ -40,9 +40,9 @@ func apply(node: Node2D, alt = false) -> bool:
 	if not health_component:
 		print("DamageComponent: can't find health component")
 		return false
-	print("DamageComponent: prnt pos = %s" % get_parent().position)
-	print("DamageComponent: body pos = %s" % node.position)
-	var direction = node.position - get_parent().position
+	print("DamageComponent: prnt pos = %s" % get_parent().global_position)
+	print("DamageComponent: body pos = %s" % node.global_position)
+	var direction = node.global_position - get_parent().global_position
 	if not alt:
 		return health_component.damage(amount, type, direction.normalized())
 	else:

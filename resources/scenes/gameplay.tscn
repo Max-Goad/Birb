@@ -6,11 +6,11 @@
 [ext_resource type="Script" path="res://scripts/test_player.gd" id="3_p7l5b"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_c1dqk"]
+[ext_resource type="Script" path="res://scripts/components/character_movement_component.gd" id="6_hadg4"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="7_htkjs"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ixeq5"]
 [ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="8_qd8xt"]
 [ext_resource type="Texture2D" uid="uid://bf6kvy2itm786" path="res://resources/art/Sprout Lands Pack/Objects/Mushrooms, Flowers, Stones.png" id="8_ysgv7"]
-[ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="9_xnq8r"]
 [ext_resource type="Script" path="res://scripts/camera/map_bounded_follow_camera.gd" id="10_g5hj0"]
 [ext_resource type="PackedScene" uid="uid://btrabe1j0w66f" path="res://resources/enemies/han.tscn" id="10_jqyq4"]
 [ext_resource type="Script" path="res://scripts/trigger/triggers.gd" id="10_ubny5"]
@@ -877,7 +877,7 @@ position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_vh0j4")
 
 [node name="MovementComponent" type="Node" parent="Player" node_paths=PackedStringArray("character")]
-script = ExtResource("9_xnq8r")
+script = ExtResource("6_hadg4")
 character = NodePath("..")
 top_speed = 500.0
 acceleration = 0.2

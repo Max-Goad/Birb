@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_lqa66"]
 [ext_resource type="Script" path="res://scripts/components/pathfinding_component.gd" id="3_wfenn"]
-[ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="5_f15e5"]
+[ext_resource type="Script" path="res://scripts/components/character_movement_component.gd" id="5_khekf"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_ymoot"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_nhxlq"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ahpku"]
@@ -72,7 +72,7 @@ script = ExtResource("3_wfenn")
 movement = NodePath("../MovementComponent")
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("5_f15e5")
+script = ExtResource("5_khekf")
 character = NodePath("..")
 top_speed = 200.0
 acceleration = 0.5
