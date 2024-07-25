@@ -38,6 +38,7 @@ var spawn_callbacks: Dictionary = {}
 func _ready():
 	if Engine.is_editor_hint():
 		return
+	self.add_to_group(Data.GROUP_SPAWNER)
 	timer = Timer.new()
 	timer.timeout.connect(spawn_enemy)
 	add_child(timer)

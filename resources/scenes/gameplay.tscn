@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=137 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_c1dqk"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="7_htkjs"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ixeq5"]
+[ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="8_qd8xt"]
 [ext_resource type="Texture2D" uid="uid://bf6kvy2itm786" path="res://resources/art/Sprout Lands Pack/Objects/Mushrooms, Flowers, Stones.png" id="8_ysgv7"]
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="9_xnq8r"]
 [ext_resource type="Script" path="res://scripts/camera/map_bounded_follow_camera.gd" id="10_g5hj0"]
@@ -850,14 +851,14 @@ layer_1/tile_data = PackedInt32Array(1245220, 524291, 0, 1114148, 131075, 2, 104
 layer_2/name = "Objects"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target") groups=["spawner"]]
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
 rate = 0.3
 
-[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(554, 339)
 scale = Vector2(3, 3)
 collision_layer = 2
@@ -873,11 +874,24 @@ animation = &"slash_up"
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_vh0j4")
 
+[node name="MovementComponent" type="Node" parent="Player" node_paths=PackedStringArray("character")]
+script = ExtResource("9_xnq8r")
+character = NodePath("..")
+top_speed = 500.0
+acceleration = 0.2
+deceleration = 0.1
+
 [node name="HealthComponent" type="Node" parent="Player"]
 script = ExtResource("5_g402e")
 current_hp = 1000
 max_hp = 1000
 invul_seconds = 1.0
+
+[node name="KnockbackComponent" type="Node" parent="Player" node_paths=PackedStringArray("health", "movement")]
+script = ExtResource("8_qd8xt")
+health = NodePath("../HealthComponent")
+movement = NodePath("../MovementComponent")
+knockback_factor = 1.5
 
 [node name="HealthBarComponent" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
 health_component = NodePath("../HealthComponent")
@@ -890,13 +904,6 @@ position_dither = 0
 libraries = {
 "": SubResource("AnimationLibrary_134ir")
 }
-
-[node name="MovementComponent" type="Node" parent="Player" node_paths=PackedStringArray("character")]
-script = ExtResource("9_xnq8r")
-character = NodePath("..")
-top_speed = 500.0
-acceleration = 0.2
-deceleration = 0.1
 
 [node name="VectorVisualizer" parent="Player" node_paths=PackedStringArray("origin", "target") instance=ExtResource("11_p0qqt")]
 scale = Vector2(2.19, 3)

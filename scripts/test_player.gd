@@ -23,7 +23,6 @@ var modifiers := ModifierMap.new()
 ### Engine Functions
 func _ready() -> void:
 	self.add_to_group(Data.GROUP_PLAYER)
-	health.on_damage.connect(_on_health_damage)
 	health.on_death.connect(_on_death)
 	Data.component_unlocked.connect(_on_component_unlocked)
 
@@ -86,7 +85,7 @@ func _process_attack(direction: Vector2):
 func _process_velocity_deceleration():
 	var mod_speed: float = movement.top_speed * modifiers.gett("movement_top_speed")
 	var mod_decel: float = movement.deceleration * modifiers.gett("movement_deceleration")
-	movement.move_velocity_toward(Vector2.ZERO, mod_speed * mod_decel)
+	movement.decelerate(mod_speed * mod_decel)
 
 func _on_component_unlocked(component: CraftingComponent):
 	match component.label:
@@ -98,19 +97,5 @@ func _on_component_unlocked(component: CraftingComponent):
 		_:
 			pass
 
-func _on_health_damage(_amount: int, type: DamageComponent.DamageType, direction: Vector2):
-	match type:
-		DamageComponent.DamageType.NORMAL:
-			_apply_knockback(direction, 1.5)
-		DamageComponent.DamageType.HEAVY:
-			_apply_knockback(direction, 2.5)
-
 func _on_death():
 	queue_free()
-
-func _apply_knockback(direction: Vector2, factor: float):
-	if direction == Vector2.ZERO:
-		direction = -self.last_direction
-	# Note: this speed should not be affected by modifiers
-	movement.apply_velocity(direction * movement.top_speed * factor)
-	knockback = true

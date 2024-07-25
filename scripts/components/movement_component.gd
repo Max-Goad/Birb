@@ -1,6 +1,8 @@
 class_name MovementComponent extends Node
 
+const IGNORE_LOCK = true
 const FORCE_UNLOCK = true
+const RELOCK = true
 
 ### Variables
 @export var character: CharacterBody2D
@@ -14,6 +16,7 @@ const FORCE_UNLOCK = true
 @export var projectile_speed = 1.0
 
 var locked = false
+var unlock_when_stopped = false
 var lock_timer = Timer.new()
 
 ### Signals
@@ -27,6 +30,8 @@ func _ready() -> void:
 	add_child(lock_timer)
 
 func _process(_delta: float) -> void:
+	if character.velocity == Vector2.ZERO and unlock_when_stopped:
+		unlock(FORCE_UNLOCK)
 	character.move_and_slide()
 
 ### Public Functions
@@ -35,22 +40,38 @@ func moving() -> bool:
 
 ## Apply a velocity to the attached character.
 ## Will not apply if the movement is locked.
-func apply_velocity(velocity: Vector2):
-	if not locked:
+## Can optionally use IGNORE_LOCK to bypass.
+func apply_velocity(velocity: Vector2, ignore_lock = false):
+	if not locked or ignore_lock:
 		character.velocity = velocity
 
-func move_velocity_toward(to: Vector2, delta: float):
+func move_velocity_toward(to: Vector2, delta: float, ignore_lock = false):
 	var velocity = character.velocity.move_toward(to, delta)
-	apply_velocity(velocity)
+	apply_velocity(velocity, ignore_lock)
+
+func decelerate(amount: float):
+	move_velocity_toward(Vector2.ZERO, amount, IGNORE_LOCK)
 
 ## Lock all movement.
 ## Can optionally pass a time, which will
 ## set a timer which automatically unlocks the lock.
 ## If no time is passed, the lock will not auto unlock.
-func lock(time: float = -0.0):
-	locked = true
-	if time > 0.0:
-		lock_timer.start(time)
+## If RELOCK is passed, the lock will continue
+## until the new time has elapsed (ignores initial time)
+func lock(time: float = 0.0, relock = false):
+	if locked:
+		if relock and time > 0.0:
+			lock_timer.wait_time = time
+	else:
+		locked = true
+		if time > 0.0:
+			lock_timer.start(time)
+
+## Lock all movement until the character has stopped completely
+func lock_until_stopped():
+	if not locked:
+		lock()
+		unlock_when_stopped = true
 
 ## Unlock the current lock on movement.
 ## Will fail to unlock if a timer was set, but
@@ -58,6 +79,7 @@ func lock(time: float = -0.0):
 func unlock(force = false):
 	if lock_timer.is_stopped() or force:
 		locked = false
+		unlock_when_stopped = false
 
 ### Private Functions
 
