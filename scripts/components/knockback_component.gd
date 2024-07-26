@@ -26,10 +26,10 @@ func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vec
 		DamageComponent.DamageType.LIGHT:
 			pass
 		DamageComponent.DamageType.NORMAL:
-			movement.apply_velocity(direction * movement.top_speed * knockback_factor)
+			movement.apply_velocity(direction * movement.top_speed * knockback_factor, MovementComponent.IGNORE_LOCK)
 			movement.lock_until_stopped()
 		DamageComponent.DamageType.HEAVY:
-			movement.apply_velocity(direction * movement.top_speed * knockback_factor * 1.5)
+			movement.apply_velocity(direction * movement.top_speed * knockback_factor * 2.5, MovementComponent.IGNORE_LOCK)
 			movement.lock_until_stopped()
 #endregion
 
