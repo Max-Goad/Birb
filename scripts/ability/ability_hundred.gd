@@ -45,7 +45,7 @@ func _throw_bomb(parent: Player, direction: Vector2):
 	bomb.ignore(parent)
 	bomb.finished.connect(_on_bomb_finished.bind(parent, bomb))
 	parent.add_child(bomb)
-	bomb.damage_component.amount = int(impact_damage * parent.modifiers.gett("damage"))
+	bomb.damage_component.amount = int(impact_damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
 
 func _on_bomb_finished(parent, bomb):
 	call_deferred("_spawn_explosion", parent, bomb)
@@ -58,7 +58,7 @@ func _spawn_explosion(parent, bomb):
 	# explosion.ignore(parent)
 	explosion.finished.connect(_on_explosion_finished)
 	parent.add_child(explosion)
-	explosion.damage_component.amount = int(explosion_damage * parent.modifiers.gett("damage"))
+	explosion.damage_component.amount = int(explosion_damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
 
 	# There's a small amount of time when both are still alive/active
 	explosion.ignore_hurtbox(bomb, Hurtbox.MUTUAL_IGNORE)

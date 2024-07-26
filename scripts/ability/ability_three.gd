@@ -37,9 +37,9 @@ func execute(parent: Player, direction: Vector2):
 		parent.add_child(a)
 		parent.add_child(b)
 		parent.add_child(c)
-		a.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
-		b.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
-		c.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
+		a.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
+		b.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
+		c.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
 
 	super.execute_with_delay(execute_fn, 0.1)
 #endregion
@@ -54,7 +54,7 @@ func _create_projectile(parent: Node2D, direction: Vector2) -> Hurtbox:
 	hurtbox.velocity = dithered_direction
 	hurtbox.rotate(dithered_direction.angle())
 	hurtbox.finished.connect(_projectile_finished)
-	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
+	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
 	return hurtbox
 
 func _projectile_finished():

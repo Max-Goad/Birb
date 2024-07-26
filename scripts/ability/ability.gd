@@ -86,26 +86,34 @@ func ready() -> bool:
 # TODO: Where should this live?
 static func from_component(component: CraftingComponent) -> Ability:
 	match component.label:
-		"丨":
-			return Stick.new()
 		"一":
 			return One.new(25, 15)
 		"二":
 			return Two.new(25, 10, 0.1)
 		"三":
 			return Three.new(25, 10)
+		"丨":
+			return Stick.new()
 		"十":
 			# tf, pf, id, ed, pd, et
 			return Ten.new(35.0, 50.0, 5, 20, 10)
-		"百":
-			# tf, pf, id, ed, pd, et
-			return Hundred.new(35.0, 5, 50)
-		"早":
-			# multiplier, effect time
-			return Fast.new(1.5, 3.0)
 		"儿":
 			# multiplier
 			return Legs.new(1.1)
+		"百":
+			# tf, pf, id, ed, pd, et
+			return Hundred.new(35.0, 5, 50)
+		"楽":
+			return Fun.new()
+		"薬":
+			# amount
+			return Medicine.new(10)
+		"早":
+			# multiplier, effect time
+			return Fast.new(1.5, 3.0)
+		"空":
+			# speed mod
+			return Empty.new(1.5)
 		"大":
 			# scale, damage
 			return Big.new(1.5, 1.2)
@@ -113,10 +121,5 @@ static func from_component(component: CraftingComponent) -> Ability:
 			# scale, damage (incoming)
 			return Small.new(0.667, 1.5)
 			# return NullAbility.new()
-		"楽":
-			return Fun.new()
-		"薬":
-			# amount
-			return Medicine.new(10)
 		_:
 			return NullAbility.new()

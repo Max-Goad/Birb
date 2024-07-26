@@ -25,13 +25,13 @@ func on_set():
 	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
 	# TODO: Change this to a modifier
 	player.scale *= scale_modifier
-	player.modifiers.add("damage", self, damage_modifier)
+	player.modifiers.add(Player.Modifiers.DAMAGE, self, damage_modifier)
 
 func on_unset():
 	if player:
 		# TODO: Change this to a modifier
 		player.scale /= self.scale_modifier
-		player.modifiers.remove("damage", self)
+		player.modifiers.remove(Player.Modifiers.DAMAGE, self)
 #endregion
 
 #region Private Functions

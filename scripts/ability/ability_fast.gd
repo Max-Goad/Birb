@@ -25,10 +25,10 @@ func _init(multiplier, effect_time) -> void:
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	self.player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
-	player.modifiers.add("movement_top_speed", self, multiplier)
-	player.modifiers.add("movement_acceleration", self, multiplier)
-	player.modifiers.add("movement_deceleration", self, multiplier)
-	player.modifiers.add("projectile_speed", self, multiplier)
+	player.modifiers.add(Player.Modifiers.MOVEMENT_TOP_SPEED, self, multiplier)
+	player.modifiers.add(Player.Modifiers.MOVEMENT_ACCELERATION, self, multiplier)
+	player.modifiers.add(Player.Modifiers.MOVEMENT_DECELERATION, self, multiplier)
+	player.modifiers.add(Player.Modifiers.MOVEMENT_PROJECTILE_SPEED, self, multiplier)
 
 	var effect_timer = Timer.new()
 	effect_timer.one_shot = true
@@ -42,8 +42,8 @@ func execute(parent: Player, direction: Vector2):
 #region Private Functions
 func _reset_multiplier():
 	if player:
-		player.modifiers.remove("movement_top_speed", self)
-		player.modifiers.remove("movement_acceleration", self)
-		player.modifiers.remove("movement_deceleration", self)
-		player.modifiers.remove("projectile_speed", self)
+		player.modifiers.remove(Player.Modifiers.MOVEMENT_TOP_SPEED, self)
+		player.modifiers.remove(Player.Modifiers.MOVEMENT_ACCELERATION, self)
+		player.modifiers.remove(Player.Modifiers.MOVEMENT_DECELERATION, self)
+		player.modifiers.remove(Player.Modifiers.MOVEMENT_PROJECTILE_SPEED, self)
 #endregion

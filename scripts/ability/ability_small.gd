@@ -25,15 +25,15 @@ func on_set():
 	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
 	# TODO: Change this to a modifier
 	player.scale *= scale_modifier
-	player.modifiers.add("damage_incoming", self, damage_incoming_modifier)
+	player.modifiers.add(Player.Modifiers.DAMAGE_INCOMING, self, damage_incoming_modifier)
 	# TODO: This kinda sucks
-	player.health.damage_modifier_fn = player.modifiers.gett.bind("damage_incoming")
+	player.health.damage_modifier_fn = player.modifiers.gett.bind(Player.Modifiers.DAMAGE_INCOMING)
 
 func on_unset():
 	if player:
 		# TODO: Change this to a modifier
 		player.scale /= scale_modifier
-		player.modifiers.remove("damage_incoming", self)
+		player.modifiers.remove(Player.Modifiers.DAMAGE_INCOMING, self)
 		player.health.damage_modifier_fn = Callable()
 #endregion
 

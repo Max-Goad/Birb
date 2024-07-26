@@ -8,6 +8,19 @@ enum Direction {
 	LEFT
 }
 
+enum Modifiers {
+	DAMAGE = 10,
+	DAMAGE_INCOMING,
+
+	HEAL = 20,
+
+	MOVEMENT_TOP_SPEED = 30,
+	MOVEMENT_ACCELERATION,
+	MOVEMENT_DECELERATION,
+	# Rotation?
+	MOVEMENT_PROJECTILE_SPEED,
+}
+
 #region Variables
 var last_direction := Vector2.DOWN
 
@@ -44,8 +57,8 @@ func _process(_delta: float) -> void:
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
-	var mod_speed = movement.top_speed * modifiers.gett("movement_top_speed")
-	var mod_accel = movement.acceleration * modifiers.gett("movement_acceleration")
+	var mod_speed = movement.top_speed * modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED)
+	var mod_accel = movement.acceleration * modifiers.gett(Player.Modifiers.MOVEMENT_ACCELERATION)
 	movement.move_velocity_toward(direction * mod_speed, mod_speed * mod_accel)
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
@@ -82,8 +95,8 @@ func _process_attack(direction: Vector2):
 		Abilities.execute_ability(3, self, direction)
 
 func _process_velocity_deceleration():
-	var mod_speed: float = movement.top_speed * modifiers.gett("movement_top_speed")
-	var mod_decel: float = movement.deceleration * modifiers.gett("movement_deceleration")
+	var mod_speed: float = movement.top_speed * modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED)
+	var mod_decel: float = movement.deceleration * modifiers.gett(Player.Modifiers.MOVEMENT_DECELERATION)
 	movement.decelerate(mod_speed * mod_decel)
 
 func _on_component_unlocked(component: CraftingComponent):
