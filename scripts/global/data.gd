@@ -105,13 +105,13 @@ func get_player() -> Player:
 	return get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
 
 func get_spawners() -> Array[Spawner]:
-	var spawners: Array[Spawner]
+	var spawners: Array[Spawner] = []
 	var nodes = get_tree().get_nodes_in_group(Data.GROUP_SPAWNER)
 	spawners.assign(nodes)
 	return spawners
 
 func get_enemies() -> Array[Enemy]:
-	var enemies: Array[Enemy]
+	var enemies: Array[Enemy] = []
 	for spawner in get_spawners():
 		enemies.append_array(spawner.spawned_enemies)
 	return enemies
@@ -191,7 +191,8 @@ func _load_game_references():
 	var crafting_file_parser := CraftingFileParser.new("res://resources/data/crafting.txt")
 	var success = crafting_file_parser.parse()
 	assert(success)
-	for component in crafting_file_parser.components:
+	var empty_component = CraftingComponent.new()
+	for component in crafting_file_parser.components + [empty_component]:
 		self.components_by_id[component.id] = component
 		self.components_by_name[component.label] = component
 	self.recipes = crafting_file_parser.recipes

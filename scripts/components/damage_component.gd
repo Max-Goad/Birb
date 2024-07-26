@@ -3,6 +3,7 @@ class_name DamageComponent extends Node
 enum DamageType {
 	NORMAL = 0,
 	HEAVY = 1,
+	LIGHT = 2,
 }
 
 #region Variables

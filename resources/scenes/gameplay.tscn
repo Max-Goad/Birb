@@ -841,6 +841,7 @@ font_size = 70
 texture_filter = 1
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = -1
 texture_filter = 1
 scale = Vector2(4, 4)
 tile_set = ExtResource("1_7phuw")
@@ -857,8 +858,7 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
-autostart = false
-rate = 0.3
+maximum = 3
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(554, 339)
@@ -1069,16 +1069,13 @@ script = ExtResource("15_de8on")
 
 [node name="Assign Slot 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "一"
 
 [node name="Assign Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "百"
 slot = 1
 
 [node name="Assign Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "十"
 slot = 2
 
 [node name="Assign Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
@@ -1088,7 +1085,7 @@ slot = 3
 
 [node name="Assign Passive 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "小"
+label = "空"
 category = 1
 
 [node name="Unpause" type="Node" parent="Unlock Everything Jim/Triggers"]

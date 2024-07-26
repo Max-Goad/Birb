@@ -23,6 +23,8 @@ func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vec
 	# TODO: Should the knockback be based on the damage?
 	print("KnockbackComponent: %s" % direction)
 	match type:
+		DamageComponent.DamageType.LIGHT:
+			pass
 		DamageComponent.DamageType.NORMAL:
 			movement.apply_velocity(direction * movement.top_speed * knockback_factor)
 			movement.lock_until_stopped()

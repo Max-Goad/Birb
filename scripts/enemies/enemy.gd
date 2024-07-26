@@ -3,6 +3,7 @@ class_name Enemy extends CharacterBody2D
 #region Variables
 @export var target: Node2D
 
+@onready var health: HealthComponent = $HealthComponent
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
 @onready var vector_to_target: VectorVisualizer = $"Vector To Target"
 #endregion
