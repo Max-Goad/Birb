@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://btrabe1j0w66f"]
+[gd_scene load_steps=18 format=3 uid="uid://btrabe1j0w66f"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_ht6gj"]
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
@@ -31,6 +31,27 @@ size = Vector2(60, 94)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
 size = Vector2(42, 100)
+
+[sub_resource type="Animation" id="Animation_vvup2"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, -10, 0.1),
+"update": 0,
+"values": [Vector2(-16, 26), Vector2(-16, 36), Vector2(-16, 26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ixigp"]
+_data = {
+"idle": SubResource("Animation_vvup2")
+}
 
 [node name="Han" type="CharacterBody2D"]
 collision_layer = 4
@@ -73,26 +94,8 @@ texture = SubResource("GradientTexture1D_depsi")
 position = Vector2(5, 37)
 shape = SubResource("RectangleShape2D_fn3oe")
 
-[node name="Weapon" type="Label" parent="."]
-texture_filter = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -92.0
-offset_top = -35.0
-offset_right = 8.0
-offset_bottom = 102.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "犭"
-label_settings = SubResource("LabelSettings_7m4fk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
-position = Vector2(-16, 33)
+position = Vector2(-16, 34.8151)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_twxsa")
@@ -100,10 +103,34 @@ max_collisions = 100
 ignore_repeat_collisions = false
 damage_component = NodePath("../DamageComponent")
 
+[node name="Weapon" type="Label" parent="Hurtbox"]
+texture_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -68.0
+offset_right = 24.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "犭"
+label_settings = SubResource("LabelSettings_7m4fk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Rectangle" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-30, 3)
 shape = SubResource("RectangleShape2D_2jy4h")
 debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ixigp")
+}
+autoplay = "idle"
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_lqa66")
