@@ -2,8 +2,11 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Knockback
-	- Fix knockback direciton
+- Hurtbox
+	- How do we track its velocity?
+	- If it's the root, then it's no problem
+	- If it's a child, then does the parent have a velocity?
+	- Should the Hurtbox ALWAYS be a child (like a component)?
 - Implement more abilities
 	- Add "King" crown ability (Use Fun as a template!)
 
