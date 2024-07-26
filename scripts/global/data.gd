@@ -6,6 +6,7 @@ const MAX_SAVE_NAME_SIZE: int = 20
 
 const GROUP_PLAYER: String = "player"
 const GROUP_SPAWNER: String = "spawner"
+const GROUP_CAMERA: String = "camera"
 #endregion
 
 #region Save Data Variables
@@ -103,6 +104,9 @@ func erase_file(slot: int):
 #region Character Queries
 func get_player() -> Player:
 	return get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
+
+func get_camera() -> Camera2D:
+	return get_tree().get_first_node_in_group(Data.GROUP_CAMERA)
 
 func get_spawners() -> Array[Spawner]:
 	var spawners: Array[Spawner] = []
