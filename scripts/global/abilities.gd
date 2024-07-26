@@ -30,6 +30,9 @@ func get_ability(category: Ability.Category, slot: int) -> Ability:
 	assert(has_ability(category, slot))
 	return _get_slots(category)[slot]
 
+func get_abilities(category: Ability.Category) -> Array[Ability]:
+	return _get_slots(category)
+
 func find_ability_slot(category: Ability.Category, ability: Ability) -> int:
 	var slots := _get_slots(category)
 	for i in slots.size():
