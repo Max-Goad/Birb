@@ -49,7 +49,6 @@ func _ready() -> void:
 	call_deferred("notify_ability_slots", Ability.Category.PASSIVE)
 #endregion
 
-
 #region Saving / Loading Functions
 func file_name(slot: int) -> String:
 	return "user://save_data_%d.save" % slot
@@ -99,6 +98,35 @@ func erase_file(slot: int):
 		return
 	DirAccess.remove_absolute(file_name(slot))
 	saves[slot] = null
+#endregion
+
+#region Character Queries
+func get_player() -> Player:
+	return get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
+
+func get_spawners() -> Array[Spawner]:
+	var spawners: Array[Spawner]
+	var nodes = get_tree().get_nodes_in_group(Data.GROUP_SPAWNER)
+	spawners.assign(nodes)
+	return spawners
+
+func get_enemies() -> Array[Enemy]:
+	var enemies: Array[Enemy]
+	for spawner in get_spawners():
+		enemies.append_array(spawner.spawned_enemies)
+	return enemies
+
+func get_closest_enemy(position: Vector2) -> Enemy:
+	var enemies = get_enemies()
+	var closest_enemy: Enemy = null
+	var closest_distance = -1.0
+	for enemy in enemies:
+		var dist = position.distance_to(enemy)
+		if dist > closest_distance:
+			closest_distance = dist
+			closest_enemy = enemy
+	return closest_enemy
+
 #endregion
 
 #region Misc
