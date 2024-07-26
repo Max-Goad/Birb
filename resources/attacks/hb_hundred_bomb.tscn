@@ -47,6 +47,7 @@ shape = SubResource("RectangleShape2D_plfsy")
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_g1qev")
+type = 2
 
 [node name="Explosion Timer" type="Timer" parent="."]
 one_shot = true

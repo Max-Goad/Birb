@@ -24,7 +24,6 @@ shape = SubResource("CircleShape2D_inef7")
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_3a73h")
-amount = 50
 type = 1
 
 [node name="Despawn Timer" type="Timer" parent="."]
