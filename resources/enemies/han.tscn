@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://btrabe1j0w66f"]
+[gd_scene load_steps=20 format=3 uid="uid://btrabe1j0w66f"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_ht6gj"]
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_ymoot"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_nhxlq"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="7_ahpku"]
+[ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="7_m0ql5"]
 [ext_resource type="PackedScene" uid="uid://bvxitv8qu6bak" path="res://resources/ui/vector_visualizer.tscn" id="8_kvaqx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7m4fk"]
@@ -182,6 +183,12 @@ rotation_speed = 0.5
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_ymoot")
+
+[node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("health", "movement")]
+script = ExtResource("7_m0ql5")
+health = NodePath("../HealthComponent")
+movement = NodePath("../MovementComponent")
+knockback_factor = 1.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]
 position = Vector2(-80, -49)
