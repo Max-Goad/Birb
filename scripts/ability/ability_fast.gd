@@ -24,7 +24,7 @@ func _init(multiplier, effect_time) -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	self.player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
+	self.player = Data.get_player()
 	player.modifiers.add(Player.Modifiers.MOVEMENT_TOP_SPEED, self, multiplier)
 	player.modifiers.add(Player.Modifiers.MOVEMENT_ACCELERATION, self, multiplier)
 	player.modifiers.add(Player.Modifiers.MOVEMENT_DECELERATION, self, multiplier)

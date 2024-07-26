@@ -22,7 +22,7 @@ func execute(_parent: Player, _direction: Vector2):
 
 func on_set():
 	# Find all spawners
-	var nodes = get_tree().get_nodes_in_group(Data.GROUP_SPAWNER)
+	var nodes = Data.get_spawners()
 	spawners.assign(nodes)
 	for spawner in spawners:
 		spawner.connect_on_spawn(self, _attach_silly_little_hat)

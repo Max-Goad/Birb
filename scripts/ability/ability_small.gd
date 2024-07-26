@@ -22,7 +22,7 @@ func execute(_parent: Player, _direction: Vector2):
 	pass
 
 func on_set():
-	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER) as Player
+	player = Data.get_player()
 	# TODO: Change this to a modifier
 	player.scale *= scale_modifier
 	player.modifiers.add(Player.Modifiers.DAMAGE_INCOMING, self, damage_incoming_modifier)

@@ -20,7 +20,7 @@ func execute(_parent: Player, _direction: Vector2):
 	pass
 
 func on_set():
-	player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
+	player = Data.get_player()
 	player.modifiers.add(Player.Modifiers.MOVEMENT_TOP_SPEED, self, multiplier)
 	player.modifiers.add(Player.Modifiers.MOVEMENT_ACCELERATION, self, multiplier)
 	player.modifiers.add(Player.Modifiers.MOVEMENT_DECELERATION, self, multiplier)
