@@ -92,7 +92,7 @@ size = Vector2(30, 15)
 collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_vhubc")
-max_collisions = 3
+limit_collisions = false
 damage_component = NodePath("DamageComponent")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
