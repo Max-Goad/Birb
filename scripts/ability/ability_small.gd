@@ -1,4 +1,4 @@
-class_name Smull extends Ability
+class_name Small extends Ability
 
 #region Variables
 var scale_modifier: float
