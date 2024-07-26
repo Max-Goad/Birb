@@ -3,17 +3,22 @@
 
 extends _BASE_
 
-### Variables
+#region Variables
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
 	pass
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion

@@ -1,15 +1,17 @@
 extends Node2D
 
-### Variables
+#region Variables
 @export var health_component: HealthComponent
 @export var hide_when_full: bool = false
 @export var hide_when_empty: bool = true
 
 @onready var health_bar: ProgressBar = $"Health Bar"
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(health_component != null, "missing health component")
 	health_bar.max_value = health_component.max_hp
@@ -17,10 +19,12 @@ func _ready() -> void:
 	health_component.on_damage.connect(_on_health_damage)
 	health_component.on_heal.connect(_on_health_heal)
 	_update_visibility()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _direction: Vector2):
 	health_bar.change_value(-amount)
 	_update_visibility()
@@ -39,3 +43,4 @@ func _update_visibility():
 		self.visible = false
 	else:
 		self.visible = true
+#endregion

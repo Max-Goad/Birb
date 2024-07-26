@@ -2,27 +2,31 @@ class_name CraftingComponentMenu extends GridContainer
 
 const button_template = preload("res://resources/ui/menu_component_grid_button.tscn")
 
-### Variables
+#region Variables
 var buttons: Array[Button] = []
 var button_group = ButtonGroup.new()
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	_populate_buttons()
 	_adjust_columns()
 	Data.component_unlocked.connect(_on_component_unlocked)
+#endregion
 
-### Public Functions
+#region Public Functions
 func has_button(component: CraftingComponent):
 	return component.id < buttons.size()
 
 func get_button(component: CraftingComponent):
 	assert(has_button(component), "no button available for id (%s)" % component.id)
 	return buttons[component.id]
+#endregion
 
-### Private Functions
+#region Private Functions
 func _populate_buttons():
 	for child in get_children():
 		if child is Button:
@@ -59,3 +63,4 @@ func _on_component_unlocked(component: CraftingComponent):
 	button.disabled = false
 	button.text = component.label
 	button.modulate = CraftingComponent.color(component.type)
+#endregion

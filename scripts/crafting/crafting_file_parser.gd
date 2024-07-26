@@ -2,18 +2,20 @@ class_name CraftingFileParser
 
 const split_char = ","
 
-### Variables
+#region Variables
 var file: FileAccess
 
 var next_id = 0
 var components: Array[CraftingComponent] = []
 var recipes: Array[CraftingRecipe] = []
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(filename: String = "") -> void:
 	self.file = FileAccess.open(filename, FileAccess.READ)
+#endregion
 
-### Public Functions
+#region Public Functions
 func parse() -> bool:
 	while true:
 		var line = _next_line(self.file)
@@ -33,11 +35,10 @@ func parse() -> bool:
 		if not has_no_recipe:
 			var raw_recipe = parts[3]
 			self.recipes.append_array(_parse_recipe(label, rtype, raw_recipe))
+	return false
+#endregion
 
-
-	return true
-
-### Private Functions
+#region Private Functions
 func _next_line(file: FileAccess) -> String:
 	while not file.eof_reached():
 		var line = file.get_line()
@@ -160,3 +161,4 @@ func _generate_3_recipes_from_L_recipe(l: CraftingRecipe) -> Array[CraftingRecip
 			recipe.components[(i*3)+j+3] = bottom
 			recipes.append(recipe)
 	return recipes
+#endregion

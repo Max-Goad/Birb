@@ -4,7 +4,7 @@ const pl_hb_ten_bomb = preload("res://resources/attacks/hb_ten_bomb.tscn")
 const pl_hb_ten_explosion = preload("res://resources/attacks/hb_ten_explosion.tscn")
 const pl_hb_ten_projectile = preload("res://resources/attacks/hb_ten_projectile.tscn")
 
-### Variables
+#region Variables
 var throw_force: float
 var projectile_force: float
 var impact_damage: int
@@ -15,10 +15,12 @@ var explosion_timer: float
 var current_parent: Node2D = null
 var current_bomb: Hurtbox = null
 var current_explosion: Hurtbox = null
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(tf, pf, id, ed, pd, et = 1.0) -> void:
 	super._init()
 	self.info = Data.components_by_name["十"]
@@ -30,9 +32,9 @@ func _init(tf, pf, id, ed, pd, et = 1.0) -> void:
 	self.explosion_damage = ed
 	self.projectile_damage = pd
 	self.explosion_timer = et
+#endregion
 
-
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	assert(current_bomb == null)
 	assert(current_explosion == null)
@@ -42,8 +44,9 @@ func execute(parent: Player, direction: Vector2):
 		_throw_bomb(direction)
 		finished.emit()
 	super.execute_with_delay(execute_fn, 0.1)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _throw_bomb(direction: Vector2):
 	self.current_bomb = pl_hb_ten_bomb.instantiate()
 	current_bomb.top_level = true # Do not follow parent's transforms
@@ -99,3 +102,4 @@ func _spawn_all_projectiles():
 		p.ignore_hurtbox(current_explosion, Hurtbox.MUTUAL_IGNORE)
 	# Projectiles should ignore each other
 	Hurtbox.mutual_ignore(spawned_projectiles)
+#endregion

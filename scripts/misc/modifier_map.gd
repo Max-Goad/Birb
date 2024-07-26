@@ -1,13 +1,13 @@
 class_name ModifierMap
 
-### Variables
+#region Variables
 var _map: Dictionary
+#endregion
 
-### Engine Functions
-func _init():
-	pass
+#region Engine Functions
+#endregion
 
-### Public Functions
+#region Public Functions
 func add(key: String, applier: Object, value: float):
 	var value_pair = _map.get(key, {})
 	value_pair[applier] = value
@@ -28,6 +28,8 @@ func clear(key: String):
 
 func clear_all():
 	_map = {}
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

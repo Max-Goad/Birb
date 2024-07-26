@@ -31,7 +31,7 @@ var running : bool = false
 
 signal complete
 
-### Public Functions
+#region Public Functions
 func push_back(f : Callable, s : Signal):
 	#print("AutoQueue: push")
 	var node = QueueNode.new()
@@ -52,8 +52,9 @@ func start():
 		#print("AutoQueue: start")
 		running = true
 		_next()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _next():
 	#print("AutoQueue: next node")
 	var node = queue.pop_front()
@@ -67,3 +68,4 @@ func _on_complete():
 		#print("AutoQueue: end")
 		running = false
 		complete.emit()
+#endregion

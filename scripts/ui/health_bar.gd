@@ -1,10 +1,11 @@
 class_name HealthBar extends ProgressBar
 
-### Variables
+#region Variables
 @export var color_steps: Array[ColorStep]
 var fill : StyleBoxFlat
+#endregion
 
-### Public Functions
+#region Public Functions
 func change_value(v: int) -> void:
 	self.value += v
 	print("HealthBar: %s / %s" % [self.value, self.max_value])
@@ -14,8 +15,9 @@ func current_color() -> Color:
 		if (self.value * 100.0 / self.max_value) <= cs.max_value:
 			return cs.color
 	return Color.WHITE # should never happen naturally
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready():
 	_validate_color_steps()
 	self.fill = self.get_theme_stylebox("fill").duplicate()
@@ -23,8 +25,9 @@ func _ready():
 
 	self.value_changed.connect(_on_value_changed)
 	_on_value_changed(self.value)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_value_changed(v):
 	var color = current_color()
 	self.fill.bg_color = color
@@ -41,5 +44,4 @@ func _validate_color_steps():
 	for cs in self.color_steps:
 		assert(cs.max_value > current_max, "invalid color steps")
 		current_max = cs.max_value
-
-
+#endregion

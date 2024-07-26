@@ -1,18 +1,21 @@
 class_name Legs extends Ability
 
-### Variables
+#region Variables
 var multiplier: float
 var player: Player
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(multiplier: float) -> void:
 	super._init()
 	self.info = Data.components_by_name["儿"]
 	self.multiplier = multiplier
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(_parent: Player, _direction: Vector2):
 	pass
 
@@ -27,5 +30,7 @@ func on_unset():
 		player.modifiers.remove("movement_top_speed", self)
 		player.modifiers.remove("movement_acceleration", self)
 		player.modifiers.remove("movement_deceleration", self)
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion

@@ -1,6 +1,6 @@
 class_name AbilitySlot extends AspectRatioContainer
 
-### Variables
+#region Variables
 var slot_id: int
 var color := Color.WHITE
 var ability: Ability
@@ -9,10 +9,12 @@ var category: Ability.Category
 @onready var label: Label = $Slot/Label
 @onready var cooldown: Timer = $Slot/Timer
 @onready var progress_bar: ProgressBar = $Slot/ProgressBar
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	Abilities.ability_set.connect(_on_ability_set)
 	Abilities.ability_reset.connect(_on_ability_reset)
@@ -35,10 +37,12 @@ func _gui_input(event: InputEvent) -> void:
 		if Crafting.current_component != null:
 			if Ability.component_type_to_category(Crafting.current_component.type) == self.category:
 				Abilities.set_ability(self.category, self.slot_id, Crafting.current_component)
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_ability_set(category: Ability.Category, slot: int, ability: Ability):
 	if self.slot_id != slot or category != self.category:
 		return
@@ -76,4 +80,4 @@ func _on_ability_canceled(slot: int):
 		return
 	progress_bar.value = 100
 	cooldown.stop()
-
+#endregion

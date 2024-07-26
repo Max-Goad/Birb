@@ -1,13 +1,15 @@
 class_name MapBoundedFollowCamera extends Camera2D
 
-### Variables
+#region Variables
 @export var bound: TileMap
 @export var follow: Node2D
 @export var following: bool = true
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	var limit: Rect2 = bound.get_used_rect()
 	self.limit_left = int((limit.position.x * bound.cell_quadrant_size * bound.scale.x) + self.offset.x)
@@ -18,8 +20,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if following:
 		get_viewport().get_camera_2d().position = follow.position
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

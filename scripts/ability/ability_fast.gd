@@ -1,14 +1,16 @@
 class_name Fast extends Ability
 
-### Variables
+#region Variables
 var multiplier: float
 var effect_time: float
 
 var player: Player
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(multiplier, effect_time) -> void:
 	super._init()
 	self.info = Data.components_by_name["早"]
@@ -17,8 +19,9 @@ func _init(multiplier, effect_time) -> void:
 
 	self.multiplier = multiplier
 	self.effect_time = effect_time
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	self.player = get_tree().get_first_node_in_group(Data.GROUP_PLAYER)
@@ -34,11 +37,13 @@ func execute(parent: Player, direction: Vector2):
 	effect_timer.start(effect_time)
 
 	finished.emit()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _reset_multiplier():
 	if player:
 		player.modifiers.remove("movement_top_speed", self)
 		player.modifiers.remove("movement_acceleration", self)
 		player.modifiers.remove("movement_deceleration", self)
 		player.modifiers.remove("projectile_speed", self)
+#endregion

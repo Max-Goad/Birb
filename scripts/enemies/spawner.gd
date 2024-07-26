@@ -7,7 +7,7 @@ enum Behavior
 	RADIUS,
 }
 
-### Variables
+#region Variables
 @export_category("Enemy Settings")
 @export var template: PackedScene
 @export var target: Node2D
@@ -31,10 +31,12 @@ enum Behavior
 var timer: Timer
 var spawned_enemies: Array[Enemy] = []
 var spawn_callbacks: Dictionary = {}
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -51,8 +53,9 @@ func _validate_property(property: Dictionary):
 	 or (property.name == "radius" and behavior != Behavior.RADIUS)
 	):
 		property.usage &= ~PROPERTY_USAGE_EDITOR
+#endregion
 
-### Public Functions
+#region Public Functions
 func start():
 	print("Spawner: start")
 	timer.start(1.0 / rate)
@@ -87,8 +90,9 @@ func disconnect_on_spawn(key: Object, reset_fn: Callable = func(_e): pass):
 	spawn_callbacks.erase(key)
 	for enemy in spawned_enemies:
 		reset_fn.call(enemy)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _prepare_spawned_enemy(enemy: Enemy):
 	if behavior == Behavior.LOCATION:
 		enemy.position = location

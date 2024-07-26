@@ -2,7 +2,7 @@ class_name Projectile extends RigidBody2D
 
 const MUTUAL_IGNORE = true
 
-### Variables
+#region Variables
 var force: Vector2
 
 var max_collisions = 0
@@ -15,11 +15,13 @@ var finished_emitted = false
 
 @export var damage: DamageComponent
 @export var movement: RigidBodyMovementComponent
+#endregion
 
-### Signals
+#region Signals
 signal finished
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(damage)
 	linear_damp = 0.0
@@ -44,8 +46,9 @@ func _body_entered(body: Node):
 		collided.push_back(body)
 		if collided.size() >= max_collisions:
 			finish()
+#endregion
 
-### Public Functions
+#region Public Functions
 static func mutual_ignore(projectiles: Array[Projectile]):
 	for i in projectiles.size():
 		for j in projectiles.size() - 1:
@@ -81,6 +84,8 @@ func finish():
 		finished.emit()
 		finished_emitted = true
 		queue_free()
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

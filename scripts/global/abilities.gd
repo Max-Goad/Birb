@@ -3,23 +3,26 @@ extends Node
 const _FILL_WITH_NULL = true
 const _DO_NOT_FILL_WITH_NULL = false
 
-### Variables
+#region Variables
 var active_slots: Array[Ability] = []
 var passive_slots: Array[Ability] = []
 var current_active: Ability = NullAbility.new()
+#endregion
 
-### Signals
+#region Signals
 signal ability_set(category, slot, ability)
 signal ability_reset(category, slot)
 signal ability_executed(slot, cooldown)
 signal ability_ready(slot)
 signal ability_canceled(slot) # TODO: Currently unused
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	Data.ability_slot_unlocked.connect(_on_ability_slot_unlocked)
+#endregion
 
-### Public Functions
+#region Public Functions
 func has_ability(category: Ability.Category, slot: int) -> bool:
 	return Data.ability_slots_unlocked(category) > slot
 
@@ -106,8 +109,9 @@ func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
 	else:
 		print("Abilities: execute ability slot %s doesn't exist" % slot)
 		return false
+#endregion
 
-### Private Functions
+#region Private Functions
 func _get_slots(category: Ability.Category) -> Array[Ability]:
 	match category:
 		Ability.Category.ACTIVE:
@@ -141,3 +145,4 @@ func _assign_ability_to_slot(category: Ability.Category, ability: Ability, slot:
 	ability.cooldown_complete.connect(_on_ability_cooldown.bind(slot))
 	add_child(ability)
 	_get_slots(category)[slot] = ability
+#endregion

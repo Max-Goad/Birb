@@ -1,19 +1,22 @@
 class_name CharacterMovementComponent extends MovementComponent
 
-### Variables
+#region Variables
 @export var character: CharacterBody2D
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	character.move_and_slide()
+#endregion
 
-### Public Functions
+#region Public Functions
 func node() -> Node2D:
 	return character
 
@@ -33,6 +36,8 @@ func move_velocity_toward(to: Vector2, delta: float, ignore_lock = false):
 
 func decelerate(amount: float):
 	move_velocity_toward(Vector2.ZERO, amount, IGNORE_LOCK)
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

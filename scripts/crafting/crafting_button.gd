@@ -1,11 +1,13 @@
 class_name CraftingButton extends Button
 
-### Variables
+#region Variables
 @export var root: MenuRoot
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(root)
 	Crafting.craft_ready.connect(_on_craft_ready)
@@ -15,14 +17,17 @@ func _ready() -> void:
 
 func _pressed() -> void:
 	Crafting.craft()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_craft_ready(b: bool):
 	if root.debug:
 		if b:
 			self.modulate = Color.LIGHT_GREEN
 		else:
 			self.modulate = Color.WHITE
+#endregion
 

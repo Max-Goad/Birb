@@ -1,22 +1,27 @@
 class_name Enemy extends CharacterBody2D
 
-### Variables
+#region Variables
 @export var target: Node2D
 
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
 @onready var vector_to_target: VectorVisualizer = $"Vector To Target"
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	pathfinding.follow(target)
 	vector_to_target.target = target
 
 func _process(_delta: float) -> void:
 	pass
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

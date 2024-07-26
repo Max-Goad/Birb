@@ -1,18 +1,23 @@
 class_name CraftingClearButton extends Button
 
-### Variables
+#region Variables
 @export var root: MenuRoot
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(root, "MenuRoot not set")
 
 func _pressed() -> void:
 	Crafting.clear_slots()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

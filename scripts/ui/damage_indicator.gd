@@ -1,6 +1,6 @@
 extends Label
 
-### Variables
+#region Variables
 @export var damage : int = 100
 @export_range(0.5, 2.0) var speed : float = 1.0
 
@@ -8,11 +8,13 @@ var color : Color = Color.WHITE
 @onready var alpha_countdown: Timer = $Alpha
 @onready var free_countdown: Timer = $Free
 var reduce_alpha : bool = false
+#endregion
 
-### Signals
+#region Signals
 signal complete
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	self.text = str(damage)
 	self.add_theme_color_override("font_color", color)
@@ -30,10 +32,12 @@ func _process(delta: float) -> void:
 	if reduce_alpha:
 		color.a -= speed / 10
 		self.modulate = color
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_alpha_timer():
 	reduce_alpha = true
 	free_countdown.start(0.25 / speed)
@@ -41,3 +45,4 @@ func _on_alpha_timer():
 func _on_free_timer():
 	complete.emit()
 	queue_free()
+#endregion

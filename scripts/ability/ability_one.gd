@@ -2,13 +2,15 @@ class_name One extends Ability
 
 const pl_hb_one = preload("res://resources/attacks/hb_one.tscn")
 
-### Variables
+#region Variables
 var speed: float
 var damage: int
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(speed, damage) -> void:
 	super._init()
 	self.info = Data.components_by_name["一"]
@@ -16,13 +18,15 @@ func _init(speed, damage) -> void:
 	self.cooldown = 0.33
 	self.speed = speed
 	self.damage = damage
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	super.execute_with_delay(_fire.bind(parent, direction), 0.1)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _fire(parent: Player, direction: Vector2):
 	var hurtbox: Hurtbox = pl_hb_one.instantiate()
 	hurtbox.top_level = true # Do not follow parent's transforms
@@ -36,3 +40,4 @@ func _fire(parent: Player, direction: Vector2):
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)
 	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
+#endregion

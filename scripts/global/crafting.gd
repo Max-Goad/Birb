@@ -1,24 +1,27 @@
 extends Node
 
-### Variables
+#region Variables
 var current_slots: Array[CraftingComponent]
 var current_component: CraftingComponent
 var current_recipe_type: CraftingRecipe.Type
+#endregion
 
-### Signals
+#region Signals
 signal slot_updated(int, CraftingComponent)
 signal craft_ready(bool)
 signal craft_success
 signal craft_failure_not_found
 signal craft_failure_already_known
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	Data.component_unlocked.connect(_on_component_unlocked)
 	Data.recipe_type_unlocked.connect(_on_recipe_type_unlocked)
 	clear_slots()
+#endregion
 
-### Public Functions
+#region Public Functions
 func select_recipe_type(type: CraftingRecipe.Type):
 	assert(Data.is_recipe_type_unlocked(type), "attempting to select locked recipe type")
 	match type:
@@ -67,8 +70,9 @@ func craft():
 			return
 	# else
 	craft_failure_not_found.emit()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _current_slot_components() -> Array[String]:
 	var out: Array[String] = []
 	for slot in current_slots:
@@ -93,3 +97,4 @@ func _on_component_unlocked(_component: CraftingComponent):
 
 func _on_recipe_type_unlocked(_recipe_type: CraftingRecipe.Type):
 	pass
+#endregion

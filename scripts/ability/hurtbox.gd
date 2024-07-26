@@ -4,7 +4,7 @@ class_name Hurtbox extends Area2D
 const MUTUAL_IGNORE = true
 const NON_MUTUAL_IGNORE = false
 
-### Variables
+#region Variables
 var velocity = Vector2.ZERO
 var deceleration = 0.0
 var angular_velocity = 0.0
@@ -21,17 +21,19 @@ var collided_ids: Dictionary = {}
 @export var ignore_repeat_collisions = true
 @export var frame_alt_damage: Array[bool]
 
-# @onready var speed_component: SpeedComponent = $SpeedComponent
+#@onready var speed_component: SpeedComponent = $SpeedComponent
 @export var damage_component: DamageComponent
 @export var raycast: RayCast2D
+#endregion
 
-### Signals
+#region Signals
 signal finished
 signal freed
 var finished_emitted = false
 var freed_emitted = false
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -56,8 +58,9 @@ func _process(_delta: float) -> void:
 func _validate_property(property: Dictionary) -> void:
 	if property.name == "max_collisions" and not limit_collisions:
 		property.usage &= ~PROPERTY_USAGE_EDITOR
+#endregion
 
-### Public Functions
+#region Public Functions
 func ignore(node: Node2D):
 	if node != self:
 		self.ignored_nodes[node] = node.name
@@ -107,8 +110,9 @@ func despawn():
 		queue_free()
 		freed.emit()
 		freed_emitted = true
+#endregion
 
-### Private Functions
+#region Private Functions
 func _should_ignore(rid) -> bool:
 	return ignore_repeat_collisions and collided_ids.has(rid)
 
@@ -162,3 +166,4 @@ func _index_is_alt(i) -> bool:
 		return false
 	else:
 		return frame_alt_damage[i]
+#endregion

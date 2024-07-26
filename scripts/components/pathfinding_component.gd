@@ -6,26 +6,30 @@ enum Strategy
 	FOLLOW
 }
 
-### Variables
+#region Variables
 @export var strategy = Strategy.FOLLOW
 @export var movement: CharacterMovementComponent
 @export var target: Node2D
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(movement)
 
 func _process(delta: float) -> void:
 	_process_strategy(delta)
+#endregion
 
-### Public Functions
+#region Public Functions
 func follow(target: Node2D):
 	self.strategy = Strategy.FOLLOW
 	self.target = target
+#endregion
 
-### Private Functions
+#region Private Functions
 func _process_strategy(_delta):
 	match strategy:
 		Strategy.FOLLOW:
@@ -40,3 +44,4 @@ func _process_strategy(_delta):
 				var target_speed = movement.top_speed
 				var magnitude = move_toward(character.velocity.length(), target_speed, target_speed * movement.acceleration / 10)
 				movement.apply_velocity(direction * magnitude)
+#endregion

@@ -2,7 +2,7 @@ class_name DamageIndicatorComponent extends Node2D
 
 const pl_damage_indicator = preload("res://resources/ui/damage_indicator.tscn")
 
-### Variables
+#region Variables
 @export var health_component: HealthComponent
 
 @export var speed = 0.5
@@ -11,23 +11,26 @@ const pl_damage_indicator = preload("res://resources/ui/damage_indicator.tscn")
 @export var heal_color = Color.PALE_GREEN
 @export var position_dither = 50
 @export_range(0,100) var color_dither = 0
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(health_component != null, "missing health component")
 	health_component.on_damage.connect(_on_health_damage)
 	health_component.on_heal.connect(_on_health_heal)
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _direction: Vector2):
 	if amount == 0 and ignore_zero:
 		return
 	_spawn_damage_indicator(-amount, damage_color)
-
 
 func _on_health_heal(amount: int):
 	if amount == 0 and ignore_zero:
@@ -43,3 +46,4 @@ func _spawn_damage_indicator(amount: int, color: Color = Color.WHITE):
 	di.speed = speed
 	di.top_level = true # Detach movement (transforms) from parent once spawned
 	add_child(di)
+#endregion

@@ -2,12 +2,14 @@ class_name MenuController extends Node
 
 const pl_ingame_menu = preload("res://resources/ui/ingame_menu.tscn")
 
-### Variables
+#region Variables
 var root: MenuRoot
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	root = pl_ingame_menu.instantiate()
 	root.visible = false
@@ -21,8 +23,11 @@ func _process(_delta: float) -> void:
 		else:
 			root.visible = false
 			get_tree().paused = false
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

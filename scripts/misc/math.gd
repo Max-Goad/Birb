@@ -1,6 +1,6 @@
 class_name Math
 
-## Vectors
+#region Vectors
 static func vector4dir(vector: Vector2) -> Vector2:
 	if vector == Vector2.ZERO:
 		return vector
@@ -55,8 +55,9 @@ static func vector8dir(vector: Vector2) -> Vector2:
 			return vdr
 		_:
 			return Vector2.ZERO
+#endregion
 
-## Dither
+#region Dither
 static func dither_v_rot(v: Vector2, amount: float) -> Vector2:
 	return v.rotated(randf_range(-amount/2, amount/2))
 
@@ -70,8 +71,9 @@ static func dither_c(c: Color, percent: float) -> Color:
 	return Color(c.r + randf_range(-percent/2, percent/2),
 				 c.g + randf_range(-percent/2, percent/2),
 				 c.b  + randf_range(-percent/2, percent/2))
+#endregion
 
-## Random
+#region Random
 # Return one of the two values at random
 static func rand_pick(v1: Variant, v2: Variant) -> Variant:
 	return [v1, v2][randi() % 2]
@@ -79,9 +81,9 @@ static func rand_pick(v1: Variant, v2: Variant) -> Variant:
 # Return either the value or the negative of the value at random
 static func rand_negative(v: Variant) -> Variant:
 	return rand_pick(v, -v)
+#endregion
 
-
-## Flags
+#region Flags
 static func flag_set(bitmask: int, position: int) -> int:
 	assert(position < 32, "attempting to set a bit in position > 32")
 	var out = bitmask | (1 << position)
@@ -113,3 +115,4 @@ static func flag_str(bitmask: int) -> String:
 		else:
 			out += "0"
 	return out
+#endregion

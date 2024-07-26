@@ -1,6 +1,5 @@
 class_name MultiButton extends Control
 
-### Variables
 enum Type
 {
 	NULL = 0,
@@ -31,12 +30,15 @@ static func to_str(type : MultiButton.Type) -> String:
 	assert(false, "ERROR MultiButton.Type.to_str() %s" % type)
 	return "ERROR MultiButton.Type.to_str() %s" % type
 
+#region Variables
 @export var pairs: Array[MultiButtonPair]
+#endregion
 
-### Signals
-signal pressed(Type)
+#region Signals
+signal pressed(type)
+#endregion
 
-### Public Functions
+#region Public Functions
 func has_button(type: Type) -> bool:
 	return get_button(type) != null
 
@@ -45,13 +47,15 @@ func get_button(type: Type) -> BaseButton:
 		if pair.type == type:
 			return get_node(pair.button)
 	return null
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	_verify_buttons()
 	_setup_button_callbacks()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _verify_buttons():
 	var type_set = []
 	for pair in pairs:
@@ -64,3 +68,4 @@ func _setup_button_callbacks():
 	for pair in pairs:
 		var button: BaseButton = get_node(pair.button)
 		button.pressed.connect(func(): self.pressed.emit(pair.type))
+#endregion

@@ -8,7 +8,7 @@ enum Direction {
 	LEFT
 }
 
-### Variables
+#region Variables
 var last_direction := Vector2.DOWN
 
 @onready var sprite: AnimatedSprite2D = $Sprite
@@ -16,10 +16,12 @@ var last_direction := Vector2.DOWN
 @onready var movement: CharacterMovementComponent = $MovementComponent
 
 var modifiers := ModifierMap.new()
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	self.add_to_group(Data.GROUP_PLAYER)
 	health.on_death.connect(_on_death)
@@ -33,10 +35,12 @@ func _process(_delta: float) -> void:
 			_process_attack(last_direction)
 		_process_animation(direction)
 	_process_velocity_deceleration()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
@@ -94,3 +98,4 @@ func _on_component_unlocked(component: CraftingComponent):
 
 func _on_death():
 	queue_free()
+#endregion

@@ -3,15 +3,17 @@ class_name Hundred extends Ability
 const pl_hb_hundred_bomb = preload("res://resources/attacks/hb_hundred_bomb.tscn")
 const pl_hb_hundred_explosion = preload("res://resources/attacks/hb_hundred_explosion.tscn")
 
-### Variables
+#region Variables
 var throw_force: float
 var impact_damage: int
 var explosion_damage: int
 var explosion_timer: float
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(tf, id, ed, et = 1.0) -> void:
 	super._init()
 	self.info = Data.components_by_name["百"]
@@ -21,17 +23,18 @@ func _init(tf, id, ed, et = 1.0) -> void:
 	self.impact_damage = id
 	self.explosion_damage = ed
 	self.explosion_timer = et
+#endregion
 
-
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var execute_fn = func():
 		_throw_bomb(parent, direction)
 		finished.emit()
 	super.execute_with_delay(execute_fn, 0.1)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _throw_bomb(parent: Player, direction: Vector2):
 	var bomb = pl_hb_hundred_bomb.instantiate()
 	bomb.top_level = true # Do not follow parent's transforms
@@ -62,3 +65,4 @@ func _spawn_explosion(parent, bomb):
 
 func _on_explosion_finished():
 	pass
+#endregion

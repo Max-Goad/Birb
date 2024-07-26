@@ -4,7 +4,7 @@ const IGNORE_LOCK = true
 const FORCE_UNLOCK = true
 const RELOCK = true
 
-### Variables
+#region Variables
 @export var top_speed: float = 1.0
 @export_range(0.0, 1.0) var acceleration := 1.0
 @export_range(0.0, 1.0) var deceleration := 1.0
@@ -14,10 +14,12 @@ const RELOCK = true
 var locked = false
 var unlock_when_stopped = false
 var lock_timer = Timer.new()
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	lock_timer = Timer.new()
 	lock_timer.autostart = false
@@ -28,8 +30,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not moving() and unlock_when_stopped:
 		unlock(FORCE_UNLOCK)
+#endregion
 
-### Public Functions
+#region Public Functions
 func node() -> Node2D:
 	assert(false, "MovementComponent.node() is abstract")
 	return null
@@ -69,6 +72,8 @@ func unlock(force = false):
 		print("MovementComponent: unlock %s" % node().name)
 		locked = false
 		unlock_when_stopped = false
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

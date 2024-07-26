@@ -7,10 +7,9 @@ enum Mode
 	TWO_POSITIONS,
 }
 
-### Variables
+#region Variables
 @onready var body: CollisionShape2D = $Body
 @onready var arrow: CollisionShape2D = $Arrow
-
 
 @export var mode: Mode :
 	set(value):
@@ -20,10 +19,9 @@ enum Mode
 @export var target: Node2D
 @export var vector_name: String = "velocity"
 @export var debug_color: Color = Color(1.0, 1.0, 1.0, 0.41)
+#endregion
 
-### Signals
-
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(body and arrow)
 	body.debug_color = debug_color
@@ -44,10 +42,12 @@ func _process(_delta: float) -> void:
 		if arrow_vector != Vector2.ZERO:
 			show()
 	self.rotation = arrow_vector.angle()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _validate_property(property: Dictionary) -> void:
 	if mode == Mode.ONE_VECTOR:
 		if property.name == "target":
@@ -55,4 +55,5 @@ func _validate_property(property: Dictionary) -> void:
 	if mode == Mode.TWO_POSITIONS:
 		if property.name == "vector_name":
 			property.usage &= ~PROPERTY_USAGE_EDITOR
+#endregion
 

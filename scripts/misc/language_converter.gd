@@ -16,7 +16,7 @@ const CONSONENTS = 25	# Includes "no consonent" consonent
 const PUNCTUATIONS = 10
 const TOTAL_COMBINATIONS = (CONSONENTS * VOWELS) + PUNCTUATIONS
 
-### Public Functions
+#region Public Functions
 func string_to_unicode(input: String) -> String:
 	var symbols = string_to_symbols(input)
 	var unicode = symbols_to_unicode(symbols)
@@ -52,11 +52,11 @@ func symbols_to_unicode(symbols: String) -> String:
 		unicode = unicode + result.parsed
 		symbols = result.remaining
 	return unicode
+#endregion
 
 
-### Private Functions
-
-## RAW
+#region Private Functions
+#region RAW
 func _is_valid_punctuation(raw_char: String) -> bool:
 	assert(raw_char.length() == 1)
 	return raw_char in [" ", ".", ",", "?", "!"]
@@ -72,8 +72,9 @@ func _is_raw_dependent_consonent(raw_char: String) -> bool:
 func _is_raw_vowel(raw_char: String) -> bool:
 	assert(raw_char.length() == 1)
 	return raw_char in ["a", "i", "e", "o", "u"]
+#endregion
 
-## SYMBOL
+#region SYMBOL
 func _is_valid_symbol(symbol: String) -> bool:
 	return (
 		_is_consonent_symbol(symbol)
@@ -197,8 +198,9 @@ func _get_symbol_for_vowel(line: String, raw_char: String, dchar: String) -> Res
 	# Just in case, should never reach here
 	print("LanguageConverter: Raw vowel fallthrough \"%s\", \"%s\"" % [raw_char, dchar])
 	return Result.new(false)
+#endregion
 
-## UNICODE
+#region UNICODE
 func _is_valid_unicode(unicode: String) -> bool:
 	var unicode_integer = unicode.unicode_at(0)
 	return unicode_integer >= UNICODE_OFFSET and unicode_integer < (UNICODE_OFFSET + TOTAL_COMBINATIONS)
@@ -341,3 +343,5 @@ func _get_combined_unicode(line, c, v) -> Result:
 		assert(_is_valid_unicode(unicode))
 		# print("LanguageConverter: Combining %s(%s) and %s(%s) to make %s(%s)" % [c, ci, v, vi - CV_SHARED_OFFSETS, unicode, unicode.unicode_at(0)])
 		return Result.new(true, line.substr(2), unicode)
+#endregion
+#endregion

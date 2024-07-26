@@ -3,17 +3,20 @@ class_name Fun extends Ability
 const PL_SILLY_LITTLE_HAT = preload("res://resources/attacks/silly_little_hat.tscn")
 const HAT_NAME = "Silly Little Hat"
 
-### Variables
+#region Variables
 var spawners: Array[Spawner] = []
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init() -> void:
 	super._init()
 	self.info = Data.components_by_name["楽"]
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(_parent: Player, _direction: Vector2):
 	pass
 
@@ -27,8 +30,9 @@ func on_set():
 func on_unset():
 	for spawner in spawners:
 		spawner.disconnect_on_spawn(self, _detach_silly_little_hat)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _attach_silly_little_hat(enemy: Enemy):
 	print("attaching silly little hat to %s" % enemy)
 	var hat = PL_SILLY_LITTLE_HAT.instantiate()
@@ -41,3 +45,4 @@ func _detach_silly_little_hat(enemy: Enemy):
 		if child.name == HAT_NAME:
 			enemy.remove_child(child)
 			return
+#endregion

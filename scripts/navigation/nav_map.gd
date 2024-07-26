@@ -1,17 +1,19 @@
 @tool
 class_name NavMap extends Node2D
 
-### Variables
+#region Variables
 @export var pawn: NavPawn
 @export var connections: Array[Connection]
 
 var nodes: Array[Destination]
 var node_to_index: Dictionary
 var astar: AStar2D
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Public Functions_path
+#region Public Functions_path
 # Note: Returns [] if we're already at the destination
 #		Returns null if there's no path to the destination
 func generate_path(from: Vector2, to: Destination) -> Array[Destination]:
@@ -42,8 +44,9 @@ func closest_to(pos: Vector2) -> Destination:
 
 func random() -> Destination:
 	return nodes.pick_random()
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	for child in get_children():
 		assert(child is Destination, "invalid navigation child")
@@ -61,8 +64,9 @@ func _ready() -> void:
 func _draw() -> void:
 	if Engine.is_editor_hint() or get_tree().debug_collisions_hint:
 		_debug_draw_connections()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _generate_astar() -> AStar2D:
 	var out := AStar2D.new()
 	for i in nodes.size():
@@ -135,3 +139,4 @@ func _debug_draw_connections():
 			var h: Vector2 = (a+b)/2
 			draw_line(a, h, Color.AQUA, 2.0)
 			draw_line(h, b, Color.LIGHT_CORAL, 2.0)
+#endregion

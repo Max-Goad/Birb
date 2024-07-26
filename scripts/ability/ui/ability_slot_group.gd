@@ -2,25 +2,29 @@ class_name AbilitySlotGroup extends HBoxContainer
 
 const template = preload("res://resources/attacks/ability_slot.tscn")
 
-### Variables
+#region Variables
 @export var selectable = false
 @export var category: Ability.Category = Ability.Category.ACTIVE
 
 var currently_unlocked = 0
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	Data.ability_slot_unlocked.connect(_on_unlocked)
 	clear()
+#endregion
 
-### Public Functions
+#region Public Functions
 func clear():
 	for child in get_children():
 		child.queue_free()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_unlocked(category: Ability.Category, new_total: int):
 	if category != self.category:
 		return
@@ -35,4 +39,5 @@ func _on_unlocked(category: Ability.Category, new_total: int):
 		add_child(new_slot)
 		print("AbilitySlotGroup: new ability slot created")
 	currently_unlocked = new_total
+#endregion
 

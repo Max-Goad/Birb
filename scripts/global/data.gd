@@ -1,13 +1,14 @@
 extends Node
 
-### Constants
+#region Constants
 const MAX_SAVE_SLOT_SIZE: int = 7
 const MAX_SAVE_NAME_SIZE: int = 20
 
 const GROUP_PLAYER: String = "player"
 const GROUP_SPAWNER: String = "spawner"
+#endregion
 
-### Save Data Variables
+#region Save Data Variables
 var saves: Array[SaveData]
 var current_save: SaveData
 
@@ -19,17 +20,20 @@ var abilities: Dictionary # {component:ability}
 
 var default_component := CraftingComponent.new()
 var default_recipe_type := CraftingRecipe.Type.L_CRAFTING
+#endregion
 
-### Misc Variables
+#region Misc Variables
 var crafting_file_parser := CraftingFileParser.new()
 var language_converter := LanguageConverter.new()
+#endregion
 
-### Signals
+#region Signals
 signal component_unlocked
 signal recipe_type_unlocked
 signal ability_slot_unlocked(category, total) # always emit total
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	# saves.clear()
 	# saves.resize(MAX_SAVE_SLOT_SIZE)
@@ -43,9 +47,10 @@ func _ready() -> void:
 		current_save = SaveData.new()
 	call_deferred("notify_ability_slots", Ability.Category.ACTIVE)
 	call_deferred("notify_ability_slots", Ability.Category.PASSIVE)
+#endregion
 
 
-### Saving / Loading Functions
+#region Saving / Loading Functions
 func file_name(slot: int) -> String:
 	return "user://save_data_%d.save" % slot
 
@@ -70,7 +75,7 @@ func load_file(slot: int):
 	if slot >= saves.size() or saves[slot] == null:
 		assert(false, "bad load")
 		return
-	clear()
+	#clear()
 	current_save = saves[slot]
 	print("Data: loaded file from slot %d" % slot)
 
@@ -94,8 +99,9 @@ func erase_file(slot: int):
 		return
 	DirAccess.remove_absolute(file_name(slot))
 	saves[slot] = null
+#endregion
 
-### Misc
+#region Misc
 func is_component_unlocked(id: int) -> bool:
 	return id in current_save.components_unlocked
 
@@ -141,12 +147,9 @@ func notify_ability_slots(category: Ability.Category):
 			ability_slot_unlocked.emit(category, current_save.active_ability_slots_unlocked)
 		Ability.Category.PASSIVE:
 			ability_slot_unlocked.emit(category, current_save.passive_ability_slots_unlocked)
+#endregion
 
-
-func clear():
-	pass
-
-### Game-Specific Private Functions
+#region Game-Specific Private Functions
 func _next_line(file: FileAccess) -> String:
 	while not file.eof_reached():
 		var line = file.get_line()
@@ -177,7 +180,8 @@ func _test_language_conversion(filename):
 		print(symbols)
 		var _output = language_converter.symbols_to_unicode(symbols)
 		print(_output)
-		# var _output_integers = []
-		# for character in _output:
-		#	 _output_integers.append(character.unicode_at(0))
-		# print(_output_integers)
+		#var _output_integers = []
+		#for character in _output:
+		#	_output_integers.append(character.unicode_at(0))
+		#print(_output_integers)
+#endregion

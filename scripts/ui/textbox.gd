@@ -1,6 +1,6 @@
 class_name Textbox extends Control
 
-### Variables
+#region Variables
 @onready var label: Label = $PanelContainer/HBoxContainer/TextContainer/Label
 @onready var carat: Label = $PanelContainer/HBoxContainer/CaratContainer/Carat
 @onready var timer: Timer= $Timer
@@ -14,11 +14,13 @@ class_name Textbox extends Control
 @export var timeout: float
 
 var tween: Tween
+#endregion
 
-### Signals
+#region Signals
 signal complete
+#endregion
 
-### Public Functions
+#region Public Functions
 func start():
 	print("Textbox: start")
 	if text_speed > 0.0:
@@ -41,8 +43,9 @@ func finish():
 		complete.emit()
 		# TODO: Is this the best place to do this? Or should a queue handle this instead?
 		queue_free()
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready():
 	if text:
 		label.text = text
@@ -62,11 +65,13 @@ func _gui_input(event: InputEvent) -> void:
 	if cancellable and event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT] and event.is_released():
 		print("Textbox: cancelled (mouse)")
 		finish()
+#endregion
 
-### Private Functions
+#region Private Functions
 func _display_carat():
 	carat.visible_ratio = 1.0
 
 func _start_despawn_timer():
 	print("Textbox: start despawn timer")
 	timer.start()
+#endregion

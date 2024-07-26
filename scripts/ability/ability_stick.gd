@@ -2,18 +2,21 @@ class_name Stick extends Ability
 
 const pl_hb_stick = preload("res://resources/attacks/hb_stick.tscn")
 
-### Variables
+#region Variables
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init() -> void:
 	super._init()
 	self.info = Data.components_by_name["丨"]
 	self.animation_name = "slash"
 	self.cooldown = 0.5
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var hurtbox: Node2D = pl_hb_stick.instantiate()
@@ -22,8 +25,9 @@ func execute(parent: Player, direction: Vector2):
 	hurtbox.finished.connect(func(): self.finished.emit())
 	parent.add_child(hurtbox)
 	# TODO: Damage? Damage modifier?
+#endregion
 
-### Private Functions
+#region Private Functions
 func _position_hurtbox(hurtbox: Node2D, direction: Vector2):
 	match Math.vector4dir(direction):
 		Vector2.UP:
@@ -38,3 +42,4 @@ func _position_hurtbox(hurtbox: Node2D, direction: Vector2):
 			hurtbox.scale.x = -hurtbox.scale.x
 		_:
 			hurtbox.rotation_degrees = 0
+#endregion

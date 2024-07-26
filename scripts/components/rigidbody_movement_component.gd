@@ -1,19 +1,22 @@
 class_name RigidBodyMovementComponent extends MovementComponent
 
-### Variables
+#region Variables
 @export var body: RigidBody2D
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	# character.move_and_slide()
+#endregion
 
-### Public Functions
+#region Public Functions
 func node() -> Node2D:
 	return body
 
@@ -31,6 +34,8 @@ func apply_force(force: Vector2, ignore_lock = false):
 func apply_torque(torque: float, ignore_lock = false):
 	if not locked or ignore_lock:
 		body.apply_torque(torque)
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

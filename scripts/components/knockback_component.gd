@@ -1,20 +1,24 @@
 class_name KnockbackComponent extends Node
 
-### Variables
+#region Variables
 @export var health: HealthComponent
 @export var movement: MovementComponent
 
 @export_range(0.0, 5.0) var knockback_factor: float = 1.0
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	health.on_damage.connect(_on_damage)
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vector2):
 	# TODO: Should the knockback be based on the damage?
 	print("KnockbackComponent: %s" % direction)
@@ -25,4 +29,5 @@ func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vec
 		DamageComponent.DamageType.HEAVY:
 			movement.apply_velocity(direction * movement.top_speed * knockback_factor * 1.5)
 			movement.lock_until_stopped()
+#endregion
 

@@ -1,6 +1,6 @@
 class_name NavPawn extends Node2D
 
-### Variables
+#region Variables
 @onready var path: Path2D = $Path
 @onready var follow: PathFollow2D = $Path/Follow
 
@@ -9,11 +9,13 @@ class_name NavPawn extends Node2D
 var moving : bool
 var direction: Vector2
 var destination: Destination
+#endregion
 
-### Signals
+#region Signals
 signal reached_destination
+#endregion
 
-### Public Functions
+#region Public Functions
 func initiate_move(p: Array[Destination]):
 	# If we have no path it means the destination is unreachable.
 	# Do nothing.
@@ -31,8 +33,9 @@ func initiate_move(p: Array[Destination]):
 	follow.progress = 0
 	destination = p.back()
 	moving = true
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready():
 	assert(not follow.loop, "pawn follow node must not loop")
 	_reset()
@@ -45,8 +48,9 @@ func _process(delta):
 			follow.progress += move_speed * 250 * delta
 			position = follow.position
 			direction = _determine_direction()
+#endregion
 
-## Private Functions
+#region Private Functions
 func _reset():
 	path.curve.clear_points()
 	follow.progress = 0
@@ -64,3 +68,4 @@ func _determine_direction() -> Vector2:
 func _reach_destination():
 	reached_destination.emit(self.destination)
 	_reset()
+#endregion

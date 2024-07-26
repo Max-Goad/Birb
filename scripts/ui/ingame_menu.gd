@@ -6,12 +6,14 @@ enum Tabs {
 	TXT_CRAFTING,
 }
 
-### Variables
+#region Variables
 @export var root: MenuRoot
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(root, "MenuRoot not set")
 	self.tab_changed.connect(_on_tab_changed)
@@ -21,10 +23,12 @@ func _ready() -> void:
 	Data.recipe_type_unlocked.connect(_on_recipe_type_unlocked)
 	Data.notify_available_components()
 	Data.notify_available_recipe_types()
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
 func _on_tab_changed(tab_id: int):
 	match tab_id:
 		Tabs.L_CRAFTING:
@@ -39,3 +43,4 @@ func _on_recipe_type_unlocked(type: CraftingRecipe.Type):
 			self.set_tab_hidden(Tabs.L_CRAFTING, false)
 		CraftingRecipe.Type.TXT_CRAFTING:
 			self.set_tab_hidden(Tabs.TXT_CRAFTING, false)
+#endregion

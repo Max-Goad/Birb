@@ -5,8 +5,7 @@ enum DamageType {
 	HEAVY = 1,
 }
 
-### Variables
-
+#region Variables
 @export var enabled = true
 ## Sets whether the damage component should indicate to its caller
 ## that a collision with a disabled DamageComponent should still count
@@ -17,14 +16,17 @@ enum DamageType {
 
 @export_range(0,100) var alt_amount: int
 @export var alt_type: DamageComponent.DamageType
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	pass
+#endregion
 
-### Public Functions
+#region Public Functions
 func set_enabled(value = true):
 	print("DamageComponent: set enabled (%s)" % value)
 	enabled = value
@@ -47,12 +49,13 @@ func apply(node: Node2D, velocity: Vector2, alt = false) -> bool:
 		return health_component.damage(amount, type, direction.normalized())
 	else:
 		return health_component.damage(alt_amount, alt_type, direction.normalized())
+#endregion
 
-
-### Private Functions
+#region Private Functions
 func _find_health_component(parent: Node2D) -> Node2D:
 	for child in parent.get_children():
 		if child is HealthComponent:
 			return child
 	return null
+#endregion
 

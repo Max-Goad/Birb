@@ -1,12 +1,12 @@
 extends Node
 
-### Variables
 enum Action {
 	PUSH = 0,
 	POP = 1,
 	CHANGE = 2,
 }
 
+#region Variables
 # Scenes are stored as their file paths
 var scene_stack : Array[StringName] = []
 
@@ -14,8 +14,9 @@ var completed_actions: Array[Action] = []
 var on_push_triggers: Array[Trigger] = []
 var on_pop_triggers: Array[Trigger] = []
 var on_change_triggers: Array[Trigger] = []
+#endregion
 
-### Public Functions
+#region Public Functions
 func push_scene(path: StringName):
 	scene_stack.push_back(path)
 	get_tree().change_scene_to_file(path)
@@ -66,8 +67,9 @@ func on_change(trigger: Trigger):
 	else:
 		add_child(trigger)
 	on_change_triggers.push_back(trigger)
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	# The root of the scene stack should be whatever scene we start with
 	scene_stack.push_back(get_tree().current_scene.scene_file_path)
@@ -88,3 +90,4 @@ func _process(_d: float) -> void:
 				while not on_change_triggers.is_empty():
 					var trigger = on_change_triggers.pop_front()
 					await trigger.execute()
+#endregion

@@ -2,15 +2,17 @@ class_name Three extends Ability
 
 const projecile_template = preload("res://resources/attacks/hb_one.tscn")
 
-### Variables
+#region Variables
 var speed: float
 var damage: int
 
 var _projectile_finished_num = 0
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(speed, damage) -> void:
 	super._init()
 	self.info = Data.components_by_name["三"]
@@ -18,8 +20,9 @@ func _init(speed, damage) -> void:
 	self.cooldown = 1.0
 	self.speed = speed
 	self.damage = damage
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var execute_fn = func():
@@ -39,8 +42,9 @@ func execute(parent: Player, direction: Vector2):
 		c.damage_component.amount = int(damage * parent.modifiers.gett("damage"))
 
 	super.execute_with_delay(execute_fn, 0.1)
+#endregion
 
-### Private Functions
+#region Private Functions
 func _create_projectile(parent: Node2D, direction: Vector2) -> Hurtbox:
 	var hurtbox: Hurtbox = projecile_template.instantiate()
 	hurtbox.position = parent.position
@@ -57,3 +61,4 @@ func _projectile_finished():
 	_projectile_finished_num += 1
 	if _projectile_finished_num >= 3:
 		self.finished.emit()
+#endregion

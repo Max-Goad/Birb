@@ -1,22 +1,27 @@
 class_name NullAbility extends Ability
 
-### Variables
+#region Variables
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init() -> void:
 	super._init()
 	self.info = CraftingComponent.new()
 	self.animation_name = "idle"
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	finished.emit()
 
 func is_null() -> bool:
 	return true
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

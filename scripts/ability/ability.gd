@@ -22,7 +22,7 @@ static func component_type_to_category(type: CraftingComponent.Type) -> Category
 		_:
 			return Category.NULL
 
-### Variables
+#region Variables
 var info: CraftingComponent
 var animation_name: String
 var cooldown: float = 0.0
@@ -30,12 +30,14 @@ var delay_callable: Callable = func(): pass
 
 var _cooldown_timer: Timer
 var _delay_timer: Timer
+#endregion
 
-### Signals
+#region Signals
 signal finished # Indicates when control should be given back to player
 signal cooldown_complete
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init() -> void:
 	_cooldown_timer = Timer.new()
 	_cooldown_timer.one_shot = true
@@ -52,9 +54,9 @@ func _ready():
 		self.name = self.info.label
 	else:
 		self.name = "Null"
+#endregion
 
-
-### Public Functions
+#region Public Functions
 func execute(_parent: Player, _direction: Vector2):
 	assert(_cooldown_timer.is_stopped())
 	_cooldown_timer.start(cooldown)
@@ -76,9 +78,12 @@ func is_null() -> bool:
 
 func ready() -> bool:
 	return _cooldown_timer.is_stopped()
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 
+# TODO: Where should this live?
 static func from_component(component: CraftingComponent) -> Ability:
 	match component.label:
 		"丨":

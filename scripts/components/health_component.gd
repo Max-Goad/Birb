@@ -1,6 +1,6 @@
 class_name HealthComponent extends Node
 
-### Variables
+#region Variables
 @export var current_hp: int = 100
 @export var max_hp: int = 100
 @export var invul_seconds: float = 0.0
@@ -9,15 +9,17 @@ var invul_timer: Timer
 
 var damage_modifier_fn = Callable()
 var heal_modifier_fn = Callable()
+#endregion
 
-### Signals
+#region Signals
 signal on_heal(amount)
 signal on_damage(amount, type, direction)
 signal on_invulnerable_start
 signal on_invulnerable_stop
 signal on_death
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _ready() -> void:
 	assert(current_hp <= max_hp, "current_hp shouldn't be higher than max_hp")
 	if current_hp > max_hp:
@@ -26,8 +28,9 @@ func _ready() -> void:
 	invul_timer.one_shot = true
 	invul_timer.timeout.connect(func(): on_invulnerable_stop.emit())
 	add_child(invul_timer)
+#endregion
 
-### Public Functions
+#region Public Functions
 func heal(amount: int):
 	if heal_modifier_fn.is_valid():
 		var original_amount = amount
@@ -70,5 +73,7 @@ func set_invulnerable(sec: float = self.invul_seconds):
 	if not invulnerable() and sec > 0.0:
 		invul_timer.start(sec)
 		on_invulnerable_start.emit()
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion

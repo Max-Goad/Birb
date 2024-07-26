@@ -1,20 +1,23 @@
 class_name Big extends Ability
 
-### Variables
+#region Variables
 var scale_modifier: float
 var damage_modifier: float
 var player: Player
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(scale_modifier: float, damage_modifier: float) -> void:
 	super._init()
 	self.info = Data.components_by_name["大"]
 	self.scale_modifier = scale_modifier
 	self.damage_modifier = damage_modifier
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(_parent: Player, _direction: Vector2):
 	pass
 
@@ -29,5 +32,7 @@ func on_unset():
 		# TODO: Change this to a modifier
 		player.scale /= self.scale_modifier
 		player.modifiers.remove("damage", self)
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion

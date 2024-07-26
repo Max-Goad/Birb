@@ -1,6 +1,6 @@
 class_name CraftingRecipe extends Resource
 
-### Enum
+#region Enum
 enum Type {
 	DEBUG = 0,
 	L_CRAFTING,
@@ -15,8 +15,9 @@ static func type_to_string(type: Type) -> String:
 			return "3"
 		_:
 			return "?"
+#endregion
 
-### Variables
+#region Variables
 const empty_char = "_"
 const empty_comp: Array[String] = [ empty_char,empty_char,empty_char,
 									empty_char,empty_char,empty_char,
@@ -25,8 +26,9 @@ const empty_comp: Array[String] = [ empty_char,empty_char,empty_char,
 @export var result: String
 @export var type: Type
 @export var components: Array[String]
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(result = empty_char, type = Type.DEBUG, components: Array[String] = []) -> void:
 	self.result = result
 	self.type = type
@@ -34,5 +36,7 @@ func _init(result = empty_char, type = Type.DEBUG, components: Array[String] = [
 
 func _to_string() -> String:
 	return "CraftingRecipe[%s,%s,%s]" % [result, CraftingRecipe.type_to_string(type), components]
+#endregion
 
-### Public Functions
+#region Public Functions
+#endregion

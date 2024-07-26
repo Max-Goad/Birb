@@ -1,14 +1,16 @@
 extends Button
 
-### Variables
+#region Variables
 const textbox_preload = preload("res://resources/ui/textbox.tscn")
 
 @export var timeout: float = 1
 @export var cancellable: bool = true
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _pressed():
 	var textbox: Textbox = textbox_preload.instantiate()
 	textbox.text = "This is a (%s) textbox" % self.name
@@ -17,9 +19,12 @@ func _pressed():
 	get_tree().current_scene.add_child(textbox)
 	textbox.start()
 	await textbox.complete
+#endregion
 
 
-### Public Functions
+#region Public Functions
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
 

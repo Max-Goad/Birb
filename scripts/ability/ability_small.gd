@@ -1,20 +1,23 @@
 class_name Smull extends Ability
 
-### Variables
+#region Variables
 var scale_modifier: float
 var damage_incoming_modifier: float
 var player: Player
+#endregion
 
-### Signals
+#region Signals
+#endregion
 
-### Engine Functions
+#region Engine Functions
 func _init(scale_modifier: float, damage_incoming_modifier: float) -> void:
 	super._init()
 	self.info = Data.components_by_name["小"]
 	self.scale_modifier = scale_modifier
 	self.damage_incoming_modifier = damage_incoming_modifier
+#endregion
 
-### Public Functions
+#region Public Functions
 func execute(_parent: Player, _direction: Vector2):
 	pass
 
@@ -32,5 +35,7 @@ func on_unset():
 		player.scale /= scale_modifier
 		player.modifiers.remove("damage_incoming", self)
 		player.health.damage_modifier_fn = Callable()
+#endregion
 
-### Private Functions
+#region Private Functions
+#endregion
