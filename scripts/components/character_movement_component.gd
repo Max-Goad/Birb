@@ -34,8 +34,8 @@ func move_velocity_toward(to: Vector2, delta: float, ignore_lock = false):
 	var velocity = character.velocity.move_toward(to, delta)
 	apply_velocity(velocity, ignore_lock)
 
-func decelerate(amount: float):
-	move_velocity_toward(Vector2.ZERO, amount, IGNORE_LOCK)
+func decelerate(modifier = 1.0):
+	move_velocity_toward(Vector2.ZERO, top_speed * deceleration * modifier, IGNORE_LOCK)
 #endregion
 
 #region Private Functions

@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_process_strategy(delta)
+	movement.decelerate()
 #endregion
 
 #region Public Functions
@@ -42,6 +43,6 @@ func _process_strategy(_delta):
 				if direction == Vector2.ZERO:
 					direction = target_direction
 				var target_speed = movement.top_speed
-				var magnitude = move_toward(character.velocity.length(), target_speed, target_speed * movement.acceleration / 10)
+				var magnitude = move_toward(character.velocity.length(), target_speed, target_speed * movement.acceleration)
 				movement.apply_velocity(direction * magnitude)
 #endregion

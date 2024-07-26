@@ -95,9 +95,7 @@ func _process_attack(direction: Vector2):
 		Abilities.execute_ability(3, self, direction)
 
 func _process_velocity_deceleration():
-	var mod_speed: float = movement.top_speed * modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED)
-	var mod_decel: float = movement.deceleration * modifiers.gett(Player.Modifiers.MOVEMENT_DECELERATION)
-	movement.decelerate(mod_speed * mod_decel)
+	movement.decelerate(modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED) * modifiers.gett(Player.Modifiers.MOVEMENT_DECELERATION))
 
 func _on_component_unlocked(component: CraftingComponent):
 	match component.label:
