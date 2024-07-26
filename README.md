@@ -8,8 +8,8 @@ A silly little repository for silly little things by a silly little man
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
 - Implement more abilities
-	- Rotate
-		- Something's weird with the camera limits when we rotate...
+	- Prisoner
+	- Hole
 
 ## TODO (long-term):
 - Implement Save/Load
