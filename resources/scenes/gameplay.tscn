@@ -858,6 +858,7 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
+autostart = false
 maximum = 3
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -1069,23 +1070,26 @@ script = ExtResource("15_de8on")
 
 [node name="Assign Slot 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
+label = "一"
 
 [node name="Assign Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
+label = "三"
 slot = 1
 
 [node name="Assign Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
+label = "百"
 slot = 2
 
 [node name="Assign Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "早"
+label = "回"
 slot = 3
 
 [node name="Assign Passive 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "空"
+label = "楽"
 category = 1
 
 [node name="Unpause" type="Node" parent="Unlock Everything Jim/Triggers"]

@@ -39,6 +39,8 @@ signal cooldown_complete
 
 #region Engine Functions
 func _init() -> void:
+	animation_name = "idle"
+
 	_cooldown_timer = Timer.new()
 	_cooldown_timer.one_shot = true
 	_cooldown_timer.timeout.connect(func(): cooldown_complete.emit())
@@ -119,6 +121,8 @@ static func from_component(component: CraftingComponent) -> Ability:
 		"大":
 			# scale, damage
 			return Big.new(1.5, 1.2)
+		"回":
+			return Rotate.new()
 		"小":
 			# scale, damage (incoming)
 			return Small.new(0.667, 1.5)

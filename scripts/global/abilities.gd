@@ -107,7 +107,7 @@ func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
 		current_active = ability
 		current_active.execute(executer, direction)
 		ability_executed.emit(slot, current_active.cooldown)
-		print("Abilities: execute ability success")
+		print("Abilities: execute ability (%s) success" % ability.info.label)
 		return true
 	else:
 		print("Abilities: execute ability slot %s doesn't exist" % slot)
