@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://btrabe1j0w66f"]
+[gd_scene load_steps=16 format=3 uid="uid://btrabe1j0w66f"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_ht6gj"]
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
@@ -16,8 +16,18 @@ font_color = Color(0.8, 0.8, 0.8, 1)
 outline_size = 20
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_45h3y"]
+blend_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_sotjm"]
+offsets = PackedFloat32Array(0.41)
+colors = PackedColorArray(0.58, 0.58, 0.58, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_depsi"]
+gradient = SubResource("Gradient_sotjm")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fn3oe"]
-size = Vector2(99, 94)
+size = Vector2(60, 94)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
 size = Vector2(42, 100)
@@ -27,7 +37,9 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_ht6gj")
 
-[node name="Label" type="Label" parent="."]
+[node name="Body" type="CanvasGroup" parent="."]
+
+[node name="Label3" type="Label" parent="Body"]
 texture_filter = 2
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,9 +57,39 @@ label_settings = SubResource("LabelSettings_7m4fk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Mask" type="Sprite2D" parent="Body"]
+material = SubResource("CanvasItemMaterial_45h3y")
+position = Vector2(-49.5, 36)
+scale = Vector2(0.191406, 108)
+texture = SubResource("GradientTexture1D_depsi")
+
+[node name="Mask2" type="Sprite2D" parent="Body"]
+material = SubResource("CanvasItemMaterial_45h3y")
+position = Vector2(3, -11.5)
+scale = Vector2(0.242187, 3)
+texture = SubResource("GradientTexture1D_depsi")
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-14.5, 37)
+position = Vector2(5, 37)
 shape = SubResource("RectangleShape2D_fn3oe")
+
+[node name="Weapon" type="Label" parent="."]
+texture_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -35.0
+offset_right = 8.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "犭"
+label_settings = SubResource("LabelSettings_7m4fk")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
 position = Vector2(-16, 33)
@@ -77,7 +119,7 @@ character = NodePath("..")
 top_speed = 200.0
 acceleration = 0.5
 deceleration = 0.1
-rotation_speed = 0.25
+rotation_speed = 0.5
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_ymoot")
@@ -95,14 +137,14 @@ damage_color = Color(0.619608, 0.619608, 0.619608, 1)
 
 [node name="Vector To Target" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
 position = Vector2(-16, 33)
-scale = Vector2(5, 6.849)
+scale = Vector2(4.38, 6)
 mode = 1
 origin = NodePath("..")
 debug_color = Color(1, 0.3, 0.3, 0.411765)
 
 [node name="Velocity Visualization" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
 position = Vector2(-16, 33)
-scale = Vector2(3.65, 5)
+scale = Vector2(4.38, 6)
 origin = NodePath("..")
 debug_color = Color(0.3, 0.766667, 1, 0.411765)
 
