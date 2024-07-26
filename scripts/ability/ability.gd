@@ -114,6 +114,8 @@ static func from_component(component: CraftingComponent) -> Ability:
 		"空":
 			# speed mod
 			return Empty.new(1.5)
+		"王":
+			return King.new()
 		"大":
 			# scale, damage
 			return Big.new(1.5, 1.2)

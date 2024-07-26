@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://o6adqrgynddx"]
+
+[ext_resource type="Texture2D" uid="uid://r58jn2rb4jk5" path="res://resources/art/crowns.png" id="1_scmm8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbyp5"]
+atlas = ExtResource("1_scmm8")
+region = Rect2(488, 112, 144, 104)
+
+[node name="Silly Little Hat" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(0, -13)
+rotation = 0.174533
+scale = Vector2(0.2, 0.2)
+texture = SubResource("AtlasTexture_jbyp5")
+offset = Vector2(4.76837e-07, -27.1257)

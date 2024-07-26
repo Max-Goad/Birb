@@ -7,6 +7,7 @@ atlas = ExtResource("1_frhn5")
 region = Rect2(16, 134, 16, 8)
 
 [node name="Silly Little Hat" type="Sprite2D"]
+texture_filter = 1
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_jbyp5")
 offset = Vector2(0, -4)

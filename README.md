@@ -8,7 +8,7 @@ A silly little repository for silly little things by a silly little man
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
 - Implement more abilities
-	- Add "King" crown ability (Use Fun as a template!)
+	- ???
 
 ## TODO (long-term):
 - Implement Save/Load
@@ -76,13 +76,13 @@ A silly little repository for silly little things by a silly little man
 | 38  | 明    | NO   |          |
 | 39  | 早    | YES  |          |
 | 40  | 穴    | NO   |          |
-| 41  | 空    | NO   |          |
+| 41  | 空    | YES  |          |
 | 42  | 突    | NO   |          |
 | 43  | 力    | NO   |          |
 | 44  | 加    | NO   |          |
 | 45  | 土    | NO   |          |
 | 46  | 圧    | NO   |          |
-| 47  | 王    | NO   |          |
+| 47  | 王    | YES  |          |
 | 48  | 玉    | NO   |          |
 | 49  | 国    | NO   |          |
 | 50  | 宝    | NO   |          |
