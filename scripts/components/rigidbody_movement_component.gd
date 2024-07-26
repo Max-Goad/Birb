@@ -14,6 +14,9 @@ func _process(delta: float) -> void:
 	# character.move_and_slide()
 
 ### Public Functions
+func node() -> Node2D:
+	return body
+
 func moving() -> bool:
 	# TODO: How about angular velocity?
 	return body.linear_velocity.is_zero_approx() and body.angular_velocity == 0

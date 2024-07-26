@@ -39,7 +39,7 @@ func _body_entered(body: Node):
 	if collided.size() > max_collisions:
 		return
 	print("Projectile: collision detected")
-	var success = damage.apply(body)
+	var success = damage.apply(body, linear_velocity)
 	if success:
 		collided.push_back(body)
 		if collided.size() >= max_collisions:

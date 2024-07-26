@@ -32,7 +32,7 @@ func set_enabled(value = true):
 # Return value is whether the damage was applied or not
 # If not, it indicates that the damage should be "ignored"
 # and not considered in the caller's equations
-func apply(node: Node2D, alt = false) -> bool:
+func apply(node: Node2D, velocity: Vector2, alt = false) -> bool:
 	if not enabled:
 		return disabled_collision
 	print("DamageComponent: %s -> %s" % [self.get_parent().name, node.name])
@@ -40,9 +40,9 @@ func apply(node: Node2D, alt = false) -> bool:
 	if not health_component:
 		print("DamageComponent: can't find health component")
 		return false
-	print("DamageComponent: prnt pos = %s" % get_parent().global_position)
-	print("DamageComponent: body pos = %s" % node.global_position)
-	var direction = node.global_position - get_parent().global_position
+	var direction = velocity
+	if direction == Vector2.ZERO:
+		direction = node.global_position - get_parent().global_position
 	if not alt:
 		return health_component.damage(amount, type, direction.normalized())
 	else:

@@ -17,6 +17,7 @@ func _ready() -> void:
 ### Private Functions
 func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vector2):
 	# TODO: Should the knockback be based on the damage?
+	print("KnockbackComponent: %s" % direction)
 	match type:
 		DamageComponent.DamageType.NORMAL:
 			movement.apply_velocity(direction * movement.top_speed * knockback_factor)

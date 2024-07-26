@@ -887,7 +887,7 @@ deceleration = 0.1
 script = ExtResource("5_g402e")
 current_hp = 1000
 max_hp = 1000
-invul_seconds = 1.0
+invul_seconds = 0.41
 
 [node name="KnockbackComponent" type="Node" parent="Player" node_paths=PackedStringArray("health", "movement")]
 script = ExtResource("8_qd8xt")
@@ -1247,7 +1247,7 @@ text = "D"
 
 [connection signal="on_invulnerable_start" from="Player/HealthComponent" to="Player/SpriteEffects" method="play" binds= ["damage_flicker"]]
 [connection signal="on_invulnerable_stop" from="Player/HealthComponent" to="Player/SpriteEffects" method="stop" binds= [false]]
-[connection signal="body_entered" from="Mushroom/Hurtbox" to="Mushroom/DamageComponent" method="apply"]
+[connection signal="body_entered" from="Mushroom/Hurtbox" to="Mushroom/DamageComponent" method="apply" binds= [Vector2(0, 0)]]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]

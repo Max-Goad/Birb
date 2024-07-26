@@ -14,6 +14,9 @@ func _process(delta: float) -> void:
 	character.move_and_slide()
 
 ### Public Functions
+func node() -> Node2D:
+	return character
+
 func moving() -> bool:
 	return character.velocity != Vector2.ZERO
 

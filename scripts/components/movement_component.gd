@@ -30,6 +30,10 @@ func _process(_delta: float) -> void:
 		unlock(FORCE_UNLOCK)
 
 ### Public Functions
+func node() -> Node2D:
+	assert(false, "MovementComponent.node() is abstract")
+	return null
+
 func moving() -> bool:
 	assert(false, "MovementComponent.moving() is abstract")
 	return false
@@ -43,8 +47,10 @@ func moving() -> bool:
 func lock(time: float = 0.0, relock = false):
 	if locked:
 		if relock and time > 0.0:
+			print("MovementComponent: relock for %s (%s seconds)" % [node().name, time])
 			lock_timer.wait_time = time
 	else:
+		print("MovementComponent: lock %s" % node().name)
 		locked = true
 		if time > 0.0:
 			lock_timer.start(time)
@@ -60,6 +66,7 @@ func lock_until_stopped():
 ## this can be overridden by passing FORCE_UNLOCK
 func unlock(force = false):
 	if lock_timer.is_stopped() or force:
+		print("MovementComponent: unlock %s" % node().name)
 		locked = false
 		unlock_when_stopped = false
 
