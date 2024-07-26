@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://btrabe1j0w66f"]
+[gd_scene load_steps=19 format=3 uid="uid://btrabe1j0w66f"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_ht6gj"]
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
@@ -29,6 +29,12 @@ gradient = SubResource("Gradient_sotjm")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fn3oe"]
 size = Vector2(60, 94)
 
+[sub_resource type="LabelSettings" id="LabelSettings_bu5cp"]
+font_size = 100
+font_color = Color(0.8, 0.68, 0.68, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
 size = Vector2(42, 100)
 
@@ -47,6 +53,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(-16, 26), Vector2(-16, 36), Vector2(-16, 26)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5), Vector2(0, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, -2, 1),
+"update": 0,
+"values": [0.0, 0.0872665, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ixigp"]
 _data = {
@@ -59,8 +89,9 @@ collision_mask = 5
 script = ExtResource("1_ht6gj")
 
 [node name="Body" type="CanvasGroup" parent="."]
+position = Vector2(0, 5)
 
-[node name="Label3" type="Label" parent="Body"]
+[node name="Body Glyph" type="Label" parent="Body"]
 texture_filter = 2
 anchors_preset = 8
 anchor_left = 0.5
@@ -103,7 +134,7 @@ max_collisions = 100
 ignore_repeat_collisions = false
 damage_component = NodePath("../DamageComponent")
 
-[node name="Weapon" type="Label" parent="Hurtbox"]
+[node name="Weapon Glyph" type="Label" parent="Hurtbox"]
 texture_filter = 2
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,8 +147,9 @@ offset_right = 24.0
 offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(46, 71)
 text = "犭"
-label_settings = SubResource("LabelSettings_7m4fk")
+label_settings = SubResource("LabelSettings_bu5cp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
