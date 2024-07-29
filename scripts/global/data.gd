@@ -123,10 +123,10 @@ func get_enemies() -> Array[Enemy]:
 func get_closest_enemy(position: Vector2) -> Enemy:
 	var enemies = get_enemies()
 	var closest_enemy: Enemy = null
-	var closest_distance = -1.0
+	var closest_distance = INF
 	for enemy in enemies:
-		var dist = position.distance_to(enemy)
-		if dist > closest_distance:
+		var dist = position.distance_to(enemy.global_position)
+		if dist < closest_distance:
 			closest_distance = dist
 			closest_enemy = enemy
 	return closest_enemy
