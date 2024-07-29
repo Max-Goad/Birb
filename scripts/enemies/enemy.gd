@@ -5,6 +5,7 @@ class_name Enemy extends CharacterBody2D
 
 @onready var health: HealthComponent = $HealthComponent
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
+@onready var attach_points: AttachPointComponent = $AttachPointComponent
 @onready var vector_to_target: VectorVisualizer = $"Vector To Target"
 #endregion
 

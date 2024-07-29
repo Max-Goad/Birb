@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://btrabe1j0w66f"]
+[gd_scene load_steps=22 format=3 uid="uid://btrabe1j0w66f"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_ht6gj"]
 [ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_twxsa"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="2_lqa66"]
+[ext_resource type="Script" path="res://scripts/components/attach_point_component.gd" id="3_u1wjy"]
 [ext_resource type="Script" path="res://scripts/components/pathfinding_component.gd" id="3_wfenn"]
 [ext_resource type="Script" path="res://scripts/components/character_movement_component.gd" id="5_khekf"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_ymoot"]
@@ -52,7 +53,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(2, -10, 0.1),
 "update": 0,
-"values": [Vector2(-16, 26), Vector2(-16, 36), Vector2(-16, 26)]
+"values": [Vector2(-16, -60), Vector2(-16, -50), Vector2(-16, -60)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -64,7 +65,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 1),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector2(0, 5), Vector2(0, -5), Vector2(0, 5)]
+"values": [Vector2(0, -45), Vector2(0, -55), Vector2(0, -45)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -78,9 +79,37 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0, 0.0872665, 0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttachPointComponent/Head:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -80), Vector2(0, -90), Vector2(0, -80)]
+}
+
+[sub_resource type="Animation" id="Animation_k2gjp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttachPointComponent/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -81)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ixigp"]
 _data = {
+"RESET": SubResource("Animation_k2gjp"),
 "idle": SubResource("Animation_vvup2")
 }
 
@@ -90,7 +119,7 @@ collision_mask = 5
 script = ExtResource("1_ht6gj")
 
 [node name="Body" type="CanvasGroup" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, -45)
 
 [node name="Body Glyph" type="Label" parent="Body"]
 texture_filter = 2
@@ -99,10 +128,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -66.0
-offset_top = -35.5
-offset_right = 34.0
-offset_bottom = 101.5
+offset_left = -65.0
+offset_top = -73.0
+offset_right = 35.0
+offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "犯"
@@ -112,22 +141,22 @@ vertical_alignment = 1
 
 [node name="Mask" type="Sprite2D" parent="Body"]
 material = SubResource("CanvasItemMaterial_45h3y")
-position = Vector2(-49.5, 36)
+position = Vector2(-48.5, -1.5)
 scale = Vector2(0.191406, 108)
 texture = SubResource("GradientTexture1D_depsi")
 
 [node name="Mask2" type="Sprite2D" parent="Body"]
 material = SubResource("CanvasItemMaterial_45h3y")
-position = Vector2(3, -11.5)
+position = Vector2(3.99997, -49)
 scale = Vector2(0.242187, 3)
 texture = SubResource("GradientTexture1D_depsi")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(5, 37)
+position = Vector2(0, -47)
 shape = SubResource("RectangleShape2D_fn3oe")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
-position = Vector2(-16, 26)
+position = Vector2(-16, -60)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_twxsa")
@@ -165,6 +194,17 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="AttachPointComponent" type="Node2D" parent="." node_paths=PackedStringArray("center", "head")]
+script = ExtResource("3_u1wjy")
+center = NodePath("../Hitbox")
+head = NodePath("Head")
+
+[node name="Center" type="Node2D" parent="AttachPointComponent"]
+position = Vector2(-21, -51)
+
+[node name="Head" type="Node2D" parent="AttachPointComponent"]
+position = Vector2(0, -81)
+
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_lqa66")
 amount = 5
@@ -191,25 +231,25 @@ movement = NodePath("../MovementComponent")
 knockback_factor = 1.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]
-position = Vector2(-80, -49)
+position = Vector2(-85, -133)
 scale = Vector2(0.8, 0.8)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
 
 [node name="Damage Indicator Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_ahpku")]
-position = Vector2(-18, 2)
+position = Vector2(-23, -82)
 health_component = NodePath("../HealthComponent")
 damage_color = Color(0.619608, 0.619608, 0.619608, 1)
 
 [node name="Vector To Target" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-position = Vector2(-16, 33)
+position = Vector2(-21, -51)
 scale = Vector2(4.38, 6)
 mode = 1
 origin = NodePath("..")
 debug_color = Color(1, 0.3, 0.3, 0.411765)
 
 [node name="Velocity Visualization" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-position = Vector2(-16, 33)
+position = Vector2(-21, -51)
 scale = Vector2(4.38, 6)
 origin = NodePath("..")
 debug_color = Color(0.3, 0.766667, 1, 0.411765)
