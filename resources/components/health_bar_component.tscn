@@ -5,9 +5,18 @@
 
 [node name="Health Bar Component" type="Node2D"]
 z_index = 1
-position = Vector2(-22, -30)
-scale = Vector2(0.3, 0.3)
+position = Vector2(0, -1.90735e-06)
 script = ExtResource("1_q5v37")
 
 [node name="Health Bar" parent="." instance=ExtResource("2_0mhen")]
-metadata/_edit_lock_ = true
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -40.0
+offset_top = -5.0
+offset_right = 40.0
+offset_bottom = 5.0
+grow_horizontal = 1
+grow_vertical = 1

@@ -114,8 +114,8 @@ current_hp = 1000
 max_hp = 1000
 
 [node name="HealthBarComponent" parent="Mushroom" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
-position = Vector2(-32, -43)
-scale = Vector2(0.4, 0.4)
+position = Vector2(-2, -31.5)
+scale = Vector2(0.5, 0.5)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
 

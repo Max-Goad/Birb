@@ -212,6 +212,7 @@ amount = 5
 [node name="PathfindingComponent" type="Node" parent="." node_paths=PackedStringArray("movement")]
 script = ExtResource("3_wfenn")
 movement = NodePath("../MovementComponent")
+distance = 300.0
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_khekf")
@@ -231,8 +232,7 @@ movement = NodePath("../MovementComponent")
 knockback_factor = 1.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_nhxlq")]
-position = Vector2(-85, -133)
-scale = Vector2(0.8, 0.8)
+position = Vector2(-21, -118)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
 
