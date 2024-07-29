@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=34 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
+[ext_resource type="PackedScene" uid="uid://c0lqa365xd8y4" path="res://resources/enemies/kyou.tscn" id="4_1l6dh"]
 [ext_resource type="PackedScene" uid="uid://dq3tijij8xra0" path="res://resources/player.tscn" id="4_6koyc"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="6_c1dqk"]
@@ -72,13 +73,17 @@ layer_1/tile_data = PackedInt32Array(1245220, 524291, 0, 1114148, 131075, 2, 104
 layer_2/name = "Objects"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+[node name="Han Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
-autostart = false
-maximum = 3
+
+[node name="Kyou Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(1460, 748)
+script = ExtResource("2_ig4is")
+template = ExtResource("4_1l6dh")
+target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("4_6koyc")]
 position = Vector2(550, 339)
@@ -427,7 +432,7 @@ text = "D"
 [connection signal="body_entered" from="Unlock Everything Jim/Area2D" to="Unlock Everything Jim/Triggers" method="execute" unbinds=1]
 [connection signal="area_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
-[connection signal="trigger" from="Language Jane/Triggers/Signal" to="Spawner" method="start"]
+[connection signal="trigger" from="Language Jane/Triggers/Signal" to="Han Spawner" method="start"]
 
 [editable path="Player"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]

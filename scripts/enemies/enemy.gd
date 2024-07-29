@@ -17,7 +17,7 @@ signal dead
 #region Engine Functions
 func _ready() -> void:
 	health.on_death.connect(_on_death)
-	pathfinding.follow(target)
+	pathfinding.target = target
 	vector_to_target.target = target
 
 func _process(_delta: float) -> void:

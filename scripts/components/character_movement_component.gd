@@ -36,6 +36,10 @@ func move_velocity_toward(to: Vector2, delta: float, ignore_lock = false):
 
 func decelerate(modifier = 1.0):
 	move_velocity_toward(Vector2.ZERO, top_speed * deceleration * modifier, IGNORE_LOCK)
+
+func apply_rotation(angle: float, ignore_lock = false):
+	if not currently_locked or ignore_lock:
+		character.global_rotation = angle
 #endregion
 
 #region Private Functions

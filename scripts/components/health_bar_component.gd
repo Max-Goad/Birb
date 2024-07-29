@@ -19,6 +19,9 @@ func _ready() -> void:
 	health_component.on_damage.connect(_on_health_damage)
 	health_component.on_heal.connect(_on_health_heal)
 	_update_visibility()
+
+func _process(_delta: float) -> void:
+	global_rotation = 0
 #endregion
 
 #region Public Functions

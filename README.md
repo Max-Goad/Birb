@@ -2,6 +2,10 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
+- Add more enemies
+	- 凶 (凵 shoots 㐅)
+- Fix Healthbar rotating
+	- It shouldn't rotate ever
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
