@@ -8,7 +8,6 @@ A silly little repository for silly little things by a silly little man
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
 - Implement more abilities
-	- Prisoner
 	- Hole
 
 ## TODO (long-term):
@@ -91,7 +90,7 @@ A silly little repository for silly little things by a silly little man
 | 52  | 人    | NO   |          |
 | 53  | 入    | NO   |          |
 | 54  | 仄    | NO   |          |
-| 55  | 囚    | NO   |          |
+| 55  | 囚    | YES  |          |
 | 56  | 大    | YES  |          |
 | 57  | 太    | NO   |          |
 | 58  | 犬    | NO   |          |
