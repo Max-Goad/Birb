@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxuhxo40i5833"]
+
+[ext_resource type="Script" path="res://scripts/ui/target_reticle.gd" id="1_48qex"]
+
+[node name="TargetReticle" type="Node2D"]
+script = ExtResource("1_48qex")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.588235)
+polygon = PackedVector2Array(-60, -60, -60, -40, -50, -40, -50, -50, -40, -50, -40, -60, 60, -60, 40, -60, 40, -50, 50, -50, 50, -40, 60, -40, -60, 60, -60, 40, -50, 40, -50, 50, -40, 50, -40, 60, 50, 40, 60, 40, 60, 60, 40, 60, 40, 50, 50, 50, 25, 25, 25, -25, -25, 25, -25, -25, 15, 15, 15, -15, -15, 15, -15, -15)
+polygons = [PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8, 9, 10, 11), PackedInt32Array(12, 13, 14, 15, 16, 17), PackedInt32Array(18, 19, 20, 21, 22, 23), PackedInt32Array(27, 31, 29, 28, 30, 31, 27, 26, 24, 25, 27)]
