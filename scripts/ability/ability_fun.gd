@@ -37,12 +37,12 @@ func _attach_silly_little_hat(enemy: Enemy):
 	print("attaching silly little hat to %s" % enemy)
 	var hat = PL_SILLY_LITTLE_HAT.instantiate()
 	hat.name = HAT_NAME
-	enemy.add_child(hat)
+	enemy.attach_points.head.add_child(hat)
 
 func _detach_silly_little_hat(enemy: Enemy):
 	print("detaching silly little hat from %s" % enemy)
-	for child in enemy.get_children():
+	for child in enemy.attach_points.head.get_children():
 		if child.name == HAT_NAME:
-			enemy.remove_child(child)
+			enemy.attach_points.head.remove_child(child)
 			return
 #endregion
