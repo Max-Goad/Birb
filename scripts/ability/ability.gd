@@ -118,6 +118,9 @@ static func from_component(component: CraftingComponent) -> Ability:
 			return Empty.new(1.5)
 		"王":
 			return King.new()
+		"囚":
+			# effect time
+			return Prisoner.new(5.0)
 		"大":
 			# scale, damage
 			return Big.new(1.5, 1.2)
