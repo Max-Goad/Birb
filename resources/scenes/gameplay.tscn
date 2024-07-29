@@ -59,7 +59,6 @@ font_size = 70
 texture_filter = 1
 
 [node name="TileMap" type="TileMap" parent="."]
-visible = false
 z_index = -1
 texture_filter = 1
 scale = Vector2(4, 4)
@@ -239,11 +238,11 @@ script = ExtResource("15_de8on")
 
 [node name="Assign Slot 1" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "一"
+label = "丨"
 
 [node name="Assign Slot 2" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "三"
+label = "十"
 slot = 1
 
 [node name="Assign Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cmfcljg7o24ka" path="res://resources/art/Sprout Lands Pack/Objects/Items/All items.png" id="3_3xlnv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_inef7"]
-radius = 50.0
+radius = 150.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_33r6r"]
 atlas = ExtResource("3_3xlnv")
@@ -20,6 +20,7 @@ limit_collisions = false
 damage_component = NodePath("DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -30)
 shape = SubResource("CircleShape2D_inef7")
 
 [node name="DamageComponent" type="Node" parent="."]

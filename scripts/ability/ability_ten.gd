@@ -2,7 +2,7 @@ class_name Ten extends Ability
 
 const pl_hb_ten_bomb = preload("res://resources/attacks/hb_ten_bomb.tscn")
 const pl_hb_ten_explosion = preload("res://resources/attacks/hb_ten_explosion.tscn")
-const pl_hb_ten_projectile = preload("res://resources/attacks/hb_ten_projectile.tscn")
+const pl_hb_ten_projectile = preload("res://resources/attacks/hb_one.tscn")
 
 #region Variables
 var throw_force: float

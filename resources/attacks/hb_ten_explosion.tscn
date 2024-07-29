@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cmfcljg7o24ka" path="res://resources/art/Sprout Lands Pack/Objects/Items/All items.png" id="3_bdgi0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_inef7"]
-radius = 25.0
+radius = 75.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_33r6r"]
 atlas = ExtResource("3_bdgi0")
