@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kblcgm8spkh2"]
+
+[ext_resource type="Texture2D" uid="uid://2b1biybdufnd" path="res://resources/art/chains.png" id="1_b1fup"]
+
+[node name="Sprite2D" type="Sprite2D"]
+modulate = Color(1, 0.55, 0.55, 1)
+scale = Vector2(0.164609, 0.164609)
+texture = ExtResource("1_b1fup")
