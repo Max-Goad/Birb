@@ -101,3 +101,8 @@ func _prepare_spawned_enemy(enemy: Enemy):
 	elif behavior == Behavior.RADIUS:
 		enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
 	enemy.target = target
+	enemy.dead.connect(_on_enemy_death.bind(enemy))
+
+func _on_enemy_death(enemy: Enemy):
+	spawned_enemies.erase(enemy)
+#endregion

@@ -10,10 +10,12 @@ class_name Enemy extends CharacterBody2D
 #endregion
 
 #region Signals
+signal dead
 #endregion
 
 #region Engine Functions
 func _ready() -> void:
+	health.on_death.connect(_on_death)
 	pathfinding.follow(target)
 	vector_to_target.target = target
 
@@ -25,5 +27,7 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Private Functions
+func _on_death():
+	dead.emit()
 #endregion
 
