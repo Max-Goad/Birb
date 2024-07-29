@@ -9,7 +9,7 @@ class_name RigidBodyMovementComponent extends MovementComponent
 
 #region Engine Functions
 func _ready() -> void:
-	pass
+	super._ready()
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -28,11 +28,11 @@ func moving() -> bool:
 ## Will not apply if the movement is locked.
 ## Can optionally use IGNORE_LOCK to bypass.
 func apply_force(force: Vector2, ignore_lock = false):
-	if not locked or ignore_lock:
+	if not currently_locked or ignore_lock:
 		body.apply_central_force(force)
 
 func apply_torque(torque: float, ignore_lock = false):
-	if not locked or ignore_lock:
+	if not currently_locked or ignore_lock:
 		body.apply_torque(torque)
 #endregion
 

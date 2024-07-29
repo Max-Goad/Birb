@@ -39,10 +39,12 @@ func _ready() -> void:
 	self.add_to_group(Data.GROUP_PLAYER)
 	health.on_death.connect(_on_death)
 	Data.component_unlocked.connect(_on_component_unlocked)
+	movement.locked.connect(_on_movement_locked)
+	movement.unlocked.connect(_on_movement_unlocked)
 
 func _process(_delta: float) -> void:
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if not movement.locked:
+	if not movement.currently_locked:
 		if Abilities.current_active.is_null():
 			_process_velocity(direction)
 			_process_attack(last_direction)
@@ -106,6 +108,12 @@ func _on_component_unlocked(component: CraftingComponent):
 			Data.unlock_ability_slot(Ability.Category.PASSIVE, 1)
 		_:
 			pass
+
+func _on_movement_locked():
+	sprite.pause()
+
+func _on_movement_unlocked():
+	sprite.play()
 
 func _on_death():
 	queue_free()

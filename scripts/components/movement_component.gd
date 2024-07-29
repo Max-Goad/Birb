@@ -11,12 +11,15 @@ const RELOCK = true
 @export_range(0.0, 1.0) var rotation_speed = 0.0
 @export_range(0.0, 1.0) var rotation_deceleration := 1.0
 
-var locked = false
+var currently_locked = false
 var unlock_when_stopped = false
-var lock_timer = Timer.new()
+var lock_timer: Timer
 #endregion
 
 #region Signals
+signal locked
+signal relocked
+signal unlocked
 #endregion
 
 #region Engine Functions
@@ -48,19 +51,21 @@ func moving() -> bool:
 ## If RELOCK is passed, the lock will continue
 ## until the new time has elapsed (ignores initial time)
 func lock(time: float = 0.0, relock = false):
-	if locked:
+	if currently_locked:
 		if relock and time > 0.0:
 			print("MovementComponent: relock for %s (%s seconds)" % [node().name, time])
 			lock_timer.wait_time = time
+			relocked.emit()
 	else:
 		print("MovementComponent: lock %s" % node().name)
-		locked = true
+		currently_locked = true
 		if time > 0.0:
 			lock_timer.start(time)
+		locked.emit()
 
 ## Lock all movement until the character has stopped completely
 func lock_until_stopped():
-	if not locked:
+	if not currently_locked:
 		lock()
 		unlock_when_stopped = true
 
@@ -70,8 +75,9 @@ func lock_until_stopped():
 func unlock(force = false):
 	if lock_timer.is_stopped() or force:
 		print("MovementComponent: unlock %s" % node().name)
-		locked = false
+		currently_locked = false
 		unlock_when_stopped = false
+		unlocked.emit()
 #endregion
 
 #region Private Functions
