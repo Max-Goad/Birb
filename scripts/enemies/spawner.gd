@@ -73,6 +73,8 @@ func spawn_enemy():
 	_prepare_spawned_enemy(enemy)
 	add_child(enemy)
 	spawned_enemies.push_back(enemy)
+	for callback: Callable in spawn_callbacks.values():
+		callback.call(enemy)
 	if not should_spawn_enemy():
 		stop()
 
@@ -99,5 +101,3 @@ func _prepare_spawned_enemy(enemy: Enemy):
 	elif behavior == Behavior.RADIUS:
 		enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
 	enemy.target = target
-	for callback in spawn_callbacks.values():
-		callback.call(enemy)
