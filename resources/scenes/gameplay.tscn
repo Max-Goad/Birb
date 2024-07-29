@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=33 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
 [ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://scripts/ability/ui/ability_slot_group.gd" id="17_5gbct"]
 [ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="18_d8yv1"]
 [ext_resource type="PackedScene" uid="uid://ceio7up6qcp2a" path="res://resources/attacks/ability_slot.tscn" id="18_rhwno"]
+[ext_resource type="Script" path="res://scripts/trigger/lock_movement_trigger.gd" id="20_tfyjp"]
 [ext_resource type="Script" path="res://scripts/trigger/signal_trigger.gd" id="23_dy1sb"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_of8vk"]
@@ -303,6 +304,11 @@ canvas = NodePath("../../../UI Canvas")
 [node name="Signal" type="Node" parent="Language Jane/Triggers"]
 script = ExtResource("23_dy1sb")
 
+[node name="LockMovementTrigger" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("movement")]
+script = ExtResource("20_tfyjp")
+movement = NodePath("../../../Player/MovementComponent")
+time = 2.0
+
 [node name="Free" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("node")]
 script = ExtResource("14_fbi57")
 node = NodePath("../..")
@@ -423,6 +429,7 @@ text = "D"
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="trigger" from="Language Jane/Triggers/Signal" to="Spawner" method="start"]
 
+[editable path="Player"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 3"]

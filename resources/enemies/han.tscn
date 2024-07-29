@@ -12,6 +12,15 @@
 [ext_resource type="Script" path="res://scripts/components/knockback_component.gd" id="7_m0ql5"]
 [ext_resource type="PackedScene" uid="uid://bvxitv8qu6bak" path="res://resources/ui/vector_visualizer.tscn" id="8_kvaqx"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_bu5cp"]
+font_size = 100
+font_color = Color(0.8, 0.68, 0.68, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
+size = Vector2(42, 100)
+
 [sub_resource type="LabelSettings" id="LabelSettings_7m4fk"]
 font_size = 100
 font_color = Color(0.8, 0.8, 0.8, 1)
@@ -30,15 +39,6 @@ gradient = SubResource("Gradient_sotjm")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fn3oe"]
 size = Vector2(60, 94)
-
-[sub_resource type="LabelSettings" id="LabelSettings_bu5cp"]
-font_size = 100
-font_color = Color(0.8, 0.68, 0.68, 1)
-outline_size = 20
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jy4h"]
-size = Vector2(42, 100)
 
 [sub_resource type="Animation" id="Animation_k2gjp"]
 length = 0.001
@@ -118,6 +118,39 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_ht6gj")
 
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
+position = Vector2(-16, -60)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_twxsa")
+max_collisions = 100
+ignore_repeat_collisions = false
+damage_component = NodePath("../DamageComponent")
+
+[node name="Weapon Glyph" type="Label" parent="Hurtbox"]
+texture_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -68.0
+offset_right = 24.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(46, 71)
+text = "犭"
+label_settings = SubResource("LabelSettings_bu5cp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rectangle" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-30, 3)
+shape = SubResource("RectangleShape2D_2jy4h")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
 [node name="Body" type="CanvasGroup" parent="."]
 position = Vector2(0, -45)
 
@@ -154,39 +187,6 @@ texture = SubResource("GradientTexture1D_depsi")
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -47)
 shape = SubResource("RectangleShape2D_fn3oe")
-
-[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
-position = Vector2(-16, -60)
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("1_twxsa")
-max_collisions = 100
-ignore_repeat_collisions = false
-damage_component = NodePath("../DamageComponent")
-
-[node name="Weapon Glyph" type="Label" parent="Hurtbox"]
-texture_filter = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -68.0
-offset_right = 24.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(46, 71)
-text = "犭"
-label_settings = SubResource("LabelSettings_bu5cp")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Rectangle" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(-30, 3)
-shape = SubResource("RectangleShape2D_2jy4h")
-debug_color = Color(0.7, 0.233333, 0, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -254,4 +254,6 @@ scale = Vector2(4.38, 6)
 origin = NodePath("..")
 debug_color = Color(0.3, 0.766667, 1, 0.411765)
 
+[connection signal="locked" from="MovementComponent" to="AnimationPlayer" method="pause"]
+[connection signal="unlocked" from="MovementComponent" to="AnimationPlayer" method="play"]
 [connection signal="on_death" from="HealthComponent" to="." method="queue_free"]
