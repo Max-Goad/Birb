@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://csh1iurc1b413" path="res://resources/ui/health_bar.tscn" id="2_0mhen"]
 
 [node name="Health Bar Component" type="Node2D"]
+top_level = true
 z_index = 1
 position = Vector2(0, -1.90735e-06)
 script = ExtResource("1_q5v37")

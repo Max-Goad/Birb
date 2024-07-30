@@ -78,6 +78,7 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
+autostart = false
 
 [node name="Kyou Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(1460, 748)
@@ -114,10 +115,10 @@ current_hp = 1000
 max_hp = 1000
 
 [node name="HealthBarComponent" parent="Mushroom" node_paths=PackedStringArray("health_component") instance=ExtResource("6_c1dqk")]
-position = Vector2(-2, -31.5)
 scale = Vector2(0.5, 0.5)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
+offset = Vector2(-40, -70)
 
 [node name="Damage Indicator Component" parent="Mushroom" node_paths=PackedStringArray("health_component") instance=ExtResource("7_ixeq5")]
 position = Vector2(-2, -31)
@@ -434,7 +435,6 @@ text = "D"
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="trigger" from="Language Jane/Triggers/Signal" to="Han Spawner" method="start"]
 
-[editable path="Player"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2"]
 [editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 3"]
