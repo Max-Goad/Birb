@@ -837,8 +837,8 @@ movement = NodePath("../MovementComponent")
 knockback_factor = 1.5
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_feg7t")]
-position = Vector2(0, -91)
 health_component = NodePath("../HealthComponent")
+offset = Vector2(-40, -100)
 
 [node name="DamageIndicator Component" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_b6ol5")]
 position = Vector2(0, -29)
