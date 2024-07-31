@@ -62,26 +62,22 @@ func _process_strategy(_delta):
 				movement.apply_velocity(_get_vector_moving_towards(target))
 		Strategy.TRACK_FROM_DISTANCE:
 			if target:
-				if true:
-					movement.apply_rotation(movement.character.global_rotation + 0.1)
-					return
 				var direction_to_target = _get_vector_to_target(target)
-				var target_speed = movement.top_speed
-				var magnitude = move_toward(movement.character.velocity.length(), target_speed, target_speed * movement.acceleration)
-
 				current_track_state = _update_track_state()
+				var next_direction = Vector2.ZERO
 				match current_track_state:
 					TrackState.FAR:
 						# move towards the target
-						movement.apply_velocity(direction_to_target * magnitude)
+						next_direction = direction_to_target
 					TrackState.IN_RANGE:
 						# circle the target
-						var perpendicular = direction_to_target.rotated(PI/2)
-						movement.move_velocity_toward(perpendicular * magnitude, target_speed * movement.acceleration)
+						next_direction = direction_to_target.rotated(PI/2)
 					TrackState.CLOSE:
 						# move away from the target
-						movement.apply_velocity(-direction_to_target * magnitude)
-
+						next_direction = -direction_to_target
+				movement.rotate_velocity_toward(next_direction)
+				movement.accelerate()
+				# print(movement.character.velocity)
 				# always face the target
 				movement.apply_rotation(direction_to_target.angle() + PI/2)
 

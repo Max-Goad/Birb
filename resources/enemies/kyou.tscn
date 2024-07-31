@@ -25,6 +25,8 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Enemy" type="CharacterBody2D"]
 texture_filter = 1
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_j7trm")
 
 [node name="Projectile" type="Area2D" parent="."]
@@ -80,9 +82,9 @@ distance = 350.0
 script = ExtResource("5_n1usn")
 character = NodePath("..")
 top_speed = 200.0
-acceleration = 0.5
+acceleration = 0.2
 deceleration = 0.1
-rotation_speed = 0.5
+rotation_speed = 0.1
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_03a1l")

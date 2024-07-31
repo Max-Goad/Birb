@@ -59,9 +59,8 @@ func _process(_delta: float) -> void:
 func _process_velocity(direction: Vector2):
 	if direction == Vector2.ZERO:
 		return
-	var mod_speed = movement.top_speed * modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED)
-	var mod_accel = movement.acceleration * modifiers.gett(Player.Modifiers.MOVEMENT_ACCELERATION)
-	movement.move_velocity_toward(direction * mod_speed, mod_speed * mod_accel)
+	movement.rotate_velocity_toward(direction)
+	movement.accelerate(modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED) * modifiers.gett(Player.Modifiers.MOVEMENT_ACCELERATION))
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
 		self.last_direction = direction
