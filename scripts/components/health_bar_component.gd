@@ -26,7 +26,6 @@ func _ready() -> void:
 	health_bar.value = health_component.current_hp
 	health_component.on_damage.connect(_on_health_damage)
 	health_component.on_heal.connect(_on_health_heal)
-	_setup_transform()
 	_update_visibility()
 #endregion
 
@@ -41,19 +40,6 @@ func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _directio
 func _on_health_heal(amount: int):
 	health_bar.change_value(amount)
 	_update_visibility()
-
-# Godot is very strange when it comes to keeping an element
-# in place relative to its parent while ignoring rotation.
-# My custom solution is to "unlink" the child,
-# and then remotely push only the position and scale.
-# The "offset" value is also relevant for this.
-# It's far from a perfect solution, but it is good enough!
-func _setup_transform():
-	top_level = true
-	var remote_transform = RemoteTransform2D.new()
-	remote_transform.remote_path = get_path()
-	remote_transform.update_rotation = false
-	get_parent().add_child.call_deferred(remote_transform)
 
 func _update_visibility():
 	var full = health_component.current_hp >= health_component.max_hp
