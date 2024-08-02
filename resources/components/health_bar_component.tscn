@@ -25,3 +25,4 @@ grow_vertical = 1
 
 [node name="IgnoreParentRotation" type="Node" parent="."]
 script = ExtResource("3_jalkt")
+ignore_rotation = true

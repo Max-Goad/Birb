@@ -25,8 +25,8 @@ enum TrackState
 @export var target: Node2D
 
 # Used in Strategy.TRACK_FROM_DISTANCE
-@export var distance: float = 100.0
-var distance_margin = 50.0
+@export var distance: float = 350.0
+@export var distance_margin = 100.0
 
 var current_track_state: TrackState
 #endregion

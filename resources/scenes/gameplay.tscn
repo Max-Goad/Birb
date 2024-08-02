@@ -78,7 +78,6 @@ position = Vector2(1384, 387)
 script = ExtResource("2_ig4is")
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
-autostart = false
 
 [node name="Kyou Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(1460, 748)

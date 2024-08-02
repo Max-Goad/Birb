@@ -7,7 +7,6 @@ class_name Enemy extends CharacterBody2D
 @onready var movement: CharacterMovementComponent = $MovementComponent
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
 @onready var attach_points: AttachPointComponent = $AttachPointComponent
-@onready var vector_to_target: VectorVisualizer = $"Vector To Target"
 #endregion
 
 #region Signals
@@ -18,7 +17,6 @@ signal dead
 func _ready() -> void:
 	health.on_death.connect(_on_death)
 	pathfinding.target = target
-	vector_to_target.target = target
 
 func _process(_delta: float) -> void:
 	pass

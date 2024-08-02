@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvxitv8qu6bak"]
+[gd_scene load_steps=5 format=3 uid="uid://bvxitv8qu6bak"]
 
 [ext_resource type="Script" path="res://scripts/misc/vector_visualizer.gd" id="1_tpml7"]
+[ext_resource type="Script" path="res://scripts/misc/ignore_parent_rotation.gd" id="2_da3il"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1mvb"]
 size = Vector2(10.9589, 2)
@@ -21,3 +22,8 @@ debug_color = Color(1, 1, 1, 0.41)
 position = Vector2(9.58904, 0)
 shape = SubResource("ConvexPolygonShape2D_tcgtc")
 debug_color = Color(1, 1, 1, 0.41)
+
+[node name="IgnoreParentRotation" type="Node" parent="."]
+script = ExtResource("2_da3il")
+ignore_rotation = true
+ignore_scale = true

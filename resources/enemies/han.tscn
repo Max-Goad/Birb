@@ -202,6 +202,17 @@ head = NodePath("Head")
 [node name="Center" type="Node2D" parent="AttachPointComponent"]
 position = Vector2(-21, -51)
 
+[node name="Vector To Player" parent="AttachPointComponent/Center" node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
+scale = Vector2(4.38, 6)
+mode = 1
+origin = NodePath("../../..")
+debug_color = Color(1, 0.3, 0.3, 0.411765)
+
+[node name="Velocity Visualization" parent="AttachPointComponent/Center" node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
+scale = Vector2(4.38, 6)
+origin = NodePath("../../..")
+debug_color = Color(0.3, 0.766667, 1, 0.411765)
+
 [node name="Head" type="Node2D" parent="AttachPointComponent"]
 position = Vector2(0, -81)
 
@@ -213,6 +224,7 @@ amount = 5
 script = ExtResource("3_wfenn")
 movement = NodePath("../MovementComponent")
 distance = 300.0
+distance_margin = 50.0
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_khekf")
@@ -240,19 +252,6 @@ offset = Vector2(-40, -120)
 position = Vector2(-23, -82)
 health_component = NodePath("../HealthComponent")
 damage_color = Color(0.619608, 0.619608, 0.619608, 1)
-
-[node name="Vector To Target" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-position = Vector2(-21, -51)
-scale = Vector2(4.38, 6)
-mode = 1
-origin = NodePath("..")
-debug_color = Color(1, 0.3, 0.3, 0.411765)
-
-[node name="Velocity Visualization" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-position = Vector2(-21, -51)
-scale = Vector2(4.38, 6)
-origin = NodePath("..")
-debug_color = Color(0.3, 0.766667, 1, 0.411765)
 
 [connection signal="locked" from="MovementComponent" to="AnimationPlayer" method="pause"]
 [connection signal="unlocked" from="MovementComponent" to="AnimationPlayer" method="play"]
