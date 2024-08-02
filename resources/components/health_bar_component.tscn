@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/components/health_bar_component.gd" id="1_q5v37"]
 [ext_resource type="PackedScene" uid="uid://csh1iurc1b413" path="res://resources/ui/health_bar.tscn" id="2_0mhen"]
-[ext_resource type="Script" path="res://scripts/misc/ignore_parent_rotation.gd" id="3_jalkt"]
+[ext_resource type="Script" path="res://scripts/misc/ignore_parent_transform.gd" id="3_28y01"]
 
 [node name="Health Bar Component" type="Node2D"]
 top_level = true
@@ -23,6 +23,6 @@ offset_bottom = 5.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="IgnoreParentRotation" type="Node" parent="."]
-script = ExtResource("3_jalkt")
+[node name="IgnoreParentTransform" type="Node" parent="."]
+script = ExtResource("3_28y01")
 ignore_rotation = true
