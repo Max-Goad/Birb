@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	var old_velocity = character.velocity
+	# var old_velocity = character.velocity
 	var new_velocity = direction * speed
 	character.velocity = new_velocity
 	character.move_and_slide()

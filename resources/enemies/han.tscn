@@ -255,4 +255,3 @@ damage_color = Color(0.619608, 0.619608, 0.619608, 1)
 
 [connection signal="locked" from="MovementComponent" to="AnimationPlayer" method="pause"]
 [connection signal="unlocked" from="MovementComponent" to="AnimationPlayer" method="play"]
-[connection signal="on_death" from="HealthComponent" to="." method="queue_free"]

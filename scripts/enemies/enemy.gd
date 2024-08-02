@@ -28,5 +28,7 @@ func _process(_delta: float) -> void:
 #region Private Functions
 func _on_death():
 	dead.emit()
+	# TODO: Shouldn't this be more dynamic?
+	queue_free()
 #endregion
 
