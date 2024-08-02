@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://obyapjwf84vx"]
+
+[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="1_dsrwn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgdkm"]
+font_size = 64
+font_color = Color(0.8, 0.8, 0.8, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Kyou Projectile Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component", "raycast")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_dsrwn")
+limit_collisions = false
+damage_component = NodePath("")
+raycast = NodePath("RayCast2D")
+
+[node name="Shape" type="Label" parent="."]
+offset_left = -35.1
+offset_top = -51.6
+offset_right = 28.9
+offset_bottom = 36.4
+pivot_offset = Vector2(35.1, 51.6)
+text = "㐅"
+label_settings = SubResource("LabelSettings_sgdkm")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+position = Vector2(-52.1, -64.6)
+polygon = PackedVector2Array(22, 46, 40, 62, 17, 80, 29, 93, 53, 74, 67, 87, 80, 75, 64, 60, 77, 33, 60, 25, 50, 48, 32, 35)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -50)
+collision_mask = 4
+collide_with_areas = true

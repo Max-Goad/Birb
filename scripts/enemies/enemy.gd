@@ -4,6 +4,7 @@ class_name Enemy extends CharacterBody2D
 @export var target: Node2D
 
 @onready var health: HealthComponent = $HealthComponent
+@onready var damage: DamageComponent = $DamageComponent
 @onready var movement: CharacterMovementComponent = $MovementComponent
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
 @onready var attach_points: AttachPointComponent = $AttachPointComponent

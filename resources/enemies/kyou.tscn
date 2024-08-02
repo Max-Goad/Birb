@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0lqa365xd8y4"]
+[gd_scene load_steps=12 format=3 uid="uid://c0lqa365xd8y4"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_j7trm"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_kyou.gd" id="1_f85k0"]
 [ext_resource type="Script" path="res://scripts/components/attach_point_component.gd" id="2_1i1ql"]
-[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="2_u0edd"]
 [ext_resource type="Script" path="res://scripts/components/damage_component.gd" id="3_dxhn6"]
 [ext_resource type="Script" path="res://scripts/components/pathfinding_component.gd" id="4_i1xli"]
 [ext_resource type="Script" path="res://scripts/components/character_movement_component.gd" id="5_n1usn"]
@@ -11,12 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://l3ufh23wc32f" path="res://resources/components/health_bar_component.tscn" id="8_v5g63"]
 [ext_resource type="PackedScene" uid="uid://chk3784byh0xe" path="res://resources/components/damage_indicator_component.tscn" id="9_34kcy"]
 [ext_resource type="PackedScene" uid="uid://bvxitv8qu6bak" path="res://resources/ui/vector_visualizer.tscn" id="10_253i5"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_vnvpg"]
-font_size = 64
-font_color = Color(0.8, 0.8, 0.8, 1)
-outline_size = 20
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_kmmuq"]
 font_size = 100
@@ -28,25 +21,7 @@ outline_color = Color(0, 0, 0, 1)
 texture_filter = 1
 collision_layer = 4
 collision_mask = 5
-script = ExtResource("1_j7trm")
-
-[node name="Projectile" type="Area2D" parent="." node_paths=PackedStringArray("damage_component")]
-position = Vector2(-50, -72)
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("2_u0edd")
-damage_component = NodePath("../DamageComponent")
-
-[node name="Label" type="Label" parent="Projectile"]
-offset_left = 17.0
-offset_top = 14.0
-offset_right = 81.0
-offset_bottom = 102.0
-text = "㐅"
-label_settings = SubResource("LabelSettings_vnvpg")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Projectile"]
-polygon = PackedVector2Array(22, 46, 40, 62, 17, 80, 29, 93, 53, 74, 67, 87, 80, 75, 64, 60, 77, 33, 60, 25, 50, 48, 32, 35)
+script = ExtResource("1_f85k0")
 
 [node name="Body" type="Label" parent="."]
 offset_left = -50.0
