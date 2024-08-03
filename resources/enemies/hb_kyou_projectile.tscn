@@ -8,12 +8,11 @@ font_color = Color(0.8, 0.8, 0.8, 1)
 outline_size = 20
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Kyou Projectile Hurtbox" type="Area2D" node_paths=PackedStringArray("damage_component", "raycast")]
+[node name="Kyou Projectile Hurtbox" type="Area2D" node_paths=PackedStringArray("raycast")]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_dsrwn")
 limit_collisions = false
-damage_component = NodePath("")
 raycast = NodePath("RayCast2D")
 
 [node name="Shape" type="Label" parent="."]

@@ -8,6 +8,7 @@ class_name Enemy extends CharacterBody2D
 @onready var movement: CharacterMovementComponent = $MovementComponent
 @onready var pathfinding: PathfindingComponent = $PathfindingComponent
 @onready var attach_points: AttachPointComponent = $AttachPointComponent
+@onready var knockback: KnockbackComponent = $KnockbackComponent
 #endregion
 
 #region Signals

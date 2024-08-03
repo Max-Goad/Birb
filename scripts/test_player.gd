@@ -27,6 +27,7 @@ var last_direction := Vector2.DOWN
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
 @onready var movement: CharacterMovementComponent = $MovementComponent
+@onready var knockback: KnockbackComponent = $KnockbackComponent
 
 var modifiers := ModifierMap.new()
 #endregion

@@ -2,10 +2,8 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Velocity + Knockback bug
-	- Sometimes with knockback the enemy's velocity gets set and never
-	  changes again so it just drifts away
-	- Could this be due to the lack of deceleration?
+- River
+	- Add small visual effect?
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem

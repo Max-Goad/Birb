@@ -102,6 +102,9 @@ static func from_component(component: CraftingComponent) -> Ability:
 		"儿":
 			# multiplier
 			return Legs.new(1.1)
+		"川":
+			# knockback force
+			return River.new(5.0, 1.0)
 		"百":
 			# tf, pf, id, ed, pd, et
 			return Hundred.new(35.0, 5, 50)

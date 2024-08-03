@@ -16,6 +16,14 @@ func _ready() -> void:
 #endregion
 
 #region Public Functions
+func apply_knockback(direction: Vector2, modifier: float = 1.0, stun_time: float = 0.0):
+	movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
+	movement.apply_speed(movement.top_speed * knockback_factor * modifier, MovementComponent.IGNORE_LOCK)
+	if stun_time > 0.0:
+		movement.lock(stun_time)
+	else:
+		movement.lock_until_stopped()
+
 #endregion
 
 #region Private Functions
@@ -26,12 +34,8 @@ func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vec
 		DamageComponent.DamageType.LIGHT:
 			pass
 		DamageComponent.DamageType.NORMAL:
-			movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
-			movement.apply_speed(movement.top_speed * knockback_factor, MovementComponent.IGNORE_LOCK)
-			movement.lock_until_stopped()
+			apply_knockback(direction)
 		DamageComponent.DamageType.HEAVY:
-			movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
-			movement.apply_speed(movement.top_speed * knockback_factor * 2.5, MovementComponent.IGNORE_LOCK)
-			movement.lock_until_stopped()
+			apply_knockback(direction, 2.5)
 #endregion
 

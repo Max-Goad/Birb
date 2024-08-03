@@ -254,7 +254,7 @@ slot = 1
 
 [node name="Assign Slot 3" type="Node" parent="Unlock Everything Jim/Triggers"]
 script = ExtResource("16_d1kmd")
-label = "百"
+label = "川"
 slot = 2
 
 [node name="Assign Slot 4" type="Node" parent="Unlock Everything Jim/Triggers"]
