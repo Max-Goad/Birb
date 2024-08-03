@@ -48,7 +48,7 @@ func apply_speed(new_speed: float, ignore_lock = false) -> bool:
 ## Will not apply if the movement is locked.
 ## Can optionally use IGNORE_LOCK to bypass.
 func apply_velocity(velocity: Vector2, ignore_lock = false) -> bool:
-	print("CMC apply_velocity")
+	print("CharacterMovementComponent: (%s) apply_velocity")
 	var da = apply_direction(velocity.normalized(), ignore_lock)
 	var sa = apply_speed(velocity.length(), ignore_lock)
 	return da and sa
