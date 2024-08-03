@@ -60,7 +60,7 @@ func _lock_movement(target: Enemy):
 func _attach_sprite(target: Enemy):
 	var sprite = PRISONER_SPRITE.instantiate()
 	target.attach_points.center.add_child(sprite)
-	var detach_sprite = func(): sprite.queue_free()
+	var detach_sprite = func(): if sprite: sprite.queue_free()
 	target.movement.unlocked.connect(detach_sprite)
 
 #endregion
