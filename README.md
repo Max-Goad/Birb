@@ -2,8 +2,10 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Add more enemies
-	- 凶 (凵 shoots 㐅)
+- Velocity + Knockback bug
+	- Sometimes with knockback the enemy's velocity gets set and never
+	  changes again so it just drifts away
+	- Could this be due to the lack of deceleration?
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
@@ -11,10 +13,10 @@ A silly little repository for silly little things by a silly little man
 	- Should the Hurtbox ALWAYS be a child (like a component)?
 - Implement more abilities
 	- Hole
+- Add more enemies
 
 ## TODO (long-term):
 - Implement Save/Load
-- Add more attacks
 - Enemies
 - Controller support
 - Determine what the component grid should actually look like
