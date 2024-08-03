@@ -15,6 +15,9 @@ enum TrackState
 	CLOSE,
 }
 
+const SHOULD_ACCELERATE = true
+const SHOULD_DECELERATE = false
+
 #region Variables
 @export var strategy = Strategy.FOLLOW:
 	set(value):
@@ -43,8 +46,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	_process_strategy(delta)
-	movement.decelerate()
+	var movement_result = _process_strategy(delta)
+	if movement_result == SHOULD_ACCELERATE:
+		movement.accelerate()
+	else:
+		movement.decelerate()
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name == "distance" and strategy != Strategy.TRACK_FROM_DISTANCE:
@@ -55,11 +61,11 @@ func _validate_property(property: Dictionary) -> void:
 #endregion
 
 #region Private Functions
-func _process_strategy(_delta):
+func _process_strategy(_delta) -> bool:
 	match strategy:
 		Strategy.FOLLOW:
 			if target:
-				movement.apply_velocity(_get_vector_moving_towards(target))
+				return movement.rotate_velocity_toward(_get_vector_to_target(target))
 		Strategy.TRACK_FROM_DISTANCE:
 			if target:
 				var direction_to_target = _get_vector_to_target(target)
@@ -75,11 +81,10 @@ func _process_strategy(_delta):
 					TrackState.CLOSE:
 						# move away from the target
 						next_direction = -direction_to_target
-				movement.rotate_velocity_toward(next_direction)
-				movement.accelerate()
-				# print(movement.character.velocity)
 				# always face the target
 				movement.apply_rotation(direction_to_target.angle() + PI/2)
+				return movement.rotate_velocity_toward(next_direction)
+	return SHOULD_DECELERATE
 
 func _get_vector_moving_towards(target) -> Vector2:
 	var character = movement.character

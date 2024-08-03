@@ -6,10 +6,10 @@ const RELOCK = true
 
 #region Variables
 @export var top_speed: float = 1.0
-@export_range(0.0, 1.0) var acceleration := 1.0
-@export_range(0.0, 1.0) var deceleration := 1.0
-@export_range(0.0, 1.0) var rotation_speed = 1.0
-@export_range(0.0, 1.0) var rotation_deceleration := 1.0
+@export_range(0.0, 2.0) var acceleration := 1.0
+@export_range(0.0, 2.0) var deceleration := 1.0
+@export_range(0.0, 2.0) var rotation_speed = 1.0
+@export_range(0.0, 2.0) var rotation_deceleration := 1.0
 
 var currently_locked = false
 var unlock_when_stopped = false

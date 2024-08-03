@@ -76,7 +76,7 @@ character = NodePath("..")
 top_speed = 150.0
 acceleration = 0.2
 deceleration = 0.1
-rotation_speed = 0.1
+rotation_speed = 0.2
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_03a1l")
