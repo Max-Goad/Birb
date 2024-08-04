@@ -4,6 +4,8 @@ A silly little repository for silly little things by a silly little man
 ## TODO (short-term):
 - River
 	- Add small visual effect?
+- MovementComponent
+	- unlock seems to be running a freed lambda... how do I prevent this?
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
@@ -57,7 +59,7 @@ A silly little repository for silly little things by a silly little man
 | 17  | 舌    | NO   |          |
 | 18  | 儿    | YES  |          |
 | 19  | 刀    | NO   |          |
-| 20  | 川    | NO   |          |
+| 20  | 川    | YES  |          |
 | 21  | 山    | NO   |          |
 | 22  | 出    | NO   |          |
 | 23  | 日    | NO   |          |
@@ -125,7 +127,7 @@ A silly little repository for silly little things by a silly little man
 | 85  | 話    | NO   |          |
 | 86  | 信    | NO   |          |
 | 87  | 訓    | NO   |          |
-| 88  | 回    | NO   |          |
+| 88  | 回    | YES  |          |
 | 89  | 古    | NO   |          |
 | 90  | 枯    | NO   |          |
 | 91  | 苦    | NO   |          |
