@@ -72,8 +72,11 @@ func _spawn_projectile() -> Hurtbox:
 	return new_projectile
 
 func _ready_to_fire():
-	return (pathfinding.strategy != PathfindingComponent.Strategy.TRACK_FROM_DISTANCE
+	return (
+		not movement.currently_locked and
+		(pathfinding.strategy != PathfindingComponent.Strategy.TRACK_FROM_DISTANCE
 		 or pathfinding.current_track_state == PathfindingComponent.TrackState.IN_RANGE)
+	)
 
 func _fire(projectile):
 	projectile.damage_component.enabled = true
