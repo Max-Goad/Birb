@@ -2,6 +2,9 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
+- Map Changing?
+	- Connections between maps
+	- Entrances/Exits vs Arbitrary vs Fixed Point
 - River
 	- Add small visual effect?
 - MovementComponent
