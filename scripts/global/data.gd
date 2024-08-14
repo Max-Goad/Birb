@@ -210,9 +210,9 @@ func _test_language_conversion(filename):
 	var file = FileAccess.open(filename, FileAccess.READ)
 	while not file.eof_reached():
 		var symbols = language_converter.string_to_symbols(file.get_line())
-		print(symbols)
-		var _output = language_converter.symbols_to_unicode(symbols)
-		print(_output)
+		print(symbols.parsed)
+		var _output = language_converter.symbols_to_unicode(symbols.parsed)
+		print(_output.parsed)
 		#var _output_integers = []
 		#for character in _output:
 		#	_output_integers.append(character.unicode_at(0))

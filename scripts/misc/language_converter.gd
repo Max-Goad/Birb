@@ -4,11 +4,16 @@ class Result:
 	var success: bool
 	var remaining: String
 	var parsed: String
+	var error: String
 
-	func _init(success: bool, remaining = "", parsed = ""):
+	static func new_error(text = "") -> Result:
+		return Result.new(false, "", "", "LanguageConverter: %s" % text)
+
+	func _init(success: bool, remaining = "", parsed = "", error = ""):
 		self.success = success
 		self.remaining = remaining
 		self.parsed = parsed
+		self.error = error
 
 const UNICODE_OFFSET = 33 # All before are control
 const VOWELS = 13		# Includes "no vowel" vowel
@@ -17,46 +22,48 @@ const PUNCTUATIONS = 10
 const TOTAL_COMBINATIONS = (CONSONENTS * VOWELS) + PUNCTUATIONS
 
 #region Public Functions
-func string_to_unicode(input: String) -> String:
-	var symbols = string_to_symbols(input)
-	var unicode = symbols_to_unicode(symbols)
-	return unicode
+func string_to_unicode(input: String) -> Result:
+	var symbols_result = string_to_symbols(input)
+	if not symbols_result.success:
+		return symbols_result
+	return symbols_to_unicode(symbols_result.parsed)
 
-func string_to_symbols(input: String) -> String:
+func string_to_symbols(input: String) -> Result:
 	var symbols: String
 	# First, convert to symbols
 	while not input.is_empty():
 		var result = _next_symbol(input)
 		# assert(result.success)
 		if not result.success:
-			print("LanguageConverter: Failed to parse next symbol from \"%s\"" % input)
-			assert(false)
-			return ""
+			var error_text = "Failed to parse next symbol from \"%s\"" % input
+			return Result.new_error(error_text)
 		assert(_is_valid_symbol(result.parsed))
 		symbols = symbols + result.parsed
 		input = result.remaining
-	return symbols
+	return Result.new(true, "", symbols)
 
-func symbols_to_unicode(symbols: String) -> String:
+func symbols_to_unicode(symbols: String) -> Result:
 	var unicode: String
 	while not symbols.is_empty():
 		var result = _next_unicode(symbols)
 		if not result.success:
-			print("LanguageConverter: Failed to parse next unicode from \"%s\"" % symbols)
-			assert(false)
-			return ""
+			var error_text = "Failed to parse next unicode from \"%s\"" % symbols
+			return Result.new_error(error_text)
 		if not _is_valid_unicode(result.parsed):
-			print("LanguageConverter: Invalid unicode \"%s\" (%s)" % [result.parsed, result.parsed.unicode_at(0)])
-			assert(false)
-			return ""
+			var error_text = "Invalid unicode \"%s\" (%s)" % [result.parsed, result.parsed.unicode_at(0)]
+			return Result.new_error(error_text)
 		unicode = unicode + result.parsed
 		symbols = result.remaining
-	return unicode
+	return Result.new(true, "", unicode)
 #endregion
 
 
 #region Private Functions
 #region RAW
+func _is_escape_character(raw_char: String) -> bool:
+	assert(raw_char.length() == 1)
+	return raw_char in ["\n", "\r", "\t"]
+
 func _is_valid_punctuation(raw_char: String) -> bool:
 	assert(raw_char.length() == 1)
 	return raw_char in [" ", ".", ",", "?", "!"]
@@ -80,6 +87,7 @@ func _is_valid_symbol(symbol: String) -> bool:
 		_is_consonent_symbol(symbol)
 	 or _is_vowel_symbol(symbol)
 	 or _is_valid_punctuation(symbol)
+	 or _is_escape_character(symbol)
 	)
 
 func _is_consonent_symbol(symbol: String) -> bool:
@@ -96,21 +104,22 @@ func _is_vowel_symbol(symbol: String) -> bool:
 
 func _next_symbol(line: String) -> Result:
 	if line.is_empty():
-		return Result.new(false)
+		return Result.new_error("empty next symbol")
 	var raw_char = line[0]
 	var raw_char_2 = ""
 	if line.length() >= 2:
 		raw_char_2 = line[1]
 
-	if _is_raw_simple_consonent(raw_char) or _is_valid_punctuation(raw_char):
+	if (_is_raw_simple_consonent(raw_char)
+		or _is_valid_punctuation(raw_char)
+		or _is_escape_character(raw_char)):
 		return Result.new(true, line.substr(1), raw_char)
 	elif _is_raw_dependent_consonent(raw_char):
 		return _get_symbol_for_dependent_consonent(line, raw_char, raw_char_2)
 	elif _is_raw_vowel(raw_char):
 		return _get_symbol_for_vowel(line, raw_char, raw_char_2)
 	else:
-		print("LanguageConverter: Failed to identify \"%s\"" % raw_char)
-		return Result.new(false)
+		return Result.new_error("Failed to identify symbol from \"%s\"" % raw_char)
 
 func _get_symbol_for_dependent_consonent(line: String, raw_char: String, dchar: String) -> Result:
 	assert(_is_raw_dependent_consonent(raw_char))
@@ -136,9 +145,7 @@ func _get_symbol_for_dependent_consonent(line: String, raw_char: String, dchar: 
 			if dchar == "h":
 				return Result.new(true, line.substr(2), "ʧ")
 			else:
-				print("LanguageConverter: Dependent consonent parse failure \"%s\", \"%s\"" % [raw_char, dchar])
-				assert(dchar == "h")
-				return Result.new(false)
+				return Result.new_error("Dependent consonent parse failure \"%s\", \"%s\"" % [raw_char, dchar])
 		"s":
 			if dchar == "h":
 				return Result.new(true, line.substr(2), "ʃ")
@@ -150,8 +157,7 @@ func _get_symbol_for_dependent_consonent(line: String, raw_char: String, dchar: 
 			else:
 				return Result.new(true, line.substr(1), "z")
 	# Just in case, should never reach here
-	print("LanguageConverter: Dependent consonent fallthrough \"%s\", \"%s\"" % [raw_char, dchar])
-	return Result.new(false)
+	return Result.new_error("Dependent consonent fallthrough \"%s\", \"%s\"" % [raw_char, dchar])
 
 func _get_symbol_for_vowel(line: String, raw_char: String, dchar: String) -> Result:
 	assert(_is_raw_vowel(raw_char))
@@ -196,19 +202,22 @@ func _get_symbol_for_vowel(line: String, raw_char: String, dchar: String) -> Res
 			else:
 				return Result.new(true, line.substr(1), "u")
 	# Just in case, should never reach here
-	print("LanguageConverter: Raw vowel fallthrough \"%s\", \"%s\"" % [raw_char, dchar])
-	return Result.new(false)
+	return Result.new_error("Raw vowel fallthrough \"%s\", \"%s\"" % [raw_char, dchar])
 #endregion
 
 #region UNICODE
 func _is_valid_unicode(unicode: String) -> bool:
 	var unicode_integer = unicode.unicode_at(0)
-	return unicode_integer >= UNICODE_OFFSET and unicode_integer < (UNICODE_OFFSET + TOTAL_COMBINATIONS)
+	return (_is_escape_character(unicode)
+		or (unicode_integer >= UNICODE_OFFSET
+			and unicode_integer < (UNICODE_OFFSET + TOTAL_COMBINATIONS)))
 
 func _next_unicode(line: String) -> Result:
 	if line.is_empty():
-		return Result.new(false)
+		return Result.new_error("empty next unicode")
 	var symbol = line[0]
+	if _is_escape_character(symbol):
+		return Result.new(true, line.substr(1), symbol)
 	var should_combine = _is_consonent_symbol(symbol) and line.length() > 1 and _is_vowel_symbol(line[1])
 	if should_combine:
 		return _get_combined_unicode(line, symbol, line[1])
@@ -273,35 +282,35 @@ func _get_unicode_integer(symbol) -> int:
 			return (VOWELS*7) + VOWELS + UNICODE_OFFSET
 		"g":
 			return (VOWELS*8) + VOWELS + UNICODE_OFFSET
-		"f":
-			return (VOWELS*9) + VOWELS + UNICODE_OFFSET
-		"v":
-			return (VOWELS*10) + VOWELS + UNICODE_OFFSET
-		"θ":
-			return (VOWELS*11) + VOWELS + UNICODE_OFFSET
-		"ð":
-			return (VOWELS*12) + VOWELS + UNICODE_OFFSET
-		"s":
-			return (VOWELS*13) + VOWELS + UNICODE_OFFSET
-		"z":
-			return (VOWELS*14) + VOWELS + UNICODE_OFFSET
-		"ʃ":
-			return (VOWELS*15) + VOWELS + UNICODE_OFFSET
-		"ʒ":
-			return (VOWELS*16) + VOWELS + UNICODE_OFFSET
 		"ʧ":
-			return (VOWELS*17) + VOWELS + UNICODE_OFFSET
+			return (VOWELS*9) + VOWELS + UNICODE_OFFSET
 		"ʤ":
+			return (VOWELS*10) + VOWELS + UNICODE_OFFSET
+		"f":
+			return (VOWELS*11) + VOWELS + UNICODE_OFFSET
+		"v":
+			return (VOWELS*12) + VOWELS + UNICODE_OFFSET
+		"θ":
+			return (VOWELS*13) + VOWELS + UNICODE_OFFSET
+		"ð":
+			return (VOWELS*14) + VOWELS + UNICODE_OFFSET
+		"s":
+			return (VOWELS*15) + VOWELS + UNICODE_OFFSET
+		"z":
+			return (VOWELS*16) + VOWELS + UNICODE_OFFSET
+		"ʃ":
+			return (VOWELS*17) + VOWELS + UNICODE_OFFSET
+		"ʒ":
 			return (VOWELS*18) + VOWELS + UNICODE_OFFSET
-		"h":
-			return (VOWELS*19) + VOWELS + UNICODE_OFFSET
 		"w":
-			return (VOWELS*20) + VOWELS + UNICODE_OFFSET
-		"l":
-			return (VOWELS*21) + VOWELS + UNICODE_OFFSET
+			return (VOWELS*19) + VOWELS + UNICODE_OFFSET
 		"r":
-			return (VOWELS*22) + VOWELS + UNICODE_OFFSET
+			return (VOWELS*20) + VOWELS + UNICODE_OFFSET
 		"j":
+			return (VOWELS*21) + VOWELS + UNICODE_OFFSET
+		"l":
+			return (VOWELS*22) + VOWELS + UNICODE_OFFSET
+		"h":
 			return (VOWELS*23) + VOWELS + UNICODE_OFFSET
 
 		# Punctutation
@@ -322,7 +331,7 @@ func _get_unicode_integer(symbol) -> int:
 func _get_unicode(line, symbol) -> Result:
 	var integer = _get_unicode_integer(symbol)
 	if integer == -1:
-		return Result.new(false)
+		return Result.new_error("unicode integer not found for symbol \"%s\"" % symbol)
 	else:
 		var unicode = String.chr(integer)
 		assert(not unicode.is_empty())
@@ -332,8 +341,10 @@ func _get_unicode(line, symbol) -> Result:
 func _get_combined_unicode(line, c, v) -> Result:
 	var ci = _get_unicode_integer(c)
 	var vi = _get_unicode_integer(v)
-	if ci == -1 or vi == -1:
-		return Result.new(false)
+	if ci == -1:
+		return Result.new_error("unicode integer not found for symbol \"%s\"" % ci)
+	elif vi == -1:
+		return Result.new_error("unicode integer not found for symbol \"%s\"" % vi)
 	else:
 		# When we combine a consonent and a vowel, we have to
 		# not "double count" the offsets that both share!
