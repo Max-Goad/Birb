@@ -105,11 +105,10 @@ func _is_vowel_symbol(symbol: String) -> bool:
 func _next_symbol(line: String) -> Result:
 	if line.is_empty():
 		return Result.new_error("empty next symbol")
-	var raw_char = line[0]
+	var raw_char = line[0].to_lower()
 	var raw_char_2 = ""
 	if line.length() >= 2:
-		raw_char_2 = line[1]
-
+		raw_char_2 = line[1].to_lower()
 	if (_is_raw_simple_consonent(raw_char)
 		or _is_valid_punctuation(raw_char)
 		or _is_escape_character(raw_char)):
