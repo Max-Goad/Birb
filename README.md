@@ -2,13 +2,15 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Map Changing?
-	- Connections between maps
-	- Entrances/Exits vs Arbitrary vs Fixed Point
 - River
 	- Add small visual effect?
 - MovementComponent
 	- unlock seems to be running a freed lambda... how do I prevent this?
+	- Player moving against wall bug
+		- Move down towards wall (player will stop)
+		- While holding down, tap left or right once (slide starts)
+		- If you continue to hold ONLY down, you'll continue your slide
+		- You should stop as soon as you stop pressing the left or right button!
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
