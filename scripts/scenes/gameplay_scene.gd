@@ -35,8 +35,6 @@ func _on_map_transition(map_id: int, transition_id: int):
 	# Move player to target id location
 	var new_transition = current_map.get_transition(transition_id)
 	player.global_position = new_transition.entry.global_position
-	if new_transition.overlaps_body(player):
-		new_transition.ignore_until_exit(player)
 	# Unload old map
 	old_map.queue_free()
 
