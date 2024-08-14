@@ -118,6 +118,11 @@ func _on_enemy_death(enemy: Enemy):
 
 func _redraw_debug_shape():
 	if Engine.is_editor_hint():
+		if not debug_shape:
+			# When the editor is first loaded, if this function is
+			# called before _ready(), it will error. This can happen
+			# if you customize certain fields whose setter calls this.
+			return
 		if behavior == Behavior.RADIUS:
 			debug_shape.position = Vector2.ZERO
 			debug_shape.global_scale = Vector2(radius, radius)
