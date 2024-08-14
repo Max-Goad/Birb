@@ -299,7 +299,7 @@ script = ExtResource("11_prhlh")
 
 [node name="Textbox" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("canvas")]
 script = ExtResource("11_8042s")
-text = "ßñŦ)þŦ&ŦvñoŦqŦòŦÜŦœH×Ŧ&ÊŦ'Ŧvñofñŧ)oŦò.þŦÝoŦ)oŦ;ŦcŦŐHũũ"
+text = "ĺñ"
 settings = SubResource("LabelSettings_yorui")
 text_speed = 35.0
 canvas = NodePath("../../../UI Canvas")

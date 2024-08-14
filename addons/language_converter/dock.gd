@@ -4,6 +4,7 @@ extends PanelContainer
 @onready var input: TextEdit = $"Section Seperator/Textboxes/Input"
 @onready var simplified: TextEdit = $"Section Seperator/Textboxes/Simplified"
 @onready var unicode: TextEdit = $"Section Seperator/Textboxes/Unicode Section/Unicode"
+@onready var unicode_with_font: TextEdit = $"Section Seperator/Textboxes/Unicode With Font"
 @onready var convert_button: Button = $"Section Seperator/Textboxes/Convert and Error/Convert Button"
 @onready var error: Label = $"Section Seperator/Textboxes/Convert and Error/Error"
 @onready var character_num: Label = $"Section Seperator/Textboxes/Unicode Section/Character Section/Character Num"
@@ -27,11 +28,13 @@ func _on_convert():
 	_reset()
 	simplified.text = simplified_result.parsed
 	unicode.text = unicode_result.parsed
+	unicode_with_font.text = unicode_result.parsed
 	character_num.text = str(unicode_result.parsed.length())
 
 func _reset():
 	simplified.text = ""
 	unicode.text = ""
+	unicode_with_font.text = ""
 	character_num.text = ""
 	error.text = ""
 

@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsqee1wqoa3q0"]
+[gd_scene load_steps=6 format=3 uid="uid://dsqee1wqoa3q0"]
 
 [ext_resource type="Script" path="res://addons/language_converter/dock.gd" id="1_7bo8r"]
+[ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="2_u48gx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8q3xd"]
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_qtcot"]
+font = ExtResource("2_u48gx")
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_uunk8"]
 font_size = 12
@@ -60,6 +65,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Unicode"
 label_settings = SubResource("LabelSettings_8q3xd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unicode2" type="Label" parent="Section Seperator/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Ł<|"
+label_settings = SubResource("LabelSettings_qtcot")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -123,3 +137,11 @@ text = "Characters:"
 
 [node name="Character Num" type="Label" parent="Section Seperator/Textboxes/Unicode Section/Character Section"]
 layout_mode = 2
+
+[node name="Unicode With Font" type="TextEdit" parent="Section Seperator/Textboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_u48gx")
+theme_override_font_sizes/font_size = 30
+editable = false
+wrap_mode = 1
