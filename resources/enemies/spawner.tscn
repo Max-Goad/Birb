@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj16saqo3oumj"]
+
+[ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="1_typc2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ou5ff"]
+radius = 1.0
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_typc2")
+behavior = 1
+
+[node name="Debug Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ou5ff")
+debug_color = Color(0.606667, 0.7, 0, 0.419608)

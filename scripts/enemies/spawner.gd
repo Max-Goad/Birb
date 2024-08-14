@@ -25,12 +25,21 @@ enum Behavior
 	set(value):
 		behavior = value
 		notify_property_list_changed()
-@export var location: Vector2 = Vector2.ZERO
-@export var radius: float = 1.0
+		_redraw_debug_shape()
+@export var location: Vector2 = Vector2.ZERO :
+	set(value):
+		location = value
+		_redraw_debug_shape()
+@export var radius: float = 100.0 :
+	set(value):
+		radius = value
+		_redraw_debug_shape()
 
 var timer: Timer
 var spawned_enemies: Array[Enemy] = []
 var spawn_callbacks: Dictionary = {}
+
+@onready var debug_shape: CollisionShape2D = $"Debug Shape"
 #endregion
 
 #region Signals
@@ -39,6 +48,7 @@ var spawn_callbacks: Dictionary = {}
 #region Engine Functions
 func _ready():
 	if Engine.is_editor_hint():
+		_redraw_debug_shape()
 		return
 	self.add_to_group(Data.GROUP_SPAWNER)
 	timer = Timer.new()
@@ -105,4 +115,13 @@ func _prepare_spawned_enemy(enemy: Enemy):
 
 func _on_enemy_death(enemy: Enemy):
 	spawned_enemies.erase(enemy)
+
+func _redraw_debug_shape():
+	if Engine.is_editor_hint():
+		if behavior == Behavior.RADIUS:
+			debug_shape.position = Vector2.ZERO
+			debug_shape.global_scale = Vector2(radius, radius)
+		elif behavior == Behavior.LOCATION:
+			debug_shape.global_position = location
+			debug_shape.global_scale = Vector2(50, 50)
 #endregion

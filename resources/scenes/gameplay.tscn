@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_7phuw"]
-[ext_resource type="Script" path="res://scripts/enemies/spawner.gd" id="2_ig4is"]
+[ext_resource type="PackedScene" uid="uid://dj16saqo3oumj" path="res://resources/enemies/spawner.tscn" id="2_xwj7y"]
 [ext_resource type="PackedScene" uid="uid://c0lqa365xd8y4" path="res://resources/enemies/kyou.tscn" id="4_1l6dh"]
 [ext_resource type="PackedScene" uid="uid://dq3tijij8xra0" path="res://resources/player.tscn" id="4_6koyc"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="5_g402e"]
@@ -72,18 +72,18 @@ layer_1/tile_data = PackedInt32Array(1245220, 524291, 0, 1114148, 131075, 2, 104
 layer_2/name = "Objects"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Han Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(1384, 387)
-script = ExtResource("2_ig4is")
+[node name="Han Spawner" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_xwj7y")]
+position = Vector2(1442, 383)
 template = ExtResource("10_jqyq4")
 target = NodePath("../Player")
 autostart = false
+radius = 200.0
 
-[node name="Kyou Spawner" type="Node2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(1460, 748)
-script = ExtResource("2_ig4is")
+[node name="Kyou Spawner" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_xwj7y")]
+position = Vector2(982, 866)
 template = ExtResource("4_1l6dh")
 target = NodePath("../Player")
+autostart = false
 
 [node name="Player" parent="." instance=ExtResource("4_6koyc")]
 position = Vector2(550, 339)
@@ -299,7 +299,7 @@ script = ExtResource("11_prhlh")
 
 [node name="Textbox" type="Node" parent="Language Jane/Triggers" node_paths=PackedStringArray("canvas")]
 script = ExtResource("11_8042s")
-text = "ĺñ"
+text = "ŠŏŦņòŦ;Ŧ4oŪťŦ'ĲŦŁũ+ŦĪ;ĲŦ)½ŦŁŦ;ŦõŌÊŦßñŦZþŌŧ|ŦőŦoļHŪ4ñ"
 settings = SubResource("LabelSettings_yorui")
 text_speed = 35.0
 canvas = NodePath("../../../UI Canvas")
