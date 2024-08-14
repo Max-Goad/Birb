@@ -48,6 +48,10 @@ window/size/resizable=false
 
 script/templates_search_path="res://scripts/templates"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/language_converter/plugin.cfg")
+
 [input]
 
 player_action_1={
