@@ -1,7 +1,7 @@
 class_name MapBoundedFollowCamera extends Camera2D
 
 #region Variables
-@export var bound: TileMap
+@export var bound: Map
 @export var follow: Node2D
 @export var following: bool = true
 
@@ -14,7 +14,6 @@ var rot_num = 0
 
 #region Engine Functions
 func _ready() -> void:
-	_update_rotation()
 	self.ignore_rotation = false
 	self.add_to_group(Data.GROUP_CAMERA)
 
@@ -22,11 +21,15 @@ func _process(_delta: float) -> void:
 	if following:
 		var scene_camera = get_viewport().get_camera_2d()
 		if _rotation_changed():
+			_update_bound()
 			_update_rotation()
 		scene_camera.position = follow.position
 #endregion
 
 #region Public Functions
+func update_bound(bound: Map):
+	self.bound = bound
+	_update_bound()
 #endregion
 
 #region Private Functions
@@ -39,7 +42,7 @@ func _apply_limit_offsets():
 func _rotation_changed():
 	return rotation != _last_rotation
 
-func _update_rotation():
+func _update_bound():
 	var limit: Rect2 = bound.get_used_rect()
 	var viewport: Rect2 = get_viewport_rect()
 	var x = int(limit.position.x)
@@ -75,11 +78,11 @@ func _update_rotation():
 			self.limit_top += vw
 			self.limit_right += (vw - vh)
 			self.limit_bottom +=  -(vw - vh) + vw
-
 	_apply_limit_offsets()
+
+func _update_rotation():
 	_last_rotation = rotation
 	rot_num = (rot_num + 1) % 4
-
 
 #endregion
 
