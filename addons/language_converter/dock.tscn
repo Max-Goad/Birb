@@ -1,0 +1,117 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsqee1wqoa3q0"]
+
+[ext_resource type="Script" path="res://addons/language_converter/dock.gd" id="1_7bo8r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uunk8"]
+font_color = Color(1, 0.45, 0.45, 1)
+
+[node name="Root Panel" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_7bo8r")
+
+[node name="Section Seperator" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Labels" type="HBoxContainer" parent="Section Seperator"]
+layout_mode = 2
+
+[node name="Input" type="Label" parent="Section Seperator/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Input"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Convert" type="Label" parent="Section Seperator/Labels"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Convert"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Simplified" type="Label" parent="Section Seperator/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Simplified"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unicode" type="Label" parent="Section Seperator/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Unicode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Textboxes" type="HBoxContainer" parent="Section Seperator"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Input" type="TextEdit" parent="Section Seperator/Textboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+wrap_mode = 1
+
+[node name="Convert and Error" type="VBoxContainer" parent="Section Seperator/Textboxes"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Convert Button" type="Button" parent="Section Seperator/Textboxes/Convert and Error"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Click here
+to convert"
+
+[node name="Error Label" type="Label" parent="Section Seperator/Textboxes/Convert and Error"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Error:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Error" type="Label" parent="Section Seperator/Textboxes/Convert and Error"]
+layout_mode = 2
+size_flags_vertical = 3
+label_settings = SubResource("LabelSettings_uunk8")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Simplified" type="TextEdit" parent="Section Seperator/Textboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+wrap_mode = 1
+
+[node name="Unicode Section" type="VBoxContainer" parent="Section Seperator/Textboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Unicode" type="TextEdit" parent="Section Seperator/Textboxes/Unicode Section"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+editable = false
+wrap_mode = 1
+
+[node name="Character Section" type="HBoxContainer" parent="Section Seperator/Textboxes/Unicode Section"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Section Seperator/Textboxes/Unicode Section/Character Section"]
+layout_mode = 2
+text = "Characters:"
+
+[node name="Character Num" type="Label" parent="Section Seperator/Textboxes/Unicode Section/Character Section"]
+layout_mode = 2
