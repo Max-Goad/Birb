@@ -1,8 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://p6ms2x5364dt"]
+[gd_scene load_steps=7 format=3 uid="uid://p6ms2x5364dt"]
 
 [ext_resource type="Script" path="res://scripts/scenes/gameplay_scene.gd" id="1_r3uwy"]
-[ext_resource type="PackedScene" uid="uid://pfpql4wh5gp0" path="res://resources/scenes/maps/test_map.tscn" id="2_acliv"]
-[ext_resource type="PackedScene" uid="uid://77l0j8miufi5" path="res://resources/scenes/maps/test_map_2.tscn" id="3_vqj0i"]
 [ext_resource type="PackedScene" uid="uid://dq3tijij8xra0" path="res://resources/player.tscn" id="4_6koyc"]
 [ext_resource type="Script" path="res://scripts/camera/map_bounded_follow_camera.gd" id="10_g5hj0"]
 [ext_resource type="Script" path="res://scripts/ui/menu_controller.gd" id="16_6n8mp"]
@@ -12,7 +10,6 @@
 [node name="Gameplay Scene" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_r3uwy")
-maps = Array[PackedScene]([ExtResource("2_acliv"), ExtResource("3_vqj0i")])
 
 [node name="Player" parent="." instance=ExtResource("4_6koyc")]
 position = Vector2(550, 339)
