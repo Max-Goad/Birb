@@ -16,13 +16,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	# var old_velocity = character.velocity
-	var new_velocity = direction * speed
-	character.velocity = new_velocity
+	# Setting the direction to ZERO allows the character
+	# to immediately accelerate in any direction next time
+	if speed == 0.0:
+		direction = Vector2.ZERO
+	character.velocity = direction * speed
 	character.move_and_slide()
-	var final_velocity = character.velocity
-	direction = final_velocity.normalized()
-	speed = final_velocity.length()
 #endregion
 
 #region Public Functions
