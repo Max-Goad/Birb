@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dswk653r2ggha"]
+[gd_scene load_steps=24 format=3 uid="uid://dswk653r2ggha"]
 
 [ext_resource type="Script" path="res://scripts/ui/menu_root.gd" id="1_v28wr"]
 [ext_resource type="Script" path="res://scripts/ui/ingame_menu.gd" id="2_l4mlr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/crafting/crafting_button.gd" id="4_em4y8"]
 [ext_resource type="Script" path="res://scripts/crafting/crafting_clear_button.gd" id="5_kvo1i"]
 [ext_resource type="PackedScene" uid="uid://cip5e66b21iir" path="res://resources/ui/menu_component_grid.tscn" id="6_ov8pu"]
+[ext_resource type="PackedScene" uid="uid://btyswouont37q" path="res://resources/ui/settings.tscn" id="9_22cf7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_e3ca1"]
 line_spacing = 5.0
@@ -760,6 +761,17 @@ horizontal_scroll_mode = 0
 [node name="Component Grid" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
 layout_mode = 2
 columns = 1
+
+[node name="Settings" type="MarginContainer" parent="Tab Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Settings Menu" parent="Tab Menu/Settings" instance=ExtResource("9_22cf7")]
+layout_mode = 2
 
 [editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 1"]
 [editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 2"]

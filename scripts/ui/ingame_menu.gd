@@ -4,10 +4,13 @@ enum Tabs {
 	ABILITIES = 0,
 	L_CRAFTING,
 	TXT_CRAFTING,
+	SETTINGS
 }
 
 #region Variables
 @export var root: MenuRoot
+
+@onready var settings_menu: Settings = $"Settings/Settings Menu"
 #endregion
 
 #region Signals
@@ -20,6 +23,10 @@ func _ready() -> void:
 	self.set_tab_hidden(Tabs.ABILITIES, false)
 	self.set_tab_hidden(Tabs.L_CRAFTING, true)
 	self.set_tab_hidden(Tabs.TXT_CRAFTING, true)
+	self.set_tab_hidden(Tabs.SETTINGS, false)
+	# Settings is reusable and has its own close button
+	# Let's leverage it to close the menu too
+	settings_menu.closed.connect(func(): root.closed.emit())
 	Data.recipe_type_unlocked.connect(_on_recipe_type_unlocked)
 	Data.notify_available_components()
 	Data.notify_available_recipe_types()
