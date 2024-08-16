@@ -1,0 +1,27 @@
+class_name Settings extends Control
+
+#region Variables
+@onready var save_and_quit_button: Button = $"PanelContainer/MarginContainer/VBoxContainer/Save And Quit Button"
+#endregion
+
+#region Signals
+signal closed
+#endregion
+
+#region Engine Functions
+func _ready() -> void:
+	save_and_quit_button.pressed.connect(_on_save_and_quit)
+
+func _process(delta: float) -> void:
+	pass
+#endregion
+
+#region Public Functions
+func _on_save_and_quit():
+	# TODO: Save settings
+	closed.emit()
+#endregion
+
+#region Private Functions
+#endregion
+

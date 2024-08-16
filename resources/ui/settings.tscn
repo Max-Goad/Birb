@@ -1,0 +1,135 @@
+[gd_scene load_steps=4 format=3 uid="uid://btyswouont37q"]
+
+[ext_resource type="Script" path="res://scripts/ui/settings.gd" id="1_d36kb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ryumi"]
+line_spacing = 5.0
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6smls"]
+font_size = 30
+
+[node name="Settings Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_d36kb")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 600.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_ryumi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TestSetting" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Text Setting (Test)"
+label_settings = SubResource("LabelSettings_6smls")
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+
+[node name="TestSetting2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Number Setting (Test)"
+label_settings = SubResource("LabelSettings_6smls")
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+
+[node name="TestSetting3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Boolean Setting (Test)"
+label_settings = SubResource("LabelSettings_6smls")
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting3"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="CheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/TestSetting3"]
+layout_mode = 2
+size_flags_horizontal = 6
+alignment = 1
+
+[node name="Save And Quit Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 30
+text = "Save and Quit"
