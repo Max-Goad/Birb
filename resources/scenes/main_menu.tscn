@@ -84,7 +84,8 @@ text = "Quit"
 
 [node name="Settings Menu" parent="." instance=ExtResource("4_dcgf6")]
 visible = false
+layout_mode = 0
 offset_left = 40.0
 offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1240.0
+offset_bottom = 640.0

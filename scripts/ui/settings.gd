@@ -1,7 +1,7 @@
-class_name Settings extends Control
+class_name Settings extends PanelContainer
 
 #region Variables
-@onready var save_and_quit_button: Button = $"PanelContainer/MarginContainer/VBoxContainer/Save And Quit Button"
+@onready var save_and_quit_button: Button = $"MarginContainer/VBoxContainer/Save And Quit Button"
 #endregion
 
 #region Signals
