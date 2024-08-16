@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://non4veedq21r"]
+[gd_scene load_steps=6 format=3 uid="uid://non4veedq21r"]
 
 [ext_resource type="Script" path="res://resources/scenes/main_menu.gd" id="1_563pd"]
 [ext_resource type="Texture2D" uid="uid://cuf02ptoowlck" path="res://resources/art/bg_test.jpg" id="2_dg3kc"]
 [ext_resource type="Theme" uid="uid://q5rrux06ucou" path="res://theme/test.theme" id="3_ax3ke"]
+[ext_resource type="PackedScene" uid="uid://btyswouont37q" path="res://resources/ui/settings.tscn" id="4_dcgf6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkb5b"]
 font_size = 50
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_ax3ke")
 script = ExtResource("1_563pd")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -31,7 +33,6 @@ offset_left = 768.0
 offset_top = 128.0
 offset_right = 1152.0
 offset_bottom = 640.0
-theme = ExtResource("3_ax3ke")
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu"]
 layout_mode = 2
@@ -80,3 +81,10 @@ custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Quit"
+
+[node name="Settings Menu" parent="." instance=ExtResource("4_dcgf6")]
+visible = false
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
