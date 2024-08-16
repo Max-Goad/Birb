@@ -11,9 +11,6 @@ signal closed
 #region Engine Functions
 func _ready() -> void:
 	save_and_quit_button.pressed.connect(_on_save_and_quit)
-
-func _process(delta: float) -> void:
-	pass
 #endregion
 
 #region Public Functions
