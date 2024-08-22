@@ -28,24 +28,27 @@ func _init(tf, id, ed, et = 1.0) -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	var execute_fn = func():
-		_throw_bomb(parent, direction)
-		finished.emit()
-	super.execute_with_delay(execute_fn, 0.1)
+	(super.chain()
+		.wait(0.1)
+		.run(_throw_bomb)
+		.wait(0.2)
+		.run(self.finish)
+		.start_chain()
+	)
 #endregion
 
 #region Private Functions
-func _throw_bomb(parent: Player, direction: Vector2):
+func _throw_bomb():
 	var bomb = pl_hb_hundred_bomb.instantiate()
 	bomb.top_level = true # Do not follow parent's transforms
-	bomb.position = parent.position
-	bomb.scale = parent.scale
-	bomb.velocity = Math.dither_v_rot(Math.vector8dir(direction) * Math.dither_f(throw_force, 5), deg_to_rad(10))
+	bomb.position = self.parent.position
+	bomb.scale = self.parent.scale
+	bomb.velocity = Math.dither_v_rot(Math.vector8dir(self.direction) * Math.dither_f(throw_force, 5), deg_to_rad(10))
 	bomb.deceleration = 0.15
-	bomb.ignore(parent)
-	bomb.finished.connect(_on_bomb_finished.bind(parent, bomb))
-	parent.add_child(bomb)
-	bomb.damage_component.amount = int(impact_damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
+	bomb.ignore(self.parent)
+	bomb.finished.connect(_on_bomb_finished.bind(self.parent, bomb))
+	self.parent.add_child(bomb)
+	bomb.damage_component.amount = int(impact_damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
 
 func _on_bomb_finished(parent, bomb):
 	call_deferred("_spawn_explosion", parent, bomb)
@@ -56,13 +59,8 @@ func _spawn_explosion(parent, bomb):
 	explosion.position = bomb.position
 	explosion.scale = bomb.scale
 	# explosion.ignore(parent)
-	explosion.finished.connect(_on_explosion_finished)
 	parent.add_child(explosion)
 	explosion.damage_component.amount = int(explosion_damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
-
 	# There's a small amount of time when both are still alive/active
 	explosion.ignore_hurtbox(bomb, Hurtbox.MUTUAL_IGNORE)
-
-func _on_explosion_finished():
-	pass
 #endregion

@@ -5,8 +5,6 @@ const projecile_template = preload("res://resources/attacks/hb_one.tscn")
 #region Variables
 var speed: float
 var damage: int
-
-var _projectile_finished_num = 0
 #endregion
 
 #region Signals
