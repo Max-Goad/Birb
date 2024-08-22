@@ -68,6 +68,7 @@ func _process_velocity(direction: Vector2):
 
 func _process_animation(direction: Vector2):
 	var prefix = ""
+	var animation_name = ""
 	if not Abilities.current_active.is_null():
 		prefix = Abilities.current_active.animation_name
 		direction = last_direction
@@ -78,13 +79,16 @@ func _process_animation(direction: Vector2):
 		prefix = "walk"
 	match Math.vector4dir(direction):
 		Vector2.LEFT:
-			self.sprite.play(prefix + "_left")
+			animation_name = prefix + "_left"
 		Vector2.RIGHT:
-			self.sprite.play(prefix + "_right")
+			animation_name = prefix + "_right"
 		Vector2.UP:
-			self.sprite.play(prefix + "_up")
+			animation_name = prefix + "_up"
 		Vector2.DOWN:
-			self.sprite.play(prefix + "_down")
+			animation_name = prefix + "_down"
+	if animation_name != self.sprite.animation:
+		print("Play new animation (%s)" % animation_name)
+		self.sprite.play(animation_name)
 
 func _process_attack(direction: Vector2):
 	if Input.is_action_just_pressed("player_action_1"):
