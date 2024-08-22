@@ -21,8 +21,8 @@ func _process(_delta: float) -> void:
 	if following:
 		var scene_camera = get_viewport().get_camera_2d()
 		if _rotation_changed():
-			_update_bound()
 			_update_rotation()
+			_update_bound()
 		scene_camera.position = follow.position
 #endregion
 
@@ -78,10 +78,16 @@ func _update_bound():
 			self.limit_top += vw
 			self.limit_right += (vw - vh)
 			self.limit_bottom +=  -(vw - vh) + vw
+#	print("""\
+#Limits:     %04d
+#	   %04d      %04d
+#			%04d
+#	""" % [self.limit_top, self.limit_left, self.limit_right, self.limit_bottom])
 	_apply_limit_offsets()
 
 func _update_rotation():
 	_last_rotation = rotation
 	rot_num = (rot_num + 1) % 4
+	#print("rot_num = %d" % rot_num)
 
 #endregion
