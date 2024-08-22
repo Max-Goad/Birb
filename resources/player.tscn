@@ -1,6 +1,6 @@
 [gd_scene load_steps=112 format=3 uid="uid://dq3tijij8xra0"]
 
-[ext_resource type="Script" path="res://scripts/test_player.gd" id="1_06ecq"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_06ecq"]
 [ext_resource type="Texture2D" uid="uid://b8kum0mfs7msb" path="res://resources/art/Sprout Lands Pack/Characters/Premium Charakter Spritesheet.png" id="2_h72ep"]
 [ext_resource type="Script" path="res://scripts/components/attach_point_component.gd" id="3_2uhwa"]
 [ext_resource type="Script" path="res://scripts/components/character_movement_component.gd" id="4_8ncc7"]
