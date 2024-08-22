@@ -25,40 +25,42 @@ func _init(speed, damage) -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	var execute_fn = func():
-		var a = _create_projectile(parent, Math.vector8dir(direction))
-		var b = _create_projectile(parent, Math.vector8dir(direction).rotated(deg_to_rad(10.0)))
-		var c = _create_projectile(parent, Math.vector8dir(direction).rotated(deg_to_rad(-10.0)))
-
-		Hurtbox.mutual_ignore([a,b,c])
-		a.ignore(parent)
-		b.ignore(parent)
-		c.ignore(parent)
-		parent.add_child(a)
-		parent.add_child(b)
-		parent.add_child(c)
-		a.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
-		b.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
-		c.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
-
-	super.execute_with_delay(execute_fn, 0.1)
+	(super.chain()
+		.wait(0.1)
+		.run(_fire_3_projectiles)
+		.wait(0.2)
+		.run(self.finish)
+		.start_chain()
+	)
 #endregion
 
 #region Private Functions
-func _create_projectile(parent: Node2D, direction: Vector2) -> Hurtbox:
-	var hurtbox: Hurtbox = projecile_template.instantiate()
-	hurtbox.position = parent.position
-	hurtbox.scale = parent.scale
-	var clamped_direction = Math.vector8dir(direction) * Math.dither_f(self.speed, 5)
-	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
-	hurtbox.velocity = dithered_direction
-	hurtbox.rotate(dithered_direction.angle())
-	hurtbox.finished.connect(_projectile_finished)
-	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
-	return hurtbox
+func _fire_3_projectiles():
+	var a = _create_projectile()
+	var b = _create_projectile(deg_to_rad(10.0))
+	var c = _create_projectile(deg_to_rad(-10.0))
 
-func _projectile_finished():
-	_projectile_finished_num += 1
-	if _projectile_finished_num >= 3:
-		self.finished.emit()
+	Hurtbox.mutual_ignore([a,b,c])
+	a.ignore(self.parent)
+	b.ignore(self.parent)
+	c.ignore(self.parent)
+	self.parent.add_child(a)
+	self.parent.add_child(b)
+	self.parent.add_child(c)
+	a.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
+	b.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
+	c.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
+
+
+func _create_projectile(rotation_rad: float = 0.0) -> Hurtbox:
+	var hurtbox: Hurtbox = projecile_template.instantiate()
+	hurtbox.position = self.parent.position
+	hurtbox.scale = self.parent.scale
+	var rotated_direction = Math.vector8dir(self.direction).rotated(rotation_rad)
+	var speed_direction = rotated_direction * Math.dither_f(self.speed, 5)
+	var final_direction = Math.dither_v_rot(speed_direction, deg_to_rad(10))
+	hurtbox.velocity = final_direction
+	hurtbox.rotate(final_direction.angle())
+	hurtbox.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
+	return hurtbox
 #endregion
