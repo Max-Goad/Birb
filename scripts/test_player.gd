@@ -86,7 +86,7 @@ func _process_animation(direction: Vector2):
 			animation_name = prefix + "_up"
 		Vector2.DOWN:
 			animation_name = prefix + "_down"
-	if animation_name != self.sprite.animation:
+	if animation_name != self.sprite.animation or not self.sprite.is_playing():
 		print("Play new animation (%s)" % animation_name)
 		self.sprite.play(animation_name)
 
