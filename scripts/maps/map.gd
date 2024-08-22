@@ -1,4 +1,4 @@
-class_name Map extends TileMap
+class_name Map extends Node2D
 
 #region Variables
 @export var default_transition: MapTransition
@@ -14,10 +14,28 @@ signal transition_triggered(map_id, transition_id)
 func _ready() -> void:
 	assert(default_transition)
 	_generate_transitions()
-
 #endregion
 
 #region Public Functions
+func get_bounds() -> Rect2i:
+	var bounds = Rect2i()
+	for child in get_children():
+		if child is TileMapLayer:
+			bounds = bounds.merge(child.get_used_rect())
+	return bounds
+
+# Note: All layers must use the same tileset in this scheme
+#		Otherwise, attempting to try and get the tile sizes would be impossible
+func get_tile_size() -> Vector2i:
+	var tileset: TileSet = null
+	for child in get_children():
+		if child is TileMapLayer:
+			if tileset == null:
+				tileset = child.tile_set
+			else:
+				assert(tileset == child.tile_set)
+	return tileset.tile_size
+
 func get_transition(id: int) -> MapTransition:
 	return transitions.get(id, default_transition)
 
@@ -40,4 +58,3 @@ func _generate_transitions():
 func _on_transition_triggered(map_id, transition_id):
 	transition_triggered.emit(map_id, transition_id)
 #endregion
-

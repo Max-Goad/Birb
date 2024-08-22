@@ -1,7 +1,7 @@
 class_name MapBoundedFollowCamera extends Camera2D
 
 #region Variables
-@export var bound: Map
+@export var map: Map
 @export var follow: Node2D
 @export var following: bool = true
 
@@ -27,8 +27,8 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Public Functions
-func update_bound(bound: Map):
-	self.bound = bound
+func update_map(map: Map):
+	self.map = map
 	_update_bound()
 #endregion
 
@@ -43,22 +43,22 @@ func _rotation_changed():
 	return rotation != _last_rotation
 
 func _update_bound():
-	var limit: Rect2 = bound.get_used_rect()
+	var limit: Rect2 = map.get_bounds()
 	var viewport: Rect2 = get_viewport_rect()
 	var x = int(limit.position.x)
 	var y = int(limit.position.y)
 	var w = int(limit.end.x)
 	var h = int(limit.end.y)
-	var cell = bound.rendering_quadrant_size
-	var sx = int(bound.scale.x)
-	var sy = int(bound.scale.y)
+	var ts = map.get_tile_size()
+	var sx = int(map.scale.x)
+	var sy = int(map.scale.y)
 	var vw = int(viewport.size.x)
 	var vh = int(viewport.size.y)
 
 	self.limit_left = x
 	self.limit_top = y
-	self.limit_right = (w*cell*sx) # 2560
-	self.limit_bottom = (h*cell*sy) # 1472
+	self.limit_right = (w*ts.x*sx) # 2560
+	self.limit_bottom = (h*ts.y*sy) # 1472
 	match rot_num:
 		0:
 			# Do nothing, you're perfect the way you are bb <3
@@ -85,4 +85,3 @@ func _update_rotation():
 	rot_num = (rot_num + 1) % 4
 
 #endregion
-

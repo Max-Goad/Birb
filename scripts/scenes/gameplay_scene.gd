@@ -54,6 +54,6 @@ func _load_map(map_name) -> Map:
 	new_map.enter()
 	new_map.transition_triggered.connect(_on_map_transition_trigger)
 	add_child(new_map)
-	camera.update_bound(new_map)
+	camera.update_map(new_map)
 	return new_map
 #endregion
