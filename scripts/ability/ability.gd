@@ -30,6 +30,7 @@ var delay_callable: Callable = func(): pass
 
 var _cooldown_timer: Timer
 var _delay_timer: Timer
+var _chain_timer: ChainTimer
 #endregion
 
 #region Signals
@@ -51,6 +52,9 @@ func _init() -> void:
 	_delay_timer.timeout.connect(func(): delay_callable.call())
 	add_child(_delay_timer)
 
+	_chain_timer = ChainTimer.new()
+	add_child(_chain_timer)
+
 func _ready():
 	if self.info.label:
 		self.name = self.info.label
@@ -62,6 +66,9 @@ func _ready():
 func execute(_parent: Player, _direction: Vector2):
 	assert(_cooldown_timer.is_stopped())
 	_cooldown_timer.start(cooldown)
+
+func chain() -> ChainTimer:
+	return _chain_timer
 
 func execute_with_delay(fn: Callable, delay: float):
 	assert(delay > 0.0)
