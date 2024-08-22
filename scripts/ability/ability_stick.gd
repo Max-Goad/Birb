@@ -3,6 +3,8 @@ class_name Stick extends Ability
 const pl_hb_stick = preload("res://resources/attacks/hb_stick.tscn")
 
 #region Variables
+var parent: Player
+var direction: Vector2
 #endregion
 
 #region Signals
@@ -12,31 +14,34 @@ const pl_hb_stick = preload("res://resources/attacks/hb_stick.tscn")
 func _init() -> void:
 	super._init()
 	self.info = Data.components_by_name["丨"]
-	self.animation_name = "slash"
+	self.animation_name = "lunge"
 	self.cooldown = 0.5
 #endregion
 
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	# TODO: Is the IGNORE_LOCK necessary?
-	parent.movement.apply_direction(-direction, MovementComponent.IGNORE_LOCK)
-	parent.movement.apply_speed(parent.movement.top_speed * 0.75, MovementComponent.IGNORE_LOCK)
-	super.execute_with_delay(_lunge.bind(parent, direction), 0.35)
+	self.parent = parent
+	self.direction = direction
+	super.chain().run(_windup).wait(0.35).run(_lunge).wait(0.15).run(_spawn_hurtbox).start_chain()
 	# TODO: Damage? Damage modifier?
 #endregion
 
 #region Private Functions
-func _lunge(parent: Player, direction: Vector2):
+func _windup():
+	parent.movement.apply_direction(-direction, MovementComponent.IGNORE_LOCK)
+	parent.movement.apply_speed(parent.movement.top_speed * 0.75, MovementComponent.IGNORE_LOCK)
+
+func _lunge():
 	parent.movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
 	parent.movement.apply_speed(parent.movement.top_speed * 2, MovementComponent.IGNORE_LOCK)
-	_spawn_hurtbox(parent, direction)
 
-func _spawn_hurtbox(parent: Player, direction: Vector2):
+func _spawn_hurtbox():
 	var hurtbox: Node2D = pl_hb_stick.instantiate()
 	hurtbox.ignore(parent)
 	_position_hurtbox(hurtbox, direction)
 	hurtbox.finished.connect(func(): self.finished.emit())
+	hurtbox.despawn_after_delay(0.16)
 	parent.add_child(hurtbox)
 
 func _position_hurtbox(hurtbox: Node2D, direction: Vector2):
