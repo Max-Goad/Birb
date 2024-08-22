@@ -40,19 +40,21 @@ func execute(parent: Player, direction: Vector2):
 	assert(current_explosion == null)
 	super.execute(parent, direction)
 	self.current_parent = parent
-	var execute_fn = func():
-		_throw_bomb(direction)
-		finished.emit()
-	super.execute_with_delay(execute_fn, 0.1)
+	(self.chain()
+		.wait(0.1)
+		.run(_throw_bomb)
+		.wait(0.2)
+		.run(self.finish)
+		.start_chain())
 #endregion
 
 #region Private Functions
-func _throw_bomb(direction: Vector2):
+func _throw_bomb():
 	self.current_bomb = pl_hb_ten_bomb.instantiate()
 	current_bomb.top_level = true # Do not follow parent's transforms
 	current_bomb.position = current_parent.position
 	current_bomb.scale = current_parent.scale
-	current_bomb.velocity = Math.dither_v_rot(Math.vector8dir(direction) * Math.dither_f(throw_force, 5), deg_to_rad(10))
+	current_bomb.velocity = Math.dither_v_rot(Math.vector8dir(self.direction) * Math.dither_f(throw_force, 5), deg_to_rad(10))
 	current_bomb.deceleration = 0.15
 	current_bomb.angular_velocity = Math.rand_negative(Math.dither_f(10.0, 5.0))
 	current_bomb.angular_deceleration = Math.dither_f(0.3, 0.15)
