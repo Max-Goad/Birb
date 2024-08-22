@@ -7,6 +7,7 @@ const MAX_SAVE_NAME_SIZE: int = 20
 const GROUP_PLAYER: String = "player"
 const GROUP_SPAWNER: String = "spawner"
 const GROUP_CAMERA: String = "camera"
+const GROUP_CANVAS: String = "canvas"
 #endregion
 
 #region Save Data Variables
@@ -107,6 +108,9 @@ func get_player() -> Player:
 
 func get_camera() -> Camera2D:
 	return get_tree().get_first_node_in_group(Data.GROUP_CAMERA)
+
+func get_canvas() -> CanvasLayer:
+	return get_tree().get_first_node_in_group(Data.GROUP_CANVAS)
 
 func get_spawners() -> Array[Spawner]:
 	var spawners: Array[Spawner] = []

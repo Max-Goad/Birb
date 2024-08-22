@@ -19,7 +19,7 @@ offset = Vector2(0, -20)
 script = ExtResource("10_g5hj0")
 follow = NodePath("../Player")
 
-[node name="UI Canvas" type="CanvasLayer" parent="."]
+[node name="UI Canvas" type="CanvasLayer" parent="." groups=["canvas"]]
 process_mode = 3
 
 [node name="Menu Controller" type="Node" parent="UI Canvas"]

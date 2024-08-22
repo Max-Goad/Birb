@@ -26,6 +26,9 @@ func execute():
 	textbox.settings = settings
 	textbox.text_speed = text_speed
 	if canvas == null:
+		canvas = Data.get_canvas()
+	if canvas == null:
+		push_error("TextboxTrigger: Can't find CanvasLayer")
 		get_tree().current_scene.add_child(textbox)
 	else:
 		canvas.add_child(textbox)

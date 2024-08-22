@@ -2,12 +2,6 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- MAJOR UI BUG
-	- Language Textboxts no longer attached to camera location
-	- Also seem to be ignoring some inputs???
-- Ten
-	- If you try to shoot more projectiles before the explosion is done
-	  then it'll crash... how do I fix this?
 - River
 	- Add small visual effect?
 - MovementComponent
