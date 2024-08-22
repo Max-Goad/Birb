@@ -23,21 +23,26 @@ func _init(speed, damage) -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	super.execute_with_delay(_fire.bind(parent, direction), 0.1)
+	(super.chain()
+		.wait(0.1)
+		.run(_fire_projectile)
+		.wait(0.2)
+		.run(self.finish)
+		.start_chain()
+	)
 #endregion
 
 #region Private Functions
-func _fire(parent: Player, direction: Vector2):
+func _fire_projectile():
 	var hurtbox: Hurtbox = pl_hb_one.instantiate()
 	hurtbox.top_level = true # Do not follow parent's transforms
-	hurtbox.position = parent.position
-	hurtbox.scale = parent.scale
-	var clamped_direction = Math.vector8dir(direction) * Math.dither_f(self.speed, 5)
+	hurtbox.position = self.parent.position
+	hurtbox.scale = self.parent.scale
+	var clamped_direction = Math.vector8dir(self.direction) * Math.dither_f(self.speed, 5)
 	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
 	hurtbox.velocity = dithered_direction
 	hurtbox.rotate(dithered_direction.angle())
-	hurtbox.ignore(parent)
-	hurtbox.finished.connect(func(): self.finished.emit())
-	parent.add_child(hurtbox)
-	hurtbox.damage_component.amount = int(damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
+	hurtbox.ignore(self.parent)
+	self.parent.add_child(hurtbox)
+	hurtbox.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
 #endregion
