@@ -12,6 +12,7 @@ var angular_deceleration = 0.0
 
 var ignored_nodes: Dictionary = {}
 var collided_ids: Dictionary = {}
+var despawn_timer: Timer = null
 
 @export var limit_collisions = true :
 	set(value):
@@ -110,6 +111,15 @@ func despawn():
 		queue_free()
 		freed.emit()
 		freed_emitted = true
+
+func despawn_after_delay(delay: float):
+	assert(despawn_timer == null, "Duplicate calls to Hurtbox.despawn_after_delay()")
+	despawn_timer = Timer.new()
+	despawn_timer.one_shot = true
+	despawn_timer.autostart = true
+	despawn_timer.wait_time = delay
+	despawn_timer.timeout.connect(despawn)
+	add_child(despawn_timer)
 #endregion
 
 #region Private Functions
