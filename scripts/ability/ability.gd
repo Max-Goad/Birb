@@ -28,6 +28,9 @@ var animation_name: String
 var cooldown: float = 0.0
 var delay_callable: Callable = func(): pass
 
+var parent: Player = null
+var direction: Vector2 = Vector2.ZERO
+
 var _cooldown_timer: Timer
 var _delay_timer: Timer
 var _chain_timer: ChainTimer
@@ -63,12 +66,17 @@ func _ready():
 #endregion
 
 #region Public Functions
-func execute(_parent: Player, _direction: Vector2):
+func execute(parent: Player, direction: Vector2):
 	assert(_cooldown_timer.is_stopped())
 	_cooldown_timer.start(cooldown)
+	self.parent = parent
+	self.direction = direction
 
 func chain() -> ChainTimer:
 	return _chain_timer
+
+func finish():
+	finished.emit()
 
 func execute_with_delay(fn: Callable, delay: float):
 	assert(delay > 0.0)

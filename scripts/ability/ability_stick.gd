@@ -3,8 +3,6 @@ class_name Stick extends Ability
 const pl_hb_stick = preload("res://resources/attacks/hb_stick.tscn")
 
 #region Variables
-var parent: Player
-var direction: Vector2
 #endregion
 
 #region Signals
@@ -29,20 +27,20 @@ func execute(parent: Player, direction: Vector2):
 
 #region Private Functions
 func _windup():
-	parent.movement.apply_direction(-direction, MovementComponent.IGNORE_LOCK)
-	parent.movement.apply_speed(parent.movement.top_speed * 0.75, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_direction(-self.direction, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_speed(self.parent.movement.top_speed * 0.75, MovementComponent.IGNORE_LOCK)
 
 func _lunge():
-	parent.movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
-	parent.movement.apply_speed(parent.movement.top_speed * 2, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_direction(self.direction, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_speed(self.parent.movement.top_speed * 2, MovementComponent.IGNORE_LOCK)
 
 func _spawn_hurtbox():
 	var hurtbox: Node2D = pl_hb_stick.instantiate()
-	hurtbox.ignore(parent)
-	_position_hurtbox(hurtbox, direction)
+	hurtbox.ignore(self.parent)
+	_position_hurtbox(hurtbox, self.direction)
 	hurtbox.finished.connect(func(): self.finished.emit())
 	hurtbox.despawn_after_delay(0.16)
-	parent.add_child(hurtbox)
+	self.parent.add_child(hurtbox)
 
 func _position_hurtbox(hurtbox: Node2D, direction: Vector2):
 	match Math.vector4dir(direction):

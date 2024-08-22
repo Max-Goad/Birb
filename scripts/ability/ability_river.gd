@@ -3,7 +3,7 @@ class_name River extends Ability
 #region Variables
 var knockback_force: float
 var stun_time: float
-var direction = Vector2.UP
+var knockback_direction = Vector2.UP
 #endregion
 
 #region Signals
@@ -35,6 +35,6 @@ func execute(parent: Player, direction: Vector2):
 
 #region Private Functions
 func _next_direction() -> Vector2:
-	direction = direction.rotated(PI/2 * randi_range(0,3))
-	return direction
+	knockback_direction = knockback_direction.rotated(PI/2 * randi_range(0,3))
+	return knockback_direction
 #endregion
