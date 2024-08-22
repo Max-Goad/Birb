@@ -93,6 +93,7 @@ offset_left = 40.0
 offset_top = 40.0
 offset_right = 1240.0
 offset_bottom = 680.0
+current_tab = 0
 script = ExtResource("2_l4mlr")
 root = NodePath("..")
 
@@ -102,6 +103,7 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+metadata/_tab_index = 0
 
 [node name="HBox" type="HBoxContainer" parent="Tab Menu/Abilities"]
 layout_mode = 2
@@ -241,6 +243,7 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+metadata/_tab_index = 1
 
 [node name="HBox" type="HBoxContainer" parent="Tab Menu/L Crafting"]
 layout_mode = 2
@@ -454,6 +457,7 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+metadata/_tab_index = 2
 
 [node name="HBox" type="HBoxContainer" parent="Tab Menu/3x3 Crafting"]
 layout_mode = 2
@@ -769,6 +773,7 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+metadata/_tab_index = 3
 
 [node name="Settings Menu" parent="Tab Menu/Settings" instance=ExtResource("9_22cf7")]
 layout_mode = 2

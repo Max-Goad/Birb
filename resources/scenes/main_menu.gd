@@ -50,4 +50,3 @@ func _on_quit_button():
 func _on_settings_menu_closed():
 	settings_menu.hide()
 #endregion
-
