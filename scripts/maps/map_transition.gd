@@ -38,4 +38,3 @@ func _on_entered(node):
 	if node is Player:
 		triggered.emit(target_map, target_id)
 #endregion
-

@@ -92,4 +92,3 @@ func decelerate(modifier = 1.0) -> bool:
 
 #region Private Functions
 #endregion
-

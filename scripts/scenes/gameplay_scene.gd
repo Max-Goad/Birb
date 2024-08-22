@@ -57,4 +57,3 @@ func _load_map(map_name) -> Map:
 	camera.update_bound(new_map)
 	return new_map
 #endregion
-

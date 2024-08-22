@@ -40,4 +40,3 @@ func _on_menu_closed():
 	if root.visible:
 		hide_menu()
 #endregion
-

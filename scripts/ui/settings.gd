@@ -21,4 +21,3 @@ func _on_save_and_quit():
 
 #region Private Functions
 #endregion
-
