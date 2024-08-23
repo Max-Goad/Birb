@@ -123,9 +123,9 @@ position = Vector2(-16, -60)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_twxsa")
+damage_component = NodePath("../DamageComponent")
 max_collisions = 100
 ignore_repeat_collisions = false
-damage_component = NodePath("../DamageComponent")
 
 [node name="Weapon Glyph" type="Label" parent="Hurtbox"]
 texture_filter = 2
