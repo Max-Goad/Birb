@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=4 uid="uid://77l0j8miufi5"]
+[gd_scene load_steps=13 format=4 uid="uid://77l0j8miufi5"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_qwobg"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_lvifn"]
+[ext_resource type="Script" path="res://scripts/ability/hurtbox.gd" id="4_pmq7d"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_sqq3a"]
 [ext_resource type="PackedScene" uid="uid://dj16saqo3oumj" path="res://resources/enemies/spawner.tscn" id="5_8lelt"]
 [ext_resource type="PackedScene" uid="uid://btrabe1j0w66f" path="res://resources/enemies/han.tscn" id="6_lv611"]
@@ -89,11 +90,10 @@ texture = SubResource("AtlasTexture_i82a7")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rock"]
 polygon = PackedVector2Array(-46.5, -5.5, -34.5, -13.5, -30.5, -25.5, -18.5, -37.5, 25.5, -33.5, 33.5, -25.5, 37.5, -9.5, 45.5, -1.5, 45.5, 10.5, 33.5, 38.5, 5.5, 46.5, -22.5, 26.5, -38.5, 26.5, -46.5, 10.5)
 
-[node name="Hitbox" type="Area2D" parent="Rock"]
-collision_layer = 4
-collision_mask = 18
+[node name="Hurtbox" type="Area2D" parent="Rock"]
+script = ExtResource("4_pmq7d")
 
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Rock/Hitbox"]
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Rock/Hurtbox"]
 position = Vector2(1.5, 2.5)
 shape = SubResource("CircleShape2D_ggvlk")
 
@@ -105,10 +105,9 @@ max_hp = 1000
 [node name="Han Spawner" parent="." instance=ExtResource("5_8lelt")]
 position = Vector2(80, 80)
 template = ExtResource("6_lv611")
+autostart = false
 unlimited = true
 behavior = 1
 
-[connection signal="area_entered" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" unbinds=1]
-[connection signal="body_entered" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" unbinds=1]
 [connection signal="on_damage" from="Rock/HealthComponent" to="Han Spawner" method="spawn_enemy" unbinds=3]
 [connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]

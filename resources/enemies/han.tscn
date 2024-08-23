@@ -203,13 +203,11 @@ head = NodePath("Head")
 position = Vector2(-21, -51)
 
 [node name="Vector To Player" parent="AttachPointComponent/Center" node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-scale = Vector2(1e-05, 1e-05)
 mode = 1
 origin = NodePath("../../..")
 debug_color = Color(1, 0.3, 0.3, 0.411765)
 
 [node name="Velocity Visualization" parent="AttachPointComponent/Center" node_paths=PackedStringArray("origin") instance=ExtResource("8_kvaqx")]
-scale = Vector2(1e-05, 1e-05)
 origin = NodePath("../../..")
 debug_color = Color(0.3, 0.766667, 1, 0.411765)
 

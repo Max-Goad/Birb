@@ -93,6 +93,7 @@ radius = 200.0
 position = Vector2(245.5, 216.5)
 scale = Vector2(0.25, 0.25)
 template = ExtResource("5_383cu")
+autostart = false
 
 [node name="Mushroom" type="Node2D" parent="."]
 position = Vector2(208, 96)
