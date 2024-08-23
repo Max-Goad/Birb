@@ -117,7 +117,7 @@ func _prepare_spawned_enemy(enemy: Enemy):
 		Behavior.RADIUS:
 			enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
 		Behavior.RELATIVE_LOCATION:
-			enemy.global_position = self.position + location
+			enemy.position = location
 		Behavior.GLOBAL_LOCATION:
 			enemy.global_position = location
 	if target:
