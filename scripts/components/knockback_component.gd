@@ -31,11 +31,12 @@ func _on_damage(_amount: float, type: DamageComponent.DamageType, direction: Vec
 	# TODO: Should the knockback be based on the damage?
 	print("KnockbackComponent: %s" % direction)
 	match type:
-		DamageComponent.DamageType.LIGHT:
+		DamageComponent.DamageType.NO_RECOIL:
 			pass
+		DamageComponent.DamageType.LIGHT:
+			apply_knockback(direction, 0.34)
 		DamageComponent.DamageType.NORMAL:
 			apply_knockback(direction)
 		DamageComponent.DamageType.HEAVY:
 			apply_knockback(direction, 2.5)
 #endregion
-

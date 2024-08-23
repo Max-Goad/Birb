@@ -97,6 +97,6 @@ func _drain():
 		# skip the damage if the distance is too far!
 		else:
 			continue
-		enemy.health.damage(damage, DamageComponent.DamageType.LIGHT, Vector2.ZERO)
+		enemy.health.damage(damage, DamageComponent.DamageType.NO_RECOIL, Vector2.ZERO)
 
 #endregion

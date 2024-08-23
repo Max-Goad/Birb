@@ -4,6 +4,7 @@ enum DamageType {
 	NORMAL = 0,
 	HEAVY = 1,
 	LIGHT = 2,
+	NO_RECOIL = 3,
 }
 
 #region Variables
