@@ -70,7 +70,7 @@ func _spawn_explosion(bomb) -> Hurtbox:
 	explosion.damage_component.amount = int(explosion_damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
 
 	# There's a small amount of time when both are still alive/active
-	explosion.ignore_hurtbox(bomb, Hitbox.MUTUAL_IGNORE)
+	explosion.ignore_hitbox(bomb, Hitbox.MUTUAL_IGNORE)
 	return explosion
 
 func _spawn_all_projectiles(bomb, explosion):
@@ -89,8 +89,8 @@ func _spawn_all_projectiles(bomb, explosion):
 
 	# Projectiles, Bomb, and Explosion should ignore each other
 	for p in spawned_projectiles:
-		p.ignore_hurtbox(bomb, Hitbox.MUTUAL_IGNORE)
-		p.ignore_hurtbox(explosion, Hitbox.MUTUAL_IGNORE)
+		p.ignore_hitbox(bomb, Hitbox.MUTUAL_IGNORE)
+		p.ignore_hitbox(explosion, Hitbox.MUTUAL_IGNORE)
 	# Projectiles should ignore each other
 	Hitbox.mutual_ignore(spawned_projectiles)
 #endregion

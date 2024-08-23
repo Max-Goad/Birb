@@ -145,7 +145,6 @@ func _check_raycast() -> bool:
 	return raycast.is_colliding() and not _should_ignore(raycast.get_collider_rid())
 
 func _process_collision(rid: RID, node: Node2D, _i: int = 0, _j: int = 0):
-	print("Hitbox: PC")
 	if finished_emitted or freed_emitted:
 		return
 	if node in ignored_nodes:
@@ -159,6 +158,5 @@ func _process_collision(rid: RID, node: Node2D, _i: int = 0, _j: int = 0):
 			despawn()
 
 func _process_area_collision(rid: RID, area: Area2D, _i = 0, _j = 0):
-	print("Hitbox: AC")
 	_process_collision(rid, area)
 #endregion
