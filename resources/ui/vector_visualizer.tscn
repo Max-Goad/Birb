@@ -10,7 +10,7 @@ size = Vector2(10.9589, 2)
 points = PackedVector2Array(0, -3, 0, 3, 5, 0)
 
 [node name="VectorVisualizer" type="Node2D"]
-scale = Vector2(0.73, 1)
+scale = Vector2(1e-05, 1e-05)
 script = ExtResource("1_tpml7")
 
 [node name="Body" type="CollisionShape2D" parent="."]

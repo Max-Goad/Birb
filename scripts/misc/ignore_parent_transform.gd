@@ -1,6 +1,11 @@
 @tool
+## There's no easy way to ignore certain parts of a
+## Node2D's parent's transform, so we have to override
+## the parts of the transform that we don't want to take.
+## This class helps us do this in a simple, reusable way.
 class_name IgnoreParentTransform extends Node
 
+var node: Node2D = null
 @export var ignore_position = false
 @export var ignore_rotation = false
 @export var ignore_scale = false
@@ -8,32 +13,35 @@ class_name IgnoreParentTransform extends Node
 	set(value):
 		offset = value
 		notify_property_list_changed()
-# @export_group("offsets")
+@export_group("Offset Parameters")
 @export var offset_nodes: Array[Node] = []
-@export var position_offset = Vector2.ZERO
-@export var rotation_offset = 0.0
-@export var scale_offset = Vector2.ZERO
+@export var offset_position = Vector2.ZERO
+@export var offset_rotation = 0.0
+@export var offset_scale = Vector2.ZERO
 
-# Godot is very strange when it comes to keeping an element
-# in place relative to its parent while ignoring rotation.
-# My custom solution is to "unlink" the child,
-# and then remotely push only the position and scale.
-# The "offset" value is also relevant for this.
-# It's far from a perfect solution, but it is good enough!
+
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-	var affected_node = get_parent()
-	affected_node.top_level = true
-	var remote_transform = RemoteTransform2D.new()
-	remote_transform.remote_path = affected_node.get_path()
-	remote_transform.update_position = not ignore_position
-	remote_transform.update_rotation = not ignore_rotation
-	remote_transform.update_scale = not ignore_scale
-	affected_node.get_parent().add_child.call_deferred(remote_transform)
+	node = get_parent()
+
+func _process(_delta: float) -> void:
+	if ignore_position:
+		if offset:
+			node.global_position = offset_position
+		else:
+			node.global_position = Vector2.ZERO
+	if ignore_rotation:
+		if offset:
+			node.global_rotation = offset_rotation
+		else:
+			node.global_rotation = 0.0
+	if ignore_scale:
+		if offset:
+			node.global_scale = offset_scale
+		else:
+			node.global_scale = Vector2.ZERO
 
 func _validate_property(property: Dictionary) -> void:
 	if not offset:
 		print(property.name)
-		if property.name in {"offset_nodes":0, "position_offset":0, "rotation_offset":0, "scale_offset":0}:
+		if property.name.contains("offset_"):
 			property.usage &= ~PROPERTY_USAGE_EDITOR

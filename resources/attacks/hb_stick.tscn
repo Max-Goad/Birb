@@ -7,7 +7,7 @@
 position = Vector2(0, -29)
 scale = Vector2(3, 3)
 collision_layer = 16
-collision_mask = 4
+collision_mask = 30
 script = ExtResource("1_vhubc")
 limit_collisions = false
 damage_component = NodePath("DamageComponent")
@@ -15,7 +15,6 @@ damage_component = NodePath("DamageComponent")
 [node name="CollisionPolygon" type="CollisionPolygon2D" parent="."]
 position = Vector2(-17, 0)
 polygon = PackedVector2Array(30.3333, 20.3333, 49, 20.3333, 49, 7, 46.3333, -9, 43.6667, -19.6667, 35.6667, -30.3333, 23, -36, 3.66667, -22.3333, 19.6667, -17, 27.6667, -6.33333, 30.3333, 7)
-disabled = true
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_5evhu")

@@ -53,4 +53,3 @@ func _validate_property(property: Dictionary) -> void:
 		if property.name == "vector_name":
 			property.usage &= ~PROPERTY_USAGE_EDITOR
 #endregion
-

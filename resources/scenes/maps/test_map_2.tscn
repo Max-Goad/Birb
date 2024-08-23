@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://77l0j8miufi5"]
+[gd_scene load_steps=12 format=4 uid="uid://77l0j8miufi5"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_qwobg"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_lvifn"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_sqq3a"]
+[ext_resource type="PackedScene" uid="uid://dj16saqo3oumj" path="res://resources/enemies/spawner.tscn" id="5_8lelt"]
+[ext_resource type="PackedScene" uid="uid://btrabe1j0w66f" path="res://resources/enemies/han.tscn" id="6_lv611"]
 [ext_resource type="Script" path="res://scripts/maps/map_transition.gd" id="20_r7gyt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52ei6"]
@@ -9,6 +12,16 @@ size = Vector2(32, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cdfqy"]
 size = Vector2(176, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_of8vk"]
+load_path = "res://.godot/imported/Mushrooms, Flowers, Stones.png-2265fe1c70948934c8005f0cee7a5c22.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i82a7"]
+atlas = SubResource("CompressedTexture2D_of8vk")
+region = Rect2(128, 16, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ggvlk"]
+radius = 40.0
 
 [node name="Test Map 2" type="Node2D" node_paths=PackedStringArray("default_transition")]
 z_index = -1
@@ -62,3 +75,40 @@ target_map = "test_map.tscn"
 position = Vector2(0, 48)
 shape = SubResource("RectangleShape2D_cdfqy")
 debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="Rock" type="StaticBody2D" parent="."]
+position = Vector2(203.25, 96.75)
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 16
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_i82a7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rock"]
+polygon = PackedVector2Array(-46.5, -5.5, -34.5, -13.5, -30.5, -25.5, -18.5, -37.5, 25.5, -33.5, 33.5, -25.5, 37.5, -9.5, 45.5, -1.5, 45.5, 10.5, 33.5, 38.5, 5.5, 46.5, -22.5, 26.5, -38.5, 26.5, -46.5, 10.5)
+
+[node name="Hitbox" type="Area2D" parent="Rock"]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Rock/Hitbox"]
+position = Vector2(1.5, 2.5)
+shape = SubResource("CircleShape2D_ggvlk")
+
+[node name="HealthComponent" type="Node" parent="Rock"]
+script = ExtResource("4_sqq3a")
+current_hp = 1000
+max_hp = 1000
+
+[node name="Han Spawner" parent="." instance=ExtResource("5_8lelt")]
+position = Vector2(80, 80)
+template = ExtResource("6_lv611")
+unlimited = true
+behavior = 1
+
+[connection signal="area_entered" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" unbinds=1]
+[connection signal="body_entered" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" unbinds=1]
+[connection signal="on_damage" from="Rock/HealthComponent" to="Han Spawner" method="spawn_enemy" unbinds=3]
+[connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]

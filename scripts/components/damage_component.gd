@@ -59,4 +59,3 @@ func _find_health_component(parent: Node2D) -> Node2D:
 			return child
 	return null
 #endregion
-

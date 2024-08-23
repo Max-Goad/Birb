@@ -21,11 +21,11 @@
 [ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="19_30db0"]
 [ext_resource type="Script" path="res://scripts/maps/map_transition.gd" id="20_k8dat"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_of8vk"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vout7"]
 load_path = "res://.godot/imported/Mushrooms, Flowers, Stones.png-2265fe1c70948934c8005f0cee7a5c22.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dnrtw"]
-atlas = SubResource("CompressedTexture2D_of8vk")
+atlas = SubResource("CompressedTexture2D_vout7")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hx3b"]
@@ -93,22 +93,21 @@ radius = 200.0
 position = Vector2(245.5, 216.5)
 scale = Vector2(0.25, 0.25)
 template = ExtResource("5_383cu")
-autostart = false
 
 [node name="Mushroom" type="Node2D" parent="."]
-position = Vector2(203.25, 96.75)
+position = Vector2(208, 96)
 scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Mushroom"]
 scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_dnrtw")
+offset = Vector2(1, 1)
 
 [node name="Hurtbox" type="Area2D" parent="Mushroom"]
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mushroom/Hurtbox"]
-position = Vector2(-2, -2)
 shape = SubResource("CircleShape2D_6hx3b")
 
 [node name="DamageComponent" type="Node" parent="Mushroom"]
@@ -121,13 +120,13 @@ current_hp = 1000
 max_hp = 1000
 
 [node name="HealthBarComponent" parent="Mushroom" node_paths=PackedStringArray("health_component") instance=ExtResource("8_2mhl8")]
+position = Vector2(0, -30)
 scale = Vector2(0.5, 0.5)
 health_component = NodePath("../HealthComponent")
 hide_when_full = true
-offset = Vector2(-40, -70)
 
 [node name="Damage Indicator Component" parent="Mushroom" node_paths=PackedStringArray("health_component") instance=ExtResource("9_jt0pi")]
-position = Vector2(-2, -31)
+position = Vector2(0, -30)
 health_component = NodePath("../HealthComponent")
 damage_color = Color(0.462745, 0.254902, 0.611765, 1)
 
