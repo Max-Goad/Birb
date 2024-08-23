@@ -2,6 +2,10 @@ class_name Stick extends Ability
 
 const pl_hb_stick = preload("res://resources/attacks/hb_stick.tscn")
 
+const WINDUP_TIME = 0.75
+const LUNGE_TIME = 1.75
+const HURTBOX_TIME = 0.13
+
 #region Variables
 #endregion
 
@@ -28,18 +32,18 @@ func execute(parent: Player, direction: Vector2):
 #region Private Functions
 func _windup():
 	self.parent.movement.apply_direction(-self.direction, MovementComponent.IGNORE_LOCK)
-	self.parent.movement.apply_speed(self.parent.movement.top_speed * 0.75, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_speed(self.parent.movement.top_speed * WINDUP_TIME, MovementComponent.IGNORE_LOCK)
 
 func _lunge():
 	self.parent.movement.apply_direction(self.direction, MovementComponent.IGNORE_LOCK)
-	self.parent.movement.apply_speed(self.parent.movement.top_speed * 2, MovementComponent.IGNORE_LOCK)
+	self.parent.movement.apply_speed(self.parent.movement.top_speed * LUNGE_TIME, MovementComponent.IGNORE_LOCK)
 
 func _spawn_hurtbox():
 	var hurtbox: Node2D = pl_hb_stick.instantiate()
 	hurtbox.ignore(self.parent)
 	_position_hurtbox(hurtbox, self.direction)
 	hurtbox.finished.connect(func(): self.finished.emit())
-	hurtbox.despawn_after_delay(0.16)
+	hurtbox.despawn_after_delay(HURTBOX_TIME)
 	self.parent.add_child(hurtbox)
 
 func _position_hurtbox(hurtbox: Node2D, direction: Vector2):

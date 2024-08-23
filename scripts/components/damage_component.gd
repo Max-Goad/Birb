@@ -45,8 +45,9 @@ func apply(node: Node2D, velocity: Vector2, alt = false) -> bool:
 		print("DamageComponent: can't find health component")
 		return false
 	var direction = velocity
-	if direction == Vector2.ZERO:
-		direction = node.global_position - get_parent().global_position
+	# TODO: Fix this
+	# if direction == Vector2.ZERO:
+	# 	direction = node.global_position - get_parent().global_position
 	if not alt:
 		return health_component.damage(amount, type, direction.normalized())
 	else:

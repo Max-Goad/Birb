@@ -4,6 +4,9 @@ class_name River extends Ability
 var knockback_force: float
 var stun_time: float
 var knockback_direction = Vector2.UP
+
+var damage_component: DamageComponent
+var knockback_damage_nodes: Array[Node] = []
 #endregion
 
 #region Signals
@@ -18,23 +21,40 @@ func _init(knockback_force, stun_time) -> void:
 
 	self.knockback_force = knockback_force
 	self.stun_time = stun_time
+
+	self.damage_component = DamageComponent.new()
+	self.damage_component.amount = 10
+	self.damage_component.type = DamageComponent.DamageType.NO_RECOIL
 #endregion
 
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	var knockback_direction = _next_direction()
+	var knockback_direction = Math.vector4dir(direction)
 	for enemy: Enemy in Data.get_enemies():
 		if enemy.knockback:
 			enemy.knockback.apply_knockback(knockback_direction, knockback_force, stun_time)
+			_attach_damage_node(enemy)
 	# Player should be affected less
 	var player = Data.get_player()
-	player.knockback.apply_knockback(knockback_direction, knockback_force / 4)
-	finished.emit()
+	player.knockback.apply_knockback(knockback_direction, knockback_force / 2, stun_time / 2)
+	player.knockback.knockback_finished.connect(_on_knockback_complete, CONNECT_ONE_SHOT)
+	_attach_damage_node(player)
 #endregion
 
 #region Private Functions
-func _next_direction() -> Vector2:
-	knockback_direction = knockback_direction.rotated(PI/2 * randi_range(0,3))
-	return knockback_direction
+func _attach_damage_node(character: CharacterBody2D):
+	var reactor = DamagingMovementReactor.new()
+	reactor.name = "AbilityRiverDamagingMovementReactor"
+	reactor.character = character
+	reactor.threshold = knockback_force * 100 # TODO: Arbitrary
+	reactor.damage = self.damage_component.duplicate()
+	character.add_child(reactor)
+	knockback_damage_nodes.push_back(reactor)
+
+func _on_knockback_complete():
+	while not knockback_damage_nodes.is_empty():
+		var node = knockback_damage_nodes.pop_back()
+		node.queue_free()
+	finished.emit()
 #endregion

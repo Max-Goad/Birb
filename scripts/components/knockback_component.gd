@@ -8,6 +8,7 @@ class_name KnockbackComponent extends Node
 #endregion
 
 #region Signals
+signal knockback_finished
 #endregion
 
 #region Engine Functions
@@ -23,6 +24,7 @@ func apply_knockback(direction: Vector2, modifier: float = 1.0, stun_time: float
 		movement.lock(stun_time)
 	else:
 		movement.lock_until_stopped()
+	movement.unlocked.connect(knockback_finished.emit, CONNECT_ONE_SHOT)
 
 #endregion
 
