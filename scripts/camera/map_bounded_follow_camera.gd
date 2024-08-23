@@ -50,15 +50,14 @@ func _update_bound():
 	var w = int(limit.end.x)
 	var h = int(limit.end.y)
 	var ts = map.get_tile_size()
-	var sx = int(map.scale.x)
-	var sy = int(map.scale.y)
+	var s = map.get_map_scale()
 	var vw = int(viewport.size.x)
 	var vh = int(viewport.size.y)
 
 	self.limit_left = x
 	self.limit_top = y
-	self.limit_right = (w*ts.x*sx) # 2560
-	self.limit_bottom = (h*ts.y*sy) # 1472
+	self.limit_right = (w*ts.x*s.x) # 2560
+	self.limit_bottom = (h*ts.y*s.y) # 1472
 	match rot_num:
 		0:
 			# Do nothing, you're perfect the way you are bb <3
