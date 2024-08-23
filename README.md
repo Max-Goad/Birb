@@ -7,6 +7,8 @@ A silly little repository for silly little things by a silly little man
 	- If it's the root, then it's no problem
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
+- Fun
+	- Hat is not attaching to enemies after I change screens
 - Implement more abilities
 	- Hole
 - Add more enemies
