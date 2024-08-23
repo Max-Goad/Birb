@@ -112,7 +112,7 @@ offset = Vector2(1, 1)
 
 [node name="Hurtbox" type="Area2D" parent="Mushroom" node_paths=PackedStringArray("damage_component")]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 18
 script = ExtResource("6_lc021")
 damage_component = NodePath("../DamageComponent")
 receive_damage = true
@@ -343,7 +343,7 @@ position = Vector2(-48, -4)
 shape = SubResource("RectangleShape2D_52ei6")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[connection signal="collision_detected" from="Mushroom/Hurtbox" to="Han Spawner" method="spawn_enemy" unbinds=2]
+[connection signal="collision_detected" from="Mushroom/Hurtbox" to="Han Spawner" method="spawn_enemy" flags=7 unbinds=2]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]

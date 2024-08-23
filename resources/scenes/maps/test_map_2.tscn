@@ -98,8 +98,9 @@ max_hp = 1000
 
 [node name="Hitbox" type="Area2D" parent="Rock"]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 16
 script = ExtResource("4_0qvdw")
+limit_collisions = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Hitbox"]
 shape = SubResource("CircleShape2D_qbhds")
@@ -111,6 +112,5 @@ autostart = false
 unlimited = true
 behavior = 1
 
-[connection signal="on_damage" from="Rock/HealthComponent" to="Han Spawner" method="spawn_enemy" unbinds=3]
 [connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]
-[connection signal="collision_detected" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" unbinds=2]
+[connection signal="collision_detected" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" flags=3 unbinds=2]
