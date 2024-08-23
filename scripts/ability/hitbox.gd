@@ -21,12 +21,11 @@ var despawn_timer: Timer = null
 @export var max_collisions = 1
 @export var ignore_repeat_collisions = true
 
-#@onready var speed_component: SpeedComponent = $SpeedComponent
-@export var damage_component: DamageComponent
 @export var raycast: RayCast2D
 #endregion
 
 #region Signals
+signal collision_detected(node, velocity)
 signal finished
 signal freed
 var finished_emitted = false
@@ -37,10 +36,8 @@ var freed_emitted = false
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	# assert(speed_component)
-	assert(damage_component)
-	body_shape_entered.connect(_hit_body)
-	area_shape_entered.connect(_hit_area)
+	body_shape_entered.connect(_process_collision)
+	area_shape_entered.connect(_process_area_collision)
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -61,6 +58,17 @@ func _validate_property(property: Dictionary) -> void:
 #endregion
 
 #region Public Functions
+## "Virtual" function used to react to a collision
+## that has passed through all the other Hitbox checks,
+## such as ignored nodes, multiple collisions, etc.
+## Return value is whether the reaction to the collision
+## should be considered "successful" or not, for purposes
+## such as counting collisions before despawning
+func on_collision_detected(node: Node2D, velocity: Vector2) -> bool:
+	print("Hitbox: on_collision_detected")
+	collision_detected.emit(node, velocity)
+	return true
+
 func ignore(node: Node2D):
 	if node != self:
 		self.ignored_nodes[node] = node.name
@@ -89,9 +97,9 @@ func reset_collisions(max_collisions = 0):
 		self.limit_collisions = true
 		self.max_collisions = max_collisions
 	for body in get_overlapping_bodies():
-		_hit_body(body.get_rid(), body, 0, 0)
+		_process_collision(body.get_rid(), body)
 	for area in get_overlapping_areas():
-		_hit_area(area.get_rid(), area, 0, 0)
+		_process_collision(area.get_rid(), area)
 
 # Use this function if you want to free up the calling object without
 # despawning related hitbox objects (such as projectiles)
@@ -136,37 +144,21 @@ func _check_raycast() -> bool:
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and not _should_ignore(raycast.get_collider_rid())
 
-func _hit_body(body_rid: RID, body: Node2D, _body_shape_index: int, local_shape_index: int):
+func _process_collision(rid: RID, node: Node2D, _i: int = 0, _j: int = 0):
+	print("Hitbox: PC")
 	if finished_emitted or freed_emitted:
 		return
-	if body in ignored_nodes:
+	if node in ignored_nodes:
 		return
-	if _should_ignore(body_rid) or _collision_limit_reached():
+	if _should_ignore(rid) or _collision_limit_reached():
 		return
-	print("Hitbox: hit body %s" % [local_shape_index])
-	var success = damage_component.apply(body, velocity, true)
+	var success = on_collision_detected(node, velocity)
 	if success:
-		collided_ids[body_rid] = null
+		collided_ids[rid] = null
 		if _collision_limit_reached():
 			despawn()
 
-func _hit_area(area_rid: RID, area: Area2D, _area_shape_index: int, local_shape_index: int):
-	if finished_emitted or freed_emitted:
-		return
-	if area in ignored_nodes:
-		return
-	if _should_ignore(area_rid) or _collision_limit_reached():
-		return
-
-	var success = false
-	if area is Hitbox:
-		# Hitboxes are supposed to deal damage, not receive it
-		success = true
-	else:
-		# print("Hitbox: hit area %s, alt? %s" % [local_shape_index,_index_is_alt(local_shape_index)])
-		success = damage_component.apply(area.get_parent(), velocity, false)
-	if success:
-		collided_ids[area_rid] = null
-		if _collision_limit_reached():
-			despawn()
+func _process_area_collision(rid: RID, area: Area2D, _i = 0, _j = 0):
+	print("Hitbox: AC")
+	_process_collision(rid, area)
 #endregion
