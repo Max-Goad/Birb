@@ -62,5 +62,5 @@ func _spawn_explosion(parent, bomb):
 	parent.add_child(explosion)
 	explosion.damage_component.amount = int(explosion_damage * parent.modifiers.gett(Player.Modifiers.DAMAGE))
 	# There's a small amount of time when both are still alive/active
-	explosion.ignore_hurtbox(bomb, Hurtbox.MUTUAL_IGNORE)
+	explosion.ignore_hurtbox(bomb, Hitbox.MUTUAL_IGNORE)
 #endregion

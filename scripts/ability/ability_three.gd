@@ -38,7 +38,7 @@ func _fire_3_projectiles():
 	var b = _create_projectile(deg_to_rad(10.0))
 	var c = _create_projectile(deg_to_rad(-10.0))
 
-	Hurtbox.mutual_ignore([a,b,c])
+	Hitbox.mutual_ignore([a,b,c])
 	a.ignore(self.parent)
 	b.ignore(self.parent)
 	c.ignore(self.parent)
