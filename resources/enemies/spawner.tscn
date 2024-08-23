@@ -7,8 +7,8 @@ radius = 1.0
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_typc2")
-behavior = 1
 
 [node name="Debug Shape" type="CollisionShape2D" parent="."]
+scale = Vector2(100, 100)
 shape = SubResource("CircleShape2D_ou5ff")
-debug_color = Color(0.606667, 0.7, 0, 0.419608)
+debug_color = Color(0.545098, 0, 0, 0.05)

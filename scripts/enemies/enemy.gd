@@ -1,8 +1,6 @@
 class_name Enemy extends CharacterBody2D
 
 #region Variables
-@export var target: Node2D
-
 @onready var health: HealthComponent = $HealthComponent
 @onready var damage: DamageComponent = $DamageComponent
 @onready var movement: CharacterMovementComponent = $MovementComponent
@@ -18,7 +16,6 @@ signal dead
 #region Engine Functions
 func _ready() -> void:
 	health.on_death.connect(_on_death)
-	pathfinding.target = target
 
 func _process(_delta: float) -> void:
 	pass
@@ -33,4 +30,3 @@ func _on_death():
 	# TODO: Shouldn't this be more dynamic?
 	queue_free()
 #endregion
-

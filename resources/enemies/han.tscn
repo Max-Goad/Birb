@@ -223,6 +223,7 @@ amount = 5
 [node name="PathfindingComponent" type="Node" parent="." node_paths=PackedStringArray("movement")]
 script = ExtResource("3_wfenn")
 movement = NodePath("../MovementComponent")
+target_player = null
 distance = 300.0
 distance_margin = 50.0
 

@@ -3,8 +3,9 @@ class_name Spawner extends Node2D
 
 enum Behavior
 {
-	LOCATION,
 	RADIUS,
+	RELATIVE_LOCATION,
+	GLOBAL_LOCATION,
 }
 
 #region Variables
@@ -21,7 +22,7 @@ enum Behavior
 @export var maximum: int = 1
 @export var rate: float = 1.0
 
-@export var behavior: Behavior = Behavior.LOCATION :
+@export var behavior: Behavior = Behavior.RADIUS :
 	set(value):
 		behavior = value
 		notify_property_list_changed()
@@ -40,6 +41,10 @@ var spawned_enemies: Array[Enemy] = []
 var spawn_callbacks: Dictionary = {}
 
 @onready var debug_shape: CollisionShape2D = $"Debug Shape"
+@export var debug_color: Color = Color(Color.DARK_RED, 0.05) :
+	set(value):
+		debug_color = value
+		_redraw_debug_shape()
 #endregion
 
 #region Signals
@@ -47,8 +52,8 @@ var spawn_callbacks: Dictionary = {}
 
 #region Engine Functions
 func _ready():
+	_redraw_debug_shape()
 	if Engine.is_editor_hint():
-		_redraw_debug_shape()
 		return
 	self.add_to_group(Data.GROUP_SPAWNER)
 	timer = Timer.new()
@@ -59,7 +64,7 @@ func _ready():
 
 func _validate_property(property: Dictionary):
 	if ((property.name == "maximum" and unlimited)
-	 or (property.name == "location" and behavior != Behavior.LOCATION)
+	 or (property.name == "location" and behavior not in [Behavior.RELATIVE_LOCATION, Behavior.GLOBAL_LOCATION])
 	 or (property.name == "radius" and behavior != Behavior.RADIUS)
 	):
 		property.usage &= ~PROPERTY_USAGE_EDITOR
@@ -106,11 +111,16 @@ func disconnect_on_spawn(key: Object, reset_fn: Callable = func(_e): pass):
 
 #region Private Functions
 func _prepare_spawned_enemy(enemy: Enemy):
-	if behavior == Behavior.LOCATION:
-		enemy.position = location
-	elif behavior == Behavior.RADIUS:
-		enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
-	enemy.target = target
+	match behavior:
+		Behavior.RADIUS:
+			enemy.position = Vector2(randf_range(radius/4, radius), 0).rotated(randf_range(0, PI))
+		Behavior.RELATIVE_LOCATION:
+			enemy.global_position = self.position + location
+		Behavior.GLOBAL_LOCATION:
+			enemy.global_position = location
+	if target:
+		enemy.pathfinding.target_player = false
+		enemy.pathfinding.target = target
 	enemy.dead.connect(_on_enemy_death.bind(enemy))
 
 func _on_enemy_death(enemy: Enemy):
@@ -123,10 +133,15 @@ func _redraw_debug_shape():
 			# called before _ready(), it will error. This can happen
 			# if you customize certain fields whose setter calls this.
 			return
-		if behavior == Behavior.RADIUS:
-			debug_shape.position = Vector2.ZERO
-			debug_shape.global_scale = Vector2(radius, radius)
-		elif behavior == Behavior.LOCATION:
-			debug_shape.global_position = location
-			debug_shape.global_scale = Vector2(50, 50)
+		match behavior:
+			Behavior.RADIUS:
+				debug_shape.position = Vector2.ZERO
+				debug_shape.global_scale = Vector2(radius, radius)
+			Behavior.RELATIVE_LOCATION:
+				debug_shape.global_position = self.global_position + location
+				debug_shape.global_scale = Vector2(10, 10)
+			Behavior.GLOBAL_LOCATION:
+				debug_shape.global_position = location
+				debug_shape.global_scale = Vector2(10, 10)
+		debug_shape.debug_color = debug_color
 #endregion

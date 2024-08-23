@@ -19,17 +19,25 @@ const SHOULD_ACCELERATE = true
 const SHOULD_DECELERATE = false
 
 #region Variables
+@export var movement: CharacterMovementComponent
+
+@export var target_player: bool = true:
+	set(value):
+		target_player = value
+		notify_property_list_changed()
+
+@export var target: Node2D
+
 @export var strategy = Strategy.FOLLOW:
 	set(value):
 		strategy = value
 		notify_property_list_changed()
 
-@export var movement: CharacterMovementComponent
-@export var target: Node2D
-
-# Used in Strategy.TRACK_FROM_DISTANCE
+@export_group("Strategy Parameters")
 @export var distance: float = 350.0
 @export var distance_margin = 100.0
+@export_group("","")
+
 
 var current_track_state: TrackState
 #endregion
@@ -42,6 +50,10 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	assert(movement)
+	if target_player:
+		target = Data.get_player()
+	if target == null:
+		push_error("PathfindingComponent: No target set!")
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -53,7 +65,9 @@ func _process(delta: float) -> void:
 		movement.decelerate()
 
 func _validate_property(property: Dictionary) -> void:
-	if property.name == "distance" and strategy != Strategy.TRACK_FROM_DISTANCE:
+	if property.name in ["distance", "distance_margin"] and strategy != Strategy.TRACK_FROM_DISTANCE:
+		property.usage &= ~PROPERTY_USAGE_EDITOR
+	elif property.name == "target" and target_player:
 		property.usage &= ~PROPERTY_USAGE_EDITOR
 #endregion
 

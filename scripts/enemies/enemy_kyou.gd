@@ -95,4 +95,3 @@ func _attach_despawn_timer(projectile):
 	despawn_timer.timeout.connect(func(): projectile.queue_free())
 	projectile.add_child(despawn_timer)
 #endregion
-
