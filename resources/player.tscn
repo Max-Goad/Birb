@@ -926,7 +926,6 @@ script = ExtResource("3_2uhwa")
 position = Vector2(0, -29)
 
 [node name="VectorVisualizer" parent="AttachPointComponent/Center" node_paths=PackedStringArray("origin") instance=ExtResource("9_03hvc")]
-scale = Vector2(1e-05, 1e-05)
 origin = NodePath("../../..")
 debug_color = Color(0.360784, 0.498039, 1, 0.411765)
 
