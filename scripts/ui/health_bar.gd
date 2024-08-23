@@ -1,3 +1,4 @@
+@tool
 class_name HealthBar extends ProgressBar
 
 #region Variables
@@ -36,8 +37,8 @@ func _on_value_changed(v):
 	if v == max_value:
 		self.fill.set_corner_radius_all(0)
 	else:
-		self.fill.corner_radius_top_right = 5
-		self.fill.corner_radius_bottom_right = 5
+		self.fill.corner_radius_top_right = 2
+		self.fill.corner_radius_bottom_right = 2
 
 func _validate_color_steps():
 	var current_max = 0

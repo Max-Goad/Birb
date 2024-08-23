@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://csh1iurc1b413"]
+[gd_scene load_steps=8 format=3 uid="uid://csh1iurc1b413"]
 
-[ext_resource type="Theme" uid="uid://q5rrux06ucou" path="res://theme/test.theme" id="1_w25a4"]
+[ext_resource type="StyleBox" uid="uid://casoluyqv34bk" path="res://theme/hp_bg.tres" id="1_pqpj0"]
 [ext_resource type="Script" path="res://scripts/ui/health_bar.gd" id="2_ncskn"]
 [ext_resource type="Script" path="res://scripts/ui/color_step.gd" id="3_546by"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0vcn"]
+bg_color = Color(0.18, 0.9, 0.18, 1)
+border_width_bottom = 3
+border_color = Color(0.135, 0.675, 0.135, 1)
+anti_aliasing_size = 0.05
 
 [sub_resource type="Resource" id="Resource_1p5us"]
 script = ExtResource("3_546by")
@@ -32,7 +38,8 @@ offset_bottom = -355.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(40, 5)
-theme = ExtResource("1_w25a4")
+theme_override_styles/background = ExtResource("1_pqpj0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_s0vcn")
 step = 1.0
 value = 100.0
 show_percentage = false

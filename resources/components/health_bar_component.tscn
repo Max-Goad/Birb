@@ -21,6 +21,7 @@ offset_right = 40.0
 offset_bottom = 5.0
 grow_horizontal = 1
 grow_vertical = 1
+pivot_offset = Vector2(43, 5)
 
 [node name="IgnoreParentTransform" type="Node" parent="."]
 script = ExtResource("3_28y01")
