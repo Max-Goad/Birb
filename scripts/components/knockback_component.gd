@@ -20,11 +20,12 @@ func _ready() -> void:
 func apply_knockback(direction: Vector2, modifier: float = 1.0, stun_time: float = 0.0):
 	movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
 	movement.apply_speed(movement.top_speed * knockback_factor * modifier, MovementComponent.IGNORE_LOCK)
+	if not movement.currently_locked:
+		movement.unlocked.connect(knockback_finished.emit, CONNECT_ONE_SHOT)
 	if stun_time > 0.0:
 		movement.lock(stun_time)
 	else:
 		movement.lock_until_stopped()
-	movement.unlocked.connect(knockback_finished.emit, CONNECT_ONE_SHOT)
 
 #endregion
 

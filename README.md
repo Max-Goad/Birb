@@ -2,10 +2,6 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- River
-	- Add small visual effect?
-- MovementComponent
-	- unlock seems to be running a freed lambda... how do I prevent this?
 - Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem

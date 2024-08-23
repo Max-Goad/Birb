@@ -61,6 +61,7 @@ func _attach_damage_node(character: CharacterBody2D):
 func _on_knockback_complete():
 	while not knockback_damage_nodes.is_empty():
 		var node = knockback_damage_nodes.pop_back()
-		node.queue_free()
+		if node != null:
+			node.queue_free()
 	finished.emit()
 #endregion
