@@ -67,6 +67,26 @@ func on_change(trigger: Trigger):
 	else:
 		add_child(trigger)
 	on_change_triggers.push_back(trigger)
+
+## Godot can't toggle debug collision shapes while running the game
+## This function will do it manually. It costs a lot but it's just
+## for debugging so who cares in the end anyways.
+func toggle_debug_collision_shapes() -> void:
+	var tree: SceneTree = get_tree()
+	tree.debug_collisions_hint = not tree.debug_collisions_hint
+
+	# Traverse tree to redraw all Collision shapes and TreeMapLayers
+	var node_stack: Array[Node] = [tree.get_root()]
+	while not node_stack.is_empty():
+		var node: Node = node_stack.pop_back()
+		if is_instance_valid(node):
+			if node is CollisionShape2D or node is CollisionPolygon2D:
+				node.queue_redraw()
+			elif node is TileMapLayer:
+				# Set to HIDE to force update, then return to DEFAULT
+				node.collision_visibility_mode = TileMapLayer.DEBUG_VISIBILITY_MODE_FORCE_HIDE
+				node.collision_visibility_mode = TileMapLayer.DEBUG_VISIBILITY_MODE_DEFAULT
+			node_stack.append_array(node.get_children())
 #endregion
 
 #region Engine Functions

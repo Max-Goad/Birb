@@ -51,6 +51,8 @@ func _process(_delta: float) -> void:
 			_process_attack(last_direction)
 		_process_animation(direction)
 	_process_velocity_deceleration()
+	if Input.is_action_just_pressed("debug"):
+		Scene.toggle_debug_collision_shapes()
 #endregion
 
 #region Public Functions
