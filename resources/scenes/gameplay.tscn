@@ -15,6 +15,7 @@ script = ExtResource("1_r3uwy")
 position = Vector2(550, 339)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
+position = Vector2(640, 384)
 offset = Vector2(0, -20)
 script = ExtResource("10_g5hj0")
 follow = NodePath("../Player")
