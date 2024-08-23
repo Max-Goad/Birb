@@ -27,6 +27,7 @@ enum Behavior
 		behavior = value
 		notify_property_list_changed()
 		_redraw_debug_shape()
+@export_group("Behavior Params")
 @export var location: Vector2 = Vector2.ZERO :
 	set(value):
 		location = value
@@ -40,6 +41,7 @@ var timer: Timer
 var spawned_enemies: Array[Enemy] = []
 var spawn_callbacks: Dictionary = {}
 
+@export_group("Debug")
 @onready var debug_shape: CollisionShape2D = $"Debug Shape"
 @export var debug_color: Color = Color(Color.DARK_RED, 0.05) :
 	set(value):
@@ -127,21 +129,20 @@ func _on_enemy_death(enemy: Enemy):
 	spawned_enemies.erase(enemy)
 
 func _redraw_debug_shape():
-	if Engine.is_editor_hint():
-		if not debug_shape:
-			# When the editor is first loaded, if this function is
-			# called before _ready(), it will error. This can happen
-			# if you customize certain fields whose setter calls this.
-			return
-		match behavior:
-			Behavior.RADIUS:
-				debug_shape.position = Vector2.ZERO
-				debug_shape.global_scale = Vector2(radius, radius)
-			Behavior.RELATIVE_LOCATION:
-				debug_shape.global_position = self.global_position + location
-				debug_shape.global_scale = Vector2(10, 10)
-			Behavior.GLOBAL_LOCATION:
-				debug_shape.global_position = location
-				debug_shape.global_scale = Vector2(10, 10)
-		debug_shape.debug_color = debug_color
+	if not debug_shape:
+		# When the editor is first loaded, if this function is
+		# called before _ready(), it will error. This can happen
+		# if you customize certain fields whose setter calls this.
+		return
+	match behavior:
+		Behavior.RADIUS:
+			debug_shape.position = Vector2.ZERO
+			debug_shape.global_scale = Vector2(radius, radius)
+		Behavior.RELATIVE_LOCATION:
+			debug_shape.global_position = self.global_position + location
+			debug_shape.global_scale = Vector2(10, 10)
+		Behavior.GLOBAL_LOCATION:
+			debug_shape.global_position = location
+			debug_shape.global_scale = Vector2(10, 10)
+	debug_shape.debug_color = debug_color
 #endregion
