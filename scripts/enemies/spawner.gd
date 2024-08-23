@@ -140,9 +140,9 @@ func _redraw_debug_shape():
 			debug_shape.global_scale = Vector2(radius, radius)
 		Behavior.RELATIVE_LOCATION:
 			debug_shape.global_position = self.global_position + location
-			debug_shape.global_scale = Vector2(10, 10)
+			debug_shape.global_scale = Vector2(25, 25)
 		Behavior.GLOBAL_LOCATION:
 			debug_shape.global_position = location
-			debug_shape.global_scale = Vector2(10, 10)
+			debug_shape.global_scale = Vector2(25, 25)
 	debug_shape.debug_color = debug_color
 #endregion

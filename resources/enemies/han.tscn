@@ -180,7 +180,7 @@ texture = SubResource("GradientTexture1D_depsi")
 
 [node name="Mask2" type="Sprite2D" parent="Body"]
 material = SubResource("CanvasItemMaterial_45h3y")
-position = Vector2(3.99997, -49)
+position = Vector2(4, -48)
 scale = Vector2(0.242187, 3)
 texture = SubResource("GradientTexture1D_depsi")
 
