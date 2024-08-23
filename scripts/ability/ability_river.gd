@@ -31,6 +31,7 @@ func _init(knockback_force, stun_time) -> void:
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
 	var knockback_direction = Math.vector4dir(direction)
+	_apply_vfx(knockback_direction)
 	for enemy: Enemy in Data.get_enemies():
 		if enemy.knockback:
 			enemy.knockback.apply_knockback(knockback_direction, knockback_force, stun_time)
@@ -43,6 +44,11 @@ func execute(parent: Player, direction: Vector2):
 #endregion
 
 #region Private Functions
+func _apply_vfx(direction: Vector2):
+	var vfx = VFXRiver.new()
+	vfx.flow_speed = -direction * 2
+	Data.get_canvas().add_child(vfx, true)
+
 func _attach_damage_node(character: CharacterBody2D):
 	var reactor = DamagingMovementReactor.new()
 	reactor.name = "AbilityRiverDamagingMovementReactor"
