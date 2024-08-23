@@ -14,7 +14,8 @@ signal ability_set(category, slot, ability)
 signal ability_reset(category, slot)
 signal ability_executed(slot, cooldown)
 signal ability_ready(slot)
-signal ability_canceled(slot) # TODO: Currently unused
+@warning_ignore("unused_signal")
+signal ability_canceled(slot) # TODO
 #endregion
 
 #region Engine Functions
