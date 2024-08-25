@@ -1,13 +1,5 @@
 class_name Player extends CharacterBody2D
 
-enum Direction {
-	NONE,
-	UP,
-	RIGHT,
-	DOWN,
-	LEFT
-}
-
 enum Modifiers {
 	DAMAGE = 10,
 	DAMAGE_INCOMING,
@@ -22,7 +14,7 @@ enum Modifiers {
 }
 
 #region Variables
-var last_direction := Vector2.DOWN
+var last_movement_direction := Vector2.DOWN
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health: HealthComponent = $HealthComponent
@@ -44,12 +36,17 @@ func _ready() -> void:
 	movement.unlocked.connect(_on_movement_unlocked)
 
 func _process(_delta: float) -> void:
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var movement_direction = Input.get_vector("player_movement_left", "player_movement_right", "player_movement_up", "player_movement_down")
+	var view_direction = Input.get_vector("player_view_left", "player_view_right", "player_view_up", "player_view_down")
+	if view_direction == Vector2.ZERO:
+		view_direction = movement_direction
 	if not movement.currently_locked:
 		if Abilities.current_active.is_null():
-			_process_velocity(direction)
-			_process_attack(last_direction)
-		_process_animation(direction)
+			_process_velocity(movement_direction)
+			_process_attack(last_movement_direction)
+			# TODO?
+			#_process_attack(view_direction)
+		_process_animation(view_direction)
 	_process_velocity_deceleration()
 	if Input.is_action_just_pressed("debug"):
 		Scene.toggle_debug_collision_shapes()
@@ -59,24 +56,24 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Private Functions
-func _process_velocity(direction: Vector2):
-	if direction == Vector2.ZERO:
+func _process_velocity(movement_direction: Vector2):
+	if movement_direction == Vector2.ZERO:
 		return
-	movement.rotate_velocity_toward(direction)
+	movement.rotate_velocity_toward(movement_direction)
 	movement.accelerate(modifiers.gett(Player.Modifiers.MOVEMENT_TOP_SPEED) * modifiers.gett(Player.Modifiers.MOVEMENT_ACCELERATION))
 	if Abilities.current_active.is_null():
 		# The player should hold their facing direction while using an ability
-		self.last_direction = direction
+		self.last_movement_direction = movement_direction
 
 func _process_animation(direction: Vector2):
 	var prefix = ""
 	var animation_name = ""
 	if not Abilities.current_active.is_null():
 		prefix = Abilities.current_active.animation_name
-		direction = last_direction
+		direction = last_movement_direction
 	elif direction == Vector2.ZERO:
 		prefix = "idle"
-		direction = last_direction
+		direction = last_movement_direction
 	else:
 		prefix = "walk"
 	match Math.vector4dir(direction):

@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_child(root)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("menu_ingame"):
 		if not root.visible:
 			show_menu()
 		else:
