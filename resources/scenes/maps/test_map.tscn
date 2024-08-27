@@ -344,7 +344,7 @@ position = Vector2(-48, -4)
 shape = SubResource("RectangleShape2D_52ei6")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[connection signal="collision_detected" from="Mushroom/Hurtbox" to="Kyou Spawner" method="spawn_enemy" flags=3 unbinds=2]
+[connection signal="on_damage" from="Mushroom/HealthComponent" to="Kyou Spawner" method="spawn_enemy" flags=3 unbinds=2]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]

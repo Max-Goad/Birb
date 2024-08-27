@@ -17,7 +17,7 @@ func _ready() -> void:
 
 #region Public Functions
 func on_collision_detected(node: Node2D, velocity: Vector2) -> bool:
-	print("Hurtbox: on_collision_detected")
+	print("Hurtbox: on_collision_detected (%s -> %s)" % [self.name, node.name])
 	super.on_collision_detected(node, velocity)
 	if node is Hurtbox and not node.receive_damage:
 		# Hurtboxes by default do not receive damage, so

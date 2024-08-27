@@ -7,6 +7,7 @@ A silly little repository for silly little things by a silly little man
 	- If it's the root, then it's no problem
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
+	- UPDATE: Does this even matter anymore?
 - BUG: One/Two/Three
 	- Projectiles sometimes get stuck inside enemies?
 - BUG: Fun
