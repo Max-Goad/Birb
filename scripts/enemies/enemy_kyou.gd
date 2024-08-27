@@ -33,19 +33,14 @@ func _ready() -> void:
 	timer.autostart = false
 	add_child(timer)
 	projectile = _spawn_projectile()
+	health.on_damage.connect(_on_damage)
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	match current_state:
 		State.WAITING_TO_FIRE:
 			if timer.is_stopped() and _ready_to_fire():
-				_fire(projectile)
-				# We replace the previous projectile because
-				# it's no longer necessary to track once fired
-				projectile = _spawn_projectile()
-				print("Kyou -> Reloading")
-				current_state = State.RELOADING
-				timer.start(reload_time)
+				_fire_and_reload()
 		State.RELOADING:
 			if timer.is_stopped():
 				current_state = State.GROWING
@@ -80,6 +75,15 @@ func _ready_to_fire():
 		 or pathfinding.current_track_state == PathfindingComponent.TrackState.IN_RANGE)
 	)
 
+func _fire_and_reload():
+	_fire(projectile)
+	# We replace the previous projectile because
+	# it's no longer necessary to track once fired
+	projectile = _spawn_projectile()
+	print("Kyou -> Reloading")
+	current_state = State.RELOADING
+	timer.start(reload_time)
+
 func _fire(projectile: Hurtbox):
 	projectile.damage_component.enabled = true
 	projectile.top_level = true # Do not follow parent's transforms
@@ -97,4 +101,10 @@ func _attach_despawn_timer(projectile):
 	despawn_timer.one_shot = true
 	despawn_timer.timeout.connect(func(): projectile.queue_free())
 	projectile.add_child(despawn_timer)
+
+func _on_damage(_a, _kb):
+	# Ignore checks to timer or position
+	# Just fire if projectile is ready
+	if current_state == State.WAITING_TO_FIRE:
+		_fire_and_reload.call_deferred()
 #endregion
