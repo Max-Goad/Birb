@@ -66,8 +66,10 @@ func _spawn_projectile() -> Hurtbox:
 	var new_projectile = PL_KYOU_PROJECTILE.instantiate()
 	new_projectile.top_level = false
 	new_projectile.scale = Vector2.ZERO
-	new_projectile.damage_component = damage
-	new_projectile.damage_component.enabled = false
+	var new_damage_component: DamageComponent = damage.duplicate()
+	new_damage_component.enabled = false
+	new_projectile.add_child(new_damage_component)
+	new_projectile.damage_component = new_damage_component
 	add_child(new_projectile)
 	return new_projectile
 

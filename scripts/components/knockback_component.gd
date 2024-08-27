@@ -77,15 +77,30 @@ func apply_knockback(direction: Vector2, modifier: float = 1.0, stun_time: float
 #region Private Functions
 func _on_damage(_amount: float, kb_data: KBData):
 	print("KnockbackComponent: %s" % KBData)
-	# TODO: Find direction from style
-	var direction = kb_data.vector
+	var knockback_direction = Vector2.ZERO
+	match kb_data.style:
+		KnockbackComponent.Style.DIRECTIONAL:
+			# Directional KB define their own knockback direction
+			# Just take it as it is
+			knockback_direction = kb_data.vector.normalized()
+		KnockbackComponent.Style.RADIAL, KnockbackComponent.Style.INVERSE_RADIAL:
+			# Radial KB pass the damage origin position as the vector
+			# The knockback direction is the difference between
+			# the damage origin position and the affected object's position
+			knockback_direction = (movement.character.global_position - kb_data.vector).normalized()
+			if kb_data.style == KnockbackComponent.Style.INVERSE_RADIAL:
+				knockback_direction = -knockback_direction
+
 	match kb_data.degree:
 		KnockbackComponent.Degree.NO_RECOIL:
 			pass
 		KnockbackComponent.Degree.LIGHT:
-			apply_knockback(direction, 0.34)
+			apply_knockback(knockback_direction, 0.34)
 		KnockbackComponent.Degree.NORMAL:
-			apply_knockback(direction)
+			apply_knockback(knockback_direction)
 		KnockbackComponent.Degree.HEAVY:
-			apply_knockback(direction, 2.5)
+			apply_knockback(knockback_direction, 2.5)
+		KnockbackComponent.Degree.DAMAGE_DEPENDENT:
+			# TODO: Implement DamageDependent
+			assert(false, "Not implemented yet")
 #endregion

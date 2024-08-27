@@ -22,5 +22,6 @@ func _ready() -> void:
 #region Private Functions
 func _on_threshold_exceeded(amount: float, threshold: float):
 	damage.amount = int(damage.amount * (amount / threshold))
-	damage.apply(character, Vector2.ZERO)
+	# Technically this damage has no "source"
+	damage.apply(character, character, Vector2.ZERO)
 #endregion

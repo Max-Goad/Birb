@@ -26,10 +26,10 @@ func on_collision_detected(node: Node2D, velocity: Vector2) -> bool:
 	elif node is Hitbox:
 		# Hitboxes that receive damage should be attached
 		# to nodes instead of being the root node!
-		return damage_component.apply(node.get_parent(), velocity)
+		return damage_component.apply(self, node.get_parent(), velocity)
 	else:
 		# All other types of collision objects are processed as roots
-		return damage_component.apply(node, velocity)
+		return damage_component.apply(self, node, velocity)
 #endregion
 
 #region Private Functions

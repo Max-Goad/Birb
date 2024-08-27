@@ -125,6 +125,7 @@ shape = SubResource("CircleShape2D_wllsq")
 [node name="DamageComponent" type="Node" parent="Mushroom"]
 script = ExtResource("6_ya6at")
 amount = 5
+knockback_style = 1
 
 [node name="HealthComponent" type="Node" parent="Mushroom"]
 script = ExtResource("7_x13om")
@@ -343,7 +344,7 @@ position = Vector2(-48, -4)
 shape = SubResource("RectangleShape2D_52ei6")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[connection signal="collision_detected" from="Mushroom/Hurtbox" to="Han Spawner" method="spawn_enemy" flags=7 unbinds=2]
+[connection signal="collision_detected" from="Mushroom/Hurtbox" to="Kyou Spawner" method="spawn_enemy" flags=3 unbinds=2]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Big L Kitty Flower/Area2D" to="Big L Kitty Flower/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Good Juice Kitty Flower/Area2D" to="Good Juice Kitty Flower/Triggers" method="execute" unbinds=1]

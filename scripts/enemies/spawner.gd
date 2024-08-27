@@ -145,4 +145,4 @@ func _redraw_debug_shape():
 			debug_shape.global_position = location
 			debug_shape.global_scale = Vector2(25, 25)
 	debug_shape.debug_color = debug_color
-#endregion
+#endregions
