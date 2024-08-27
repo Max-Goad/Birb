@@ -13,7 +13,7 @@ var heal_modifier_fn = Callable()
 
 #region Signals
 signal on_heal(amount)
-signal on_damage(amount, type, direction)
+signal on_damage(amount, kb_data)
 signal on_invulnerable_start
 signal on_invulnerable_stop
 signal on_death
@@ -44,7 +44,7 @@ func heal(amount: int):
 # Return value indicates whether the damage is "ignored" or not
 # This indicates to the damage source whether to consider the
 # collision valid or whether the damage should continue to another body
-func damage(amount: int, type: DamageComponent.DamageType, direction: Vector2) -> bool:
+func damage(amount: int, kb_data: KnockbackComponent.KBData) -> bool:
 	if invulnerable():
 		print("HealthComponent: invulnerable, ignoring %s damage" % amount)
 		return false
@@ -52,15 +52,15 @@ func damage(amount: int, type: DamageComponent.DamageType, direction: Vector2) -
 		var original_amount = amount
 		amount = amount * damage_modifier_fn.call()
 		print("HealthComponent: damage mod (%s -> %s)" % [original_amount, amount])
-	print("HealthComponent: damage received %s (%s)" % [amount, type])
+	print("HealthComponent: damage received %s (%s)" % [amount, kb_data])
 	if amount < current_hp:
 		current_hp -= amount
-		on_damage.emit(amount, type, direction)
+		on_damage.emit(amount, kb_data)
 		set_invulnerable()
 	else:
 		var remaining_hp = current_hp
 		current_hp = 0
-		on_damage.emit(min(remaining_hp, amount), type, direction)
+		on_damage.emit(min(remaining_hp, amount), kb_data)
 		on_death.emit()
 	return true
 

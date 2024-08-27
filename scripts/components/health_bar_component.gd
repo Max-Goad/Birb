@@ -30,7 +30,7 @@ func _ready() -> void:
 #endregion
 
 #region Private Functions
-func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _direction: Vector2):
+func _on_health_damage(amount: int, _kb):
 	health_bar.change_value(-amount)
 	_update_visibility()
 

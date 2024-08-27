@@ -41,6 +41,7 @@ func _fire_projectile():
 	var clamped_direction = Math.vector8dir(self.direction) * Math.dither_f(self.speed, 5)
 	var dithered_direction = Math.dither_v_rot(clamped_direction, deg_to_rad(10))
 	hurtbox.velocity = dithered_direction
+	hurtbox.knockback_direction = dithered_direction
 	hurtbox.rotate(dithered_direction.angle())
 	hurtbox.ignore(self.parent)
 	self.parent.add_child(hurtbox)

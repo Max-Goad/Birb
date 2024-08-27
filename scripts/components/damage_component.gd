@@ -1,12 +1,5 @@
 class_name DamageComponent extends Node
 
-enum DamageType {
-	NORMAL = 0,
-	HEAVY = 1,
-	LIGHT = 2,
-	NO_RECOIL = 3,
-}
-
 #region Variables
 @export var enabled = true
 ## Sets whether the damage component should indicate to its caller
@@ -14,10 +7,9 @@ enum DamageType {
 @export var disabled_collision = true
 
 @export_range(0,100) var amount: int
-@export var type: DamageComponent.DamageType
-
-@export_range(0,100) var alt_amount: int
-@export var alt_type: DamageComponent.DamageType
+@export_group("Knockback")
+@export var knockback_degree: KnockbackComponent.Degree
+@export var knockback_style: KnockbackComponent.Style
 #endregion
 
 #region Signals
@@ -36,28 +28,29 @@ func set_enabled(value = true):
 # Return value is whether the damage was applied or not
 # If not, it indicates that the damage should be "ignored"
 # and not considered in the caller's equations
-func apply(node: Node2D, velocity: Vector2, alt = false) -> bool:
+func apply(node: Node2D, vector: Vector2) -> bool:
 	if not enabled:
 		return disabled_collision
 	print("DamageComponent: %s -> %s" % [self.get_parent().name, node.name])
-	var health_component = _find_health_component(node)
+	var health_component := _find_health_component(node)
 	if not health_component:
 		print("DamageComponent: can't find health component")
 		return false
-	var direction = velocity
-	# TODO: Fix this
-	# if direction == Vector2.ZERO:
-	# 	direction = node.global_position - get_parent().global_position
-	if not alt:
-		return health_component.damage(amount, type, direction.normalized())
-	else:
-		return health_component.damage(alt_amount, alt_type, direction.normalized())
+	var kb_data = _knockback_data(vector.normalized())
+	return health_component.damage(amount, kb_data)
 #endregion
 
 #region Private Functions
-func _find_health_component(parent: Node2D) -> Node2D:
+func _find_health_component(parent: Node2D) -> HealthComponent:
 	for child in parent.get_children():
 		if child is HealthComponent:
 			return child
 	return null
+
+func _knockback_data(vector: Vector2) -> KnockbackComponent.KBData:
+	var data = KnockbackComponent.KBData.new()
+	data.degree = knockback_degree
+	data.style = knockback_style
+	data.vector = vector
+	return data
 #endregion

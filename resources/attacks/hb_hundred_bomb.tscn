@@ -17,8 +17,8 @@ texture_filter = 1
 collision_layer = 16
 collision_mask = 22
 script = ExtResource("1_5c0wq")
-limit_collisions = false
 damage_component = NodePath("DamageComponent")
+limit_collisions = false
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -47,7 +47,8 @@ shape = SubResource("RectangleShape2D_plfsy")
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_g1qev")
-type = 2
+knockback_degree = 2
+knockback_style = 1
 
 [node name="Explosion Timer" type="Timer" parent="."]
 one_shot = true

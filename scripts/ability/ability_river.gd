@@ -24,7 +24,7 @@ func _init(knockback_force, stun_time) -> void:
 
 	self.damage_component = DamageComponent.new()
 	self.damage_component.amount = 10
-	self.damage_component.type = DamageComponent.DamageType.NO_RECOIL
+	self.damage_component.knockback_degree = KnockbackComponent.Degree.NO_RECOIL
 #endregion
 
 #region Public Functions

@@ -36,7 +36,8 @@ polygon = PackedVector2Array(-5, -28, -5, -5, -29, -5, -29, 2, -5, 2, -5, 31, 4,
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_p3s4w")
-type = 2
+knockback_degree = 2
+knockback_style = 1
 
 [node name="Explosion Timer" type="Timer" parent="."]
 wait_time = 2.0

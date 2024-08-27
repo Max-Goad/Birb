@@ -97,6 +97,8 @@ func _drain():
 		# skip the damage if the distance is too far!
 		else:
 			continue
-		enemy.health.damage(damage, DamageComponent.DamageType.NO_RECOIL, Vector2.ZERO)
+		var kb_data = KnockbackComponent.KBData.new()
+		kb_data.degree = KnockbackComponent.Degree.NO_RECOIL
+		enemy.health.damage(damage, kb_data)
 
 #endregion

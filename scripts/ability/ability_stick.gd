@@ -39,7 +39,7 @@ func _lunge():
 	self.parent.movement.apply_speed(self.parent.movement.top_speed * LUNGE_TIME, MovementComponent.IGNORE_LOCK)
 
 func _spawn_hurtbox():
-	var hurtbox: Node2D = pl_hb_stick.instantiate()
+	var hurtbox: Hurtbox = pl_hb_stick.instantiate()
 	hurtbox.ignore(self.parent)
 	_position_hurtbox(hurtbox, self.direction)
 	hurtbox.finished.connect(func(): self.finished.emit())

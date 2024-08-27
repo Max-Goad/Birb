@@ -58,6 +58,7 @@ func _create_projectile(rotation_rad: float = 0.0) -> Hurtbox:
 	var speed_direction = rotated_direction * Math.dither_f(self.speed, 5)
 	var final_direction = Math.dither_v_rot(speed_direction, deg_to_rad(10))
 	hurtbox.velocity = final_direction
+	hurtbox.knockback_direction = final_direction
 	hurtbox.rotate(final_direction.angle())
 	hurtbox.damage_component.amount = int(damage * self.parent.modifiers.gett(Player.Modifiers.DAMAGE))
 	return hurtbox

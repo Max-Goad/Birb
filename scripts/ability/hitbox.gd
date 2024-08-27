@@ -9,6 +9,7 @@ var velocity = Vector2.ZERO
 var deceleration = 0.0
 var angular_velocity = 0.0
 var angular_deceleration = 0.0
+var knockback_direction = Vector2.ZERO
 
 var ignored_nodes: Dictionary = {}
 var collided_ids: Dictionary = {}

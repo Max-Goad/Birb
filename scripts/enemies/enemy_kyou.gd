@@ -78,13 +78,14 @@ func _ready_to_fire():
 		 or pathfinding.current_track_state == PathfindingComponent.TrackState.IN_RANGE)
 	)
 
-func _fire(projectile):
+func _fire(projectile: Hurtbox):
 	projectile.damage_component.enabled = true
 	projectile.top_level = true # Do not follow parent's transforms
 	projectile.global_position = global_position
 	projectile.global_rotation = global_rotation
 	projectile.global_scale = global_scale
 	projectile.velocity = Vector2.UP.rotated(rotation) * projectile_speed
+	projectile.knockback_direction = projectile.velocity.normalized()
 	_attach_despawn_timer(projectile)
 
 func _attach_despawn_timer(projectile):

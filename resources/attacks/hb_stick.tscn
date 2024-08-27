@@ -19,5 +19,3 @@ polygon = PackedVector2Array(30.3333, 20.3333, 49, 20.3333, 49, 7, 46.3333, -9, 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("2_5evhu")
 amount = 10
-type = 1
-alt_amount = 5

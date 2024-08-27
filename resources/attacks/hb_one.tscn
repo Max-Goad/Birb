@@ -14,8 +14,8 @@ top_level = true
 collision_layer = 16
 collision_mask = 6
 script = ExtResource("1_r22x2")
-limit_collisions = false
 damage_component = NodePath("DamageComponent")
+limit_collisions = false
 raycast = NodePath("RayCast2D")
 
 [node name="Label" type="Label" parent="."]

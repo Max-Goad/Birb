@@ -27,7 +27,7 @@ func _ready() -> void:
 #endregion
 
 #region Private Functions
-func _on_health_damage(amount: int, _type: DamageComponent.DamageType, _direction: Vector2):
+func _on_health_damage(amount: int, _kb):
 	if amount == 0 and ignore_zero:
 		return
 	_spawn_damage_indicator(-amount, damage_color)
