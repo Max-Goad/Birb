@@ -2,21 +2,24 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- Hurtbox
+- IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
 	- If it's a child, then does the parent have a velocity?
 	- Should the Hurtbox ALWAYS be a child (like a component)?
-- Fun
+- BUG: One/Two/Three
+	- Projectiles sometimes get stuck inside enemies?
+- BUG: Fun
 	- Hat is not attaching to enemies after I change screens
-- Implement more abilities
-	- Hole
-- Add more enemies
 
 ## TODO (long-term):
+- Implement DAMAGE_DEPENDENT recoil type
 - Implement Save/Load
+- Abilities
+	- Hole?
 - Enemies
-- Controller support
+- FULL Controller support
+- Mouse support (for player facing direction?)
 - Determine what the component grid should actually look like
 	- 4 columns good enough for now?
 	- Scroll bar? Adjusting column number?
