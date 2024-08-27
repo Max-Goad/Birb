@@ -2,6 +2,9 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
+- ADDON (TBT)
+	- Add physics copying (similar to probabilities)
+	- Check all the places I changed probabilities (GitHub commit reader?)
 - IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
