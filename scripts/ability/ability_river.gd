@@ -47,6 +47,8 @@ func execute(parent: Player, direction: Vector2):
 func _apply_vfx(direction: Vector2):
 	var vfx = VFXRiver.new()
 	vfx.flow_speed = -direction * 2
+	if direction in [Vector2.UP, Vector2.DOWN]:
+		vfx.horizontal = false
 	Data.get_canvas().add_child(vfx, true)
 
 func _attach_damage_node(character: CharacterBody2D):
