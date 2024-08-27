@@ -49,6 +49,7 @@ func apply_template_bit_data(template_bit_data : TemplateBitData, p_terrain_set 
 			var terrain_index = terrain_mapping[template_terrain_index]
 			set_bit_terrain(coords, bit, terrain_index)
 		set_tile_probability(coords, template_bit_data.get_tile_probability(template_coords))
+		set_collision_polygon_points(coords, template_bit_data.get_collision_polygons(template_coords))
 
 	return G.Errors.OK
 
@@ -123,3 +124,4 @@ func _load_terrain(coords : Vector2i, tile_data : TileData) -> void:
 		set_bit_terrain(coords, bit, tile_data.get_terrain_peering_bit(bit))
 
 	set_tile_probability(coords, tile_data.probability)
+	set_collision_polygon_points(coords, extract_polygon_points(tile_data))

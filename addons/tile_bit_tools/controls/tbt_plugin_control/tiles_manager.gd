@@ -113,6 +113,13 @@ func apply_bit_data() -> void:
 		for cell_neighbor in preview_bit_data.get_terrain_bits_list():
 			var terrain := preview_bit_data.get_bit_terrain(coords, cell_neighbor)
 			tile_data.set_terrain_peering_bit(cell_neighbor, terrain)
+		# Collision Polygon(s)
+		# MAX TODO: Layer is a magic number (from EditorBitData but still)
+		# MAX TODO: Only the 1st physics layer is considered...
+		var collision_polygon_points = preview_bit_data.get_collision_polygons(coords)
+		tile_data.set_collision_polygons_count(0, collision_polygon_points.size())
+		for i in collision_polygon_points.size():
+			tile_data.set_collision_polygon_points(0, i, collision_polygon_points[i])
 
 
 

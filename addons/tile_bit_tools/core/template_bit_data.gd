@@ -97,5 +97,6 @@ func _load_tiles(bit_data : EditorBitData, terrain_mapping : Dictionary) -> void
 			set_bit_terrain(template_coords, bit, terrain_mapping[editor_terrain])
 
 		set_tile_probability(template_coords, bit_data.get_tile_probability(template_coords))
+		set_collision_polygon_points(template_coords, bit_data.get_collision_polygons(template_coords))
 
 	template_terrain_count = terrain_mapping.keys().size()
