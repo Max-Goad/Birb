@@ -114,8 +114,9 @@ func get_canvas() -> CanvasLayer:
 
 func get_spawners() -> Array[Spawner]:
 	var spawners: Array[Spawner] = []
-	var nodes = get_tree().get_nodes_in_group(Data.GROUP_SPAWNER)
-	spawners.assign(nodes)
+	for node in get_tree().get_nodes_in_group(Data.GROUP_SPAWNER):
+		if not node.is_queued_for_deletion():
+			spawners.push_back(node)
 	return spawners
 
 func get_enemies() -> Array[Enemy]:

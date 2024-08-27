@@ -35,6 +35,7 @@ func _on_map_transition_trigger(map_name: String, transition_id: int):
 	_on_map_transition.call_deferred(map_name, transition_id)
 
 func _on_map_transition(map_name: String, transition_id: int):
+	Abilities.unset_current_abilities()
 	# Load new map
 	var old_map = current_map
 	current_map = _load_map(map_name)
@@ -42,7 +43,8 @@ func _on_map_transition(map_name: String, transition_id: int):
 	var new_transition = current_map.get_transition(transition_id)
 	player.global_position = new_transition.entry.global_position
 	# Unload old map
-	old_map.queue_free()
+	old_map.free()
+	Abilities.set_current_abilities()
 
 func _load_all_maps(dir_path: String):
 	for path in DirAccess.get_files_at(dir_path):

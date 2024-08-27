@@ -92,7 +92,6 @@ func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
 			_assign_ability_to_slot(category, NullAbility.new(), slot)
 		ability_reset.emit(category, slot)
 
-
 # Only active abilities can be executed (theoretically)
 # but I kept the naming scheme to be consistent
 func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
@@ -113,6 +112,22 @@ func execute_ability(slot: int, executer: Player, direction: Vector2) -> bool:
 	else:
 		print("Abilities: execute ability slot %s doesn't exist" % slot)
 		return false
+
+## During some events, such as map transitions,
+## the abilities need to be "refreshed".
+## "unset_current_abilities" and "set_current_abilities"
+## can be used (in that order) to "refresh" the abilities.
+func unset_current_abilities():
+	for ability in active_slots + passive_slots:
+		ability.on_unset()
+
+## During some events, such as map transitions,
+## the abilities need to be "refreshed".
+## "unset_current_abilities" and "set_current_abilities"
+## can be used (in that order) to "refresh" the abilities.
+func set_current_abilities():
+	for ability in active_slots + passive_slots:
+		ability.on_set()
 #endregion
 
 #region Private Functions
