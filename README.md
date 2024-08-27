@@ -10,8 +10,6 @@ A silly little repository for silly little things by a silly little man
 	- UPDATE: Does this even matter anymore?
 - BUG: One/Two/Three
 	- Projectiles sometimes get stuck inside enemies?
-- BUG: Fun
-	- Hat is not attaching to enemies after I change screens
 
 ## TODO (long-term):
 - Implement DAMAGE_DEPENDENT recoil type
