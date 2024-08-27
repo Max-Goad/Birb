@@ -19,6 +19,7 @@ enum TerrainBits {
 const NULL_TERRAIN_INDEX := -1
 const NULL_TERRAIN_SET := -1
 const NULL_TERRAIN_MODE := -1
+const DEFAULT_PROBABILITY := 1.0
 
 const BitData := preload("res://addons/tile_bit_tools/core/bit_data.gd")
 
@@ -48,12 +49,13 @@ var CellNeighborsByMode := {
 }
 
 
-enum _TileKeys {TERRAIN, PEERING_BITS}
+enum _TileKeys {TERRAIN, PEERING_BITS, PROBABILITY}
 
 
 # _tiles[coords : Vector2i][_TileKey]
 # TERRAIN = terrain_index
 # PEERING_BITS = Dictionary of {CellNeighbors : terrain_index}
+# PROBABILITY = float
 @export var _tiles := {}
 
 @export var terrain_set := NULL_TERRAIN_SET
@@ -149,11 +151,17 @@ func set_bit_terrain(coords : Vector2i, bit : TerrainBits, terrain_index : int) 
 		return
 	_tiles[coords][_TileKeys.PEERING_BITS][bit] = terrain_index
 
-
 func get_bit_terrain(coords : Vector2i, bit : TerrainBits) -> int:
 	if bit == TerrainBits.CENTER:
 		return get_tile_terrain(coords)
 	return _tiles[coords][_TileKeys.PEERING_BITS].get(bit, NULL_TERRAIN_INDEX)
+
+
+func set_tile_probability(coords : Vector2i, probability : float) -> void:
+	_tiles[coords][_TileKeys.PROBABILITY] = probability
+
+func get_tile_probability(coords : Vector2i) -> float:
+	return _tiles[coords].get(_TileKeys.PROBABILITY, DEFAULT_PROBABILITY)
 
 
 func get_bit_color(coords : Vector2i, bit : TerrainBits) -> Color:
@@ -174,12 +182,13 @@ func get_terrain_colors_dict() -> Dictionary:
 
 
 
-func _add_tile(coords : Vector2i, terrain_index := NULL_TERRAIN_INDEX) -> void:
+func _add_tile(coords : Vector2i, terrain_index := NULL_TERRAIN_INDEX, probability := DEFAULT_PROBABILITY) -> void:
 	assert(!_tiles.has(coords))
 
 	_tiles[coords] = {
 		_TileKeys.TERRAIN: terrain_index,
 		_TileKeys.PEERING_BITS: {},
+		_TileKeys.PROBABILITY: probability,
 	}
 
 
@@ -217,6 +226,7 @@ func clear_all_tile_terrains() -> void:
 func clear_tile_terrains(coords : Vector2i) -> void:
 	set_tile_terrain(coords, NULL_TERRAIN_INDEX)
 	_clear_tile_peering_bits(coords)
+	_clear_tile_probability(coords)
 
 
 func replace_all_tile_terrains(old_terrain_index : int, new_terrain_index : int) -> void:
@@ -241,5 +251,5 @@ func _clear_tile_peering_bits(coords : Vector2i) -> void:
 	_tiles[coords][_TileKeys.PEERING_BITS].clear()
 
 
-
-
+func _clear_tile_probability(coords : Vector2i) -> void:
+	_tiles[coords][_TileKeys.PROBABILITY] = DEFAULT_PROBABILITY

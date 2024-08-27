@@ -109,6 +109,7 @@ func apply_bit_data() -> void:
 		var tile_data : TileData = tbt.context.tiles[coords]
 		tile_data.terrain_set = preview_bit_data.terrain_set
 		tile_data.terrain = preview_bit_data.get_tile_terrain(coords)
+		tile_data.probability = preview_bit_data.get_tile_probability(coords)
 		for cell_neighbor in preview_bit_data.get_terrain_bits_list():
 			var terrain := preview_bit_data.get_bit_terrain(coords, cell_neighbor)
 			tile_data.set_terrain_peering_bit(cell_neighbor, terrain)
