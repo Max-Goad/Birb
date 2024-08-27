@@ -233,5 +233,3 @@ func _get_center_rect(rect : Rect2) -> Rect2:
 
 func _get_bit_size(rect : Rect2) -> Vector2:
 	return rect.size/3.0
-
-

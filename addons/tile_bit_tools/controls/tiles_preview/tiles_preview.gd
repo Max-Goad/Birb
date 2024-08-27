@@ -203,4 +203,3 @@ func _on_front_panel_collapsed_gui_input(event: InputEvent) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
 	_toggle_expanded_state(true)
-

@@ -44,13 +44,3 @@ func _get_upscale_factor(base_size : Vector2i) -> int:
 		if base_size.x <= max_size && base_size.y <= max_size:
 			return upscale_by_max_size[max_size]
 	return 1
-
-
-
-
-
-
-
-
-
-

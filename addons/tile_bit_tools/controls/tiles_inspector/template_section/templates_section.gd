@@ -273,4 +273,3 @@ func _on_templates_updated() -> void:
 
 func _on_reset_requested() -> void:
 	_reset_tags()
-

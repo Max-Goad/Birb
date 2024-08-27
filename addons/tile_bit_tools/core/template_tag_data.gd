@@ -130,5 +130,3 @@ var tag_display := [
 #	Tags.ONE_OR_TWO_TERRAINS,
 #	Tags.THREE_PLUS_TERRAINS,
 ]
-
-

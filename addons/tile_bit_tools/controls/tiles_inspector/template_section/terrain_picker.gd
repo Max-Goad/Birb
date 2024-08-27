@@ -88,4 +88,3 @@ func _emit_item_selected(_index := -1) -> void:
 
 func _on_terrain_set_changed(id : int) -> void:
 	terrain_set = id
-

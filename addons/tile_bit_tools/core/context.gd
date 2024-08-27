@@ -110,5 +110,3 @@ func get_terrain_sets_item_list(terrain_mode : TileSet.TerrainMode) -> Array:
 
 func get_terrains_item_list(terrain_set : int) -> Array:
 	return terrains_by_set[terrain_set]
-
-

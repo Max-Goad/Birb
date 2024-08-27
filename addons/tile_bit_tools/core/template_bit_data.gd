@@ -97,9 +97,3 @@ func _load_tiles(bit_data : EditorBitData, terrain_mapping : Dictionary) -> void
 			set_bit_terrain(template_coords, bit, terrain_mapping[editor_terrain])
 
 	template_terrain_count = terrain_mapping.keys().size()
-
-
-
-
-
-
