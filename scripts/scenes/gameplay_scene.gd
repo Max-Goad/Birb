@@ -20,6 +20,8 @@ func _ready() -> void:
 	_load_all_maps(Gameplay.MAP_DIR)
 	if not current_map:
 		current_map = _load_map(Gameplay.get_map_names()[0])
+	Data.save_requested.connect(on_save)
+	Data.load_requested.connect(on_load)
 
 func _process(_delta: float) -> void:
 	pass
@@ -28,6 +30,13 @@ func _process(_delta: float) -> void:
 #region Public Functions
 static func get_map_names() -> PackedStringArray:
 	return DirAccess.get_files_at(Gameplay.MAP_DIR)
+
+func on_save(data: SaveData) -> void:
+	data.current_map = current_map.filename
+
+func on_load(data: SaveData) -> void:
+	# TODO: Should be a way to default load maps without triggering a transition!
+	_on_map_transition_trigger(data.current_map, 0)
 #endregion
 
 #region Private Functions
@@ -47,12 +56,14 @@ func _on_map_transition(map_name: String, transition_id: int):
 	Abilities.set_current_abilities()
 
 func _load_all_maps(dir_path: String):
-	for path in DirAccess.get_files_at(dir_path):
-		maps[path] = (load("%s/%s" % [dir_path,path]))
+	for filename in DirAccess.get_files_at(dir_path):
+		maps[filename] = load("%s/%s" % [dir_path,filename])
 
 func _load_map(map_name) -> Map:
 	assert(map_name in maps)
 	var new_map: Map = maps[map_name].instantiate()
+	# We add this field so we can save/load the current map easily
+	new_map.filename = map_name
 	new_map.enter()
 	new_map.transition_triggered.connect(_on_map_transition_trigger)
 	add_child(new_map)

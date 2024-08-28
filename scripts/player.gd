@@ -34,6 +34,8 @@ func _ready() -> void:
 	Data.component_unlocked.connect(_on_component_unlocked)
 	movement.locked.connect(_on_movement_locked)
 	movement.unlocked.connect(_on_movement_unlocked)
+	Data.save_requested.connect(on_save)
+	Data.load_requested.connect(on_load)
 
 func _process(_delta: float) -> void:
 	var movement_direction = Input.get_vector("player_movement_left", "player_movement_right", "player_movement_up", "player_movement_down")
@@ -53,6 +55,11 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Public Functions
+func on_save(data: SaveData) -> void:
+	data.player_position = self.global_position
+
+func on_load(data: SaveData) -> void:
+	self.global_position = data.player_position
 #endregion
 
 #region Private Functions

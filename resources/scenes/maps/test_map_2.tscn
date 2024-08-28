@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://77l0j8miufi5"]
+[gd_scene load_steps=22 format=4 uid="uid://77l0j8miufi5"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_qwobg"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_lvifn"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_sqq3a"]
 [ext_resource type="PackedScene" uid="uid://dj16saqo3oumj" path="res://resources/enemies/spawner.tscn" id="5_8lelt"]
 [ext_resource type="PackedScene" uid="uid://btrabe1j0w66f" path="res://resources/enemies/han.tscn" id="6_lv611"]
+[ext_resource type="Texture2D" uid="uid://bf6kvy2itm786" path="res://resources/art/Sprout Lands Pack/Objects/Mushrooms, Flowers, Stones.png" id="8_0ds2q"]
+[ext_resource type="Script" path="res://scripts/trigger/triggers.gd" id="9_3xwce"]
+[ext_resource type="Script" path="res://scripts/trigger/pause_trigger.gd" id="10_gilr3"]
+[ext_resource type="Script" path="res://scripts/trigger/save_load_trigger.gd" id="11_rp4ms"]
+[ext_resource type="Script" path="res://scripts/trigger/textbox_trigger.gd" id="12_mpan3"]
+[ext_resource type="Script" path="res://scripts/trigger/free_trigger.gd" id="13_bdfec"]
 [ext_resource type="Script" path="res://scripts/maps/map_transition.gd" id="20_r7gyt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52ei6"]
@@ -23,6 +29,17 @@ region = Rect2(128, 16, 32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qbhds"]
 radius = 40.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dwqn"]
+atlas = ExtResource("8_0ds2q")
+region = Rect2(112, 64, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iandm"]
+radius = 22.561
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0oq4"]
+atlas = ExtResource("8_0ds2q")
+region = Rect2(112, 48, 16, 16)
 
 [node name="Test Map 2" type="Node2D" node_paths=PackedStringArray("default_transition")]
 z_index = -1
@@ -112,5 +129,84 @@ autostart = false
 unlimited = true
 behavior = 1
 
+[node name="Save Flower" type="Node2D" parent="."]
+position = Vector2(896, 832)
+
+[node name="Sprite2D" type="Sprite2D" parent="Save Flower"]
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_1dwqn")
+
+[node name="Area2D" type="Area2D" parent="Save Flower"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save Flower/Area2D"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_iandm")
+
+[node name="Triggers" type="Node" parent="Save Flower"]
+process_mode = 3
+script = ExtResource("9_3xwce")
+
+[node name="Pause" type="Node" parent="Save Flower/Triggers"]
+script = ExtResource("10_gilr3")
+
+[node name="SaveLoadTrigger" type="Node" parent="Save Flower/Triggers"]
+script = ExtResource("11_rp4ms")
+slot = 1
+
+[node name="Textbox" type="Node" parent="Save Flower/Triggers"]
+script = ExtResource("12_mpan3")
+text = "Saved to slot 0"
+
+[node name="Unpause" type="Node" parent="Save Flower/Triggers"]
+script = ExtResource("10_gilr3")
+activate_pause = false
+
+[node name="Free" type="Node" parent="Save Flower/Triggers" node_paths=PackedStringArray("node")]
+script = ExtResource("13_bdfec")
+node = NodePath("../..")
+
+[node name="Load Flower" type="Node2D" parent="."]
+position = Vector2(1040, 832)
+
+[node name="Sprite2D" type="Sprite2D" parent="Load Flower"]
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_q0oq4")
+
+[node name="Area2D" type="Area2D" parent="Load Flower"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Load Flower/Area2D"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_iandm")
+
+[node name="Triggers" type="Node" parent="Load Flower"]
+process_mode = 3
+script = ExtResource("9_3xwce")
+
+[node name="Pause" type="Node" parent="Load Flower/Triggers"]
+script = ExtResource("10_gilr3")
+
+[node name="Textbox" type="Node" parent="Load Flower/Triggers"]
+script = ExtResource("12_mpan3")
+text = "Loaded from slot 0"
+
+[node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
+script = ExtResource("11_rp4ms")
+type = 1
+slot = 1
+
+[node name="Unpause" type="Node" parent="Load Flower/Triggers"]
+script = ExtResource("10_gilr3")
+activate_pause = false
+
+[node name="Free" type="Node" parent="Load Flower/Triggers" node_paths=PackedStringArray("node")]
+script = ExtResource("13_bdfec")
+node = NodePath("../..")
+
 [connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]
 [connection signal="collision_detected" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" flags=3 unbinds=2]
+[connection signal="body_entered" from="Save Flower/Area2D" to="Save Flower/Triggers" method="execute" unbinds=1]
+[connection signal="body_entered" from="Load Flower/Area2D" to="Load Flower/Triggers" method="execute" unbinds=1]

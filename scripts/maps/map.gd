@@ -5,6 +5,7 @@ class_name Map extends Node2D
 # id : MapTransition
 var transitions: Dictionary
 var layers: Array[TileMapLayer]
+var filename: String
 #endregion
 
 #region Signals

@@ -1,7 +1,7 @@
 extends Node
 
 #region Constants
-const MAX_SAVE_SLOT_SIZE: int = 7
+const MAX_SAVE_SLOT_SIZE: int = 3
 const MAX_SAVE_NAME_SIZE: int = 20
 
 const GROUP_PLAYER: String = "player"
@@ -30,6 +30,9 @@ var language_converter := LanguageConverter.new()
 #endregion
 
 #region Signals
+signal save_requested(data)
+signal load_requested(data)
+
 signal component_unlocked
 signal recipe_type_unlocked
 signal ability_slot_unlocked(category, total) # always emit total
@@ -40,33 +43,43 @@ func _ready() -> void:
 	# saves.clear()
 	# saves.resize(MAX_SAVE_SLOT_SIZE)
 	# saves.fill(null)
-	_test_language_conversion("res://resources/data/language.txt")
+	# _test_language_conversion("res://resources/data/language.txt")
 	_load_game_references()
 	load_all_files()
 	if save_exists(0):
 		load_file(0)
 	else:
 		current_save = SaveData.new()
-	call_deferred("notify_ability_slots", Ability.Category.ACTIVE)
-	call_deferred("notify_ability_slots", Ability.Category.PASSIVE)
+
+	notify_ability_slots.call_deferred(Ability.Category.ACTIVE)
+	notify_ability_slots.call_deferred(Ability.Category.PASSIVE)
 #endregion
 
 #region Saving / Loading Functions
 func file_name(slot: int) -> String:
-	return "user://save_data_%d.save" % slot
+	return "user://save_data_%d.tres" % slot
 
 func save_exists(slot: int) -> bool:
 	return FileAccess.file_exists(file_name(slot))
 
 func save_file(slot: int, save_name = "Test"):
+	save_requested.emit(current_save)
 	current_save.save_name = save_name
-	var save_data_string = JSON.stringify(SaveData.serialize(current_save))
-	var file = FileAccess.open(file_name(slot), FileAccess.WRITE)
-	file.store_line(save_data_string)
+
+	## JSON Version
+	#var save_data_string = JSON.stringify(SaveData.serialize(current_save))
+	#var file = FileAccess.open(file_name(slot), FileAccess.WRITE)
+	#file.store_line(save_data_string)
+
+	## Resource Version
+	var error = ResourceSaver.save(current_save, file_name(slot))
+	if error != OK:
+		push_error("Data: error when saving (%s)" % error_string(error))
+		return
 
 	# The save data loaded into memory has to be updated too
 	saves[slot] = current_save
-	print("Data: saved file to slot %d: %s" % [slot, save_data_string])
+	print("Data: saved file to slot %d" % [slot])
 
 func can_load_file(slot: int):
 	return slot < saves.size() and saves[slot] != null
@@ -78,6 +91,7 @@ func load_file(slot: int):
 		return
 	#clear()
 	current_save = saves[slot]
+	load_requested.emit(current_save)
 	print("Data: loaded file from slot %d" % slot)
 
 
@@ -89,11 +103,16 @@ func load_all_files():
 	for slot in MAX_SAVE_SLOT_SIZE:
 		if not save_exists(slot):
 			continue
-		var file = FileAccess.open(file_name(slot), FileAccess.READ)
-		var save_string = file.get_line()
-		var save_dict = JSON.parse_string(save_string)
-		saves[slot] = SaveData.deserialize(save_dict)
-		print("Data: loaded slot %d from file: %s" % [slot, save_string])
+		## JSON Version
+		#var file = FileAccess.open(file_name(slot), FileAccess.READ)
+		#var save_string = file.get_line()
+		#var save_dict = JSON.parse_string(save_string)
+		#saves[slot] = SaveData.deserialize(save_dict)
+
+		## Resource Version
+		saves[slot] = load(file_name(slot))
+
+		print("Data: loaded slot %d from file" % [slot])
 
 func erase_file(slot: int):
 	if not save_exists(slot):
@@ -197,6 +216,10 @@ func _next_line(file: FileAccess) -> String:
 	return ""
 
 func _load_game_references():
+	_load_components_and_recipes()
+	_generate_abilities()
+
+func _load_components_and_recipes():
 	var crafting_file_parser := CraftingFileParser.new("res://resources/data/crafting.txt")
 	var success = crafting_file_parser.parse()
 	assert(success)
@@ -205,7 +228,6 @@ func _load_game_references():
 		self.components_by_id[component.id] = component
 		self.components_by_name[component.label] = component
 	self.recipes = crafting_file_parser.recipes
-	_generate_abilities()
 
 func _generate_abilities():
 	for component in components_by_id.values():
