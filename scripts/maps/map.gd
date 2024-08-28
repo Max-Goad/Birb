@@ -6,6 +6,9 @@ class_name Map extends Node2D
 var transitions: Dictionary
 var layers: Array[TileMapLayer]
 var filename: String
+
+## { NodePath : bool }
+var persist_data: Dictionary
 #endregion
 
 #region Signals
@@ -16,10 +19,39 @@ signal transition_triggered(map_id, transition_id)
 func _ready() -> void:
 	assert(default_transition)
 	_collect_layers()
+	_collect_persist_objects()
 	_generate_transitions()
 #endregion
 
 #region Public Functions
+## Called right before the game saves to disk
+func on_save(data: SaveData) -> void:
+	# Persist
+	_update_persist_data(data)
+
+## Called right after game loads from disk
+func on_load(_data: SaveData) -> void:
+	#var map_items: Dictionary = data.map_items.get(self.filename, {})
+	# Persist
+	#_remove_persist_nodes(_extract_persist_info(data))
+	pass
+
+## Called right before game loads from disk
+func on_unload() -> void:
+	# TODO: Put any logic in here that only happens when you
+	#		load the map from disk (not just leave and return)
+	pass
+
+## Called each time this map is entered and loaded from memory
+## 	- For example: Player walks or reenters a map
+func on_enter():
+	_remove_persist_nodes(_extract_persist_info(Data.current_save))
+
+## Called each time this map is exited and unloaded into memory
+## 	- For example: Player walks away from a map and into a new one
+func on_exit():
+	_update_persist_data(Data.current_save)
+
 func get_map_scale() -> Vector2:
 	var layer_scale = Vector2.ZERO
 	for layer in layers:
@@ -49,13 +81,6 @@ func get_tile_size() -> Vector2i:
 
 func get_transition(id: int) -> MapTransition:
 	return transitions.get(id, default_transition)
-
-func enter():
-	# TODO: Each map has something different to do
-	#		How do we handle that?
-	#		Do we go to the children and do enter() on them too?
-	#		Don't forget to use the current game state!
-	pass
 #endregion
 
 #region Private Functions
@@ -64,6 +89,33 @@ func _collect_layers():
 		if child is TileMapLayer:
 			layers.push_back(child)
 
+func _collect_persist_objects():
+	for persist_object in get_tree().get_nodes_in_group(Data.GROUP_PERSIST):
+		persist_data[persist_object.get_path()] = true
+
+func _update_persist_data(data: SaveData):
+	# Refresh tracked nodes to see if any have been removed
+	for path in persist_data.keys():
+		var node = get_node_or_null(path)
+		var should_persist = node != null and not node.is_queued_for_deletion()
+		persist_data[path] = should_persist
+		if not should_persist:
+			print("Map: (%s) Marking %s as removed" % [filename, path])
+	# Update save data with new persist data
+	data.map_items.get_or_add(self.filename, {})[Data.GROUP_PERSIST] = persist_data
+
+
+func _remove_persist_nodes(persist: Dictionary):
+	for path in persist:
+		var should_persist = persist[path]
+		if not should_persist:
+			var node = get_node(path)
+			print("Map: (%s) Removing persistent %s" % [filename, node.name])
+			remove_child(node)
+			node.queue_free()
+
+func _extract_persist_info(data: SaveData) -> Dictionary:
+	return data.map_items.get(self.filename, {}).get(Data.GROUP_PERSIST, {})
 
 func _generate_transitions():
 	for child in get_children():

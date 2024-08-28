@@ -8,6 +8,7 @@ const GROUP_PLAYER: String = "player"
 const GROUP_SPAWNER: String = "spawner"
 const GROUP_CAMERA: String = "camera"
 const GROUP_CANVAS: String = "canvas"
+const GROUP_PERSIST: String = "persist"
 #endregion
 
 #region Save Data Variables

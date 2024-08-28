@@ -4,4 +4,3 @@ class_name PauseTrigger extends Trigger
 
 func execute():
 	get_tree().paused = activate_pause
-

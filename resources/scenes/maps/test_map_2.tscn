@@ -97,7 +97,7 @@ position = Vector2(0, 48)
 shape = SubResource("RectangleShape2D_cdfqy")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[node name="Rock" type="StaticBody2D" parent="."]
+[node name="Rock" type="StaticBody2D" parent="." groups=["persist"]]
 position = Vector2(872, 296)
 collision_mask = 0
 
@@ -122,14 +122,14 @@ limit_collisions = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Hitbox"]
 shape = SubResource("CircleShape2D_qbhds")
 
-[node name="Han Spawner" parent="." instance=ExtResource("5_8lelt")]
+[node name="Han Spawner" parent="." groups=["persist"] instance=ExtResource("5_8lelt")]
 position = Vector2(448, 384)
 template = ExtResource("6_lv611")
 autostart = false
 unlimited = true
 behavior = 1
 
-[node name="Save Flower" type="Node2D" parent="."]
+[node name="Save Flower" type="Node2D" parent="." groups=["persist"]]
 position = Vector2(896, 832)
 
 [node name="Sprite2D" type="Sprite2D" parent="Save Flower"]
@@ -151,13 +151,13 @@ script = ExtResource("9_3xwce")
 [node name="Pause" type="Node" parent="Save Flower/Triggers"]
 script = ExtResource("10_gilr3")
 
+[node name="Textbox" type="Node" parent="Save Flower/Triggers"]
+script = ExtResource("12_mpan3")
+text = "Saving to slot 1"
+
 [node name="SaveLoadTrigger" type="Node" parent="Save Flower/Triggers"]
 script = ExtResource("11_rp4ms")
 slot = 1
-
-[node name="Textbox" type="Node" parent="Save Flower/Triggers"]
-script = ExtResource("12_mpan3")
-text = "Saved to slot 0"
 
 [node name="Unpause" type="Node" parent="Save Flower/Triggers"]
 script = ExtResource("10_gilr3")
@@ -167,7 +167,7 @@ activate_pause = false
 script = ExtResource("13_bdfec")
 node = NodePath("../..")
 
-[node name="Load Flower" type="Node2D" parent="."]
+[node name="Load Flower" type="Node2D" parent="." groups=["persist"]]
 position = Vector2(1040, 832)
 
 [node name="Sprite2D" type="Sprite2D" parent="Load Flower"]
@@ -191,7 +191,7 @@ script = ExtResource("10_gilr3")
 
 [node name="Textbox" type="Node" parent="Load Flower/Triggers"]
 script = ExtResource("12_mpan3")
-text = "Loaded from slot 0"
+text = "Loading from slot 1"
 
 [node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
 script = ExtResource("11_rp4ms")

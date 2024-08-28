@@ -52,6 +52,11 @@ script/templates_search_path="res://scripts/templates"
 
 enabled=PackedStringArray("res://addons/language_converter/plugin.cfg", "res://addons/tile_bit_tools/plugin.cfg")
 
+[global_group]
+
+canvas=""
+persist=""
+
 [input]
 
 ui_accept={
