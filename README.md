@@ -2,9 +2,14 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- ADDON (TBT)
-	- Add physics copying (similar to probabilities)
-	- Check all the places I changed probabilities (GitHub commit reader?)
+- BUGS: Save/Load
+	- Flowers
+		- The Load flower will always mark itself as "destroyed", and disappear
+		- The expected behavior is for that to persist
+		- Workaround: Do not group it in the "persist" group?
+	- Load in same room as Save
+		- The map should be fully unloaded and reloaded
+		- Currently isn't doing that?
 - IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
