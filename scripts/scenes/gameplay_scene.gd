@@ -42,9 +42,9 @@ func on_save(data: SaveData) -> void:
 func on_load(data: SaveData) -> void:
 	# TODO: What about ability calls?
 	Abilities.unset_current_abilities()
+	player.on_load(data)
 	current_map = _enter_new_map(data.current_map)
 	current_map.on_load(data)
-	player.on_load(data)
 	Abilities.set_current_abilities()
 
 func on_unload() -> void:

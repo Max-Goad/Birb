@@ -17,6 +17,7 @@ enum Modifiers {
 var last_movement_direction := Vector2.DOWN
 
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var hitbox: CollisionShape2D = $Hitbox
 @onready var health: HealthComponent = $HealthComponent
 @onready var movement: CharacterMovementComponent = $MovementComponent
 @onready var knockback: KnockbackComponent = $KnockbackComponent
@@ -58,8 +59,10 @@ func on_save(data: SaveData) -> void:
 
 func on_load(data: SaveData) -> void:
 	self.global_position = data.player_position
+	hitbox.disabled = false
 
 func on_unload() -> void:
+	hitbox.disabled = true
 	self.movement.stop_all_movement(MovementComponent.IGNORE_LOCK)
 #endregion
 

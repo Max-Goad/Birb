@@ -158,6 +158,7 @@ text = "Saving to slot 1"
 [node name="SaveLoadTrigger" type="Node" parent="Save Flower/Triggers"]
 script = ExtResource("11_rp4ms")
 slot = 1
+deferred = true
 
 [node name="Unpause" type="Node" parent="Save Flower/Triggers"]
 script = ExtResource("10_gilr3")
@@ -167,7 +168,7 @@ activate_pause = false
 script = ExtResource("13_bdfec")
 node = NodePath("../..")
 
-[node name="Load Flower" type="Node2D" parent="." groups=["persist"]]
+[node name="Load Flower" type="Node2D" parent="."]
 position = Vector2(1040, 832)
 
 [node name="Sprite2D" type="Sprite2D" parent="Load Flower"]
@@ -193,18 +194,14 @@ script = ExtResource("10_gilr3")
 script = ExtResource("12_mpan3")
 text = "Loading from slot 1"
 
-[node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("11_rp4ms")
-type = 1
-slot = 1
-
 [node name="Unpause" type="Node" parent="Load Flower/Triggers"]
 script = ExtResource("10_gilr3")
 activate_pause = false
 
-[node name="Free" type="Node" parent="Load Flower/Triggers" node_paths=PackedStringArray("node")]
-script = ExtResource("13_bdfec")
-node = NodePath("../..")
+[node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
+script = ExtResource("11_rp4ms")
+type = 1
+slot = 1
 
 [connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]
 [connection signal="collision_detected" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" flags=3 unbinds=2]
