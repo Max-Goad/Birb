@@ -3,8 +3,8 @@ class_name CharacterMovementComponent extends MovementComponent
 #region Variables
 @export var character: CharacterBody2D
 
-var direction = Vector2.ZERO
-var speed = 0.0
+var direction := Vector2.ZERO
+var speed := 0.0
 #endregion
 
 #region Signals
@@ -88,6 +88,14 @@ func decelerate(modifier = 1.0) -> bool:
 	var new_speed = move_toward(speed, 0.0, delta)
 	#print("CMC decelerate (s = %s, delta = %s, ns = %s)" % [speed, delta, new_speed])
 	return apply_speed(new_speed, IGNORE_LOCK)
+
+func stop_all_movement(ignore_lock = false) -> bool:
+	if currently_locked and not ignore_lock:
+		return false
+	direction = Vector2.ZERO
+	speed = 0.0
+	return true
+
 #endregion
 
 #region Private Functions
