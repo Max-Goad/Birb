@@ -32,6 +32,7 @@ var language_converter := LanguageConverter.new()
 #region Signals
 signal save_requested(data)
 signal load_requested(data)
+signal unload_requested
 
 signal component_unlocked
 signal recipe_type_unlocked
@@ -51,6 +52,7 @@ func _ready() -> void:
 	else:
 		current_save = SaveData.new()
 
+	# We notify so that the initial slots are shown on screen
 	notify_ability_slots.call_deferred(Ability.Category.ACTIVE)
 	notify_ability_slots.call_deferred(Ability.Category.PASSIVE)
 #endregion
@@ -89,7 +91,7 @@ func load_file(slot: int):
 	if slot >= saves.size() or saves[slot] == null:
 		assert(false, "bad load")
 		return
-	#clear()
+	unload_requested.emit()
 	current_save = saves[slot]
 	load_requested.emit(current_save)
 	print("Data: loaded file from slot %d" % slot)

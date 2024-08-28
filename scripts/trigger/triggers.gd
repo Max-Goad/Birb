@@ -8,4 +8,3 @@ func execute():
 		assert(trigger is Trigger, "Non-Trigger child found under triggers")
 		print("Triggers: execute trigger %s" % trigger.name)
 		await trigger.execute()
-

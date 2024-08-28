@@ -22,6 +22,7 @@ func _ready() -> void:
 		current_map = _load_map(Gameplay.get_map_names()[0])
 	Data.save_requested.connect(on_save)
 	Data.load_requested.connect(on_load)
+	Data.unload_requested.connect(on_unload)
 
 func _process(_delta: float) -> void:
 	pass
@@ -35,8 +36,12 @@ func on_save(data: SaveData) -> void:
 	data.current_map = current_map.filename
 
 func on_load(data: SaveData) -> void:
-	# TODO: Should be a way to default load maps without triggering a transition!
-	_on_map_transition_trigger(data.current_map, 0)
+	# TODO: What about ability calls?
+	current_map = _load_map(data.current_map)
+
+func on_unload() -> void:
+	remove_child(current_map)
+	current_map.queue_free()
 #endregion
 
 #region Private Functions
@@ -52,7 +57,8 @@ func _on_map_transition(map_name: String, transition_id: int):
 	var new_transition = current_map.get_transition(transition_id)
 	player.global_position = new_transition.entry.global_position
 	# Unload old map
-	old_map.free()
+	remove_child(old_map)
+	old_map.queue_free()
 	Abilities.set_current_abilities()
 
 func _load_all_maps(dir_path: String):
