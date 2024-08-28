@@ -7,4 +7,3 @@ func _ready() -> void:
 
 func execute():
 	node.queue_free()
-
