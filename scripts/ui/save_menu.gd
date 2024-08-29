@@ -3,6 +3,8 @@ class_name SaveMenu extends PanelContainer
 
 const SAVE_POPUP_TEMPLATE = preload("res://resources/ui/save_popup.tscn")
 const LOAD_POPUP_TEMPLATE = preload("res://resources/ui/load_popup.tscn")
+const DELETE_POPUP_TEMPLATE = preload("res://resources/ui/delete_popup.tscn")
+
 const NO_SLOT_SELECTED = -1
 
 #region Variables
@@ -68,8 +70,14 @@ func _on_load_button():
 	load_popup.set_save_slot(currently_selected_slot, "TEMP")
 
 func _on_delete_button():
-	# open delete prompt
-	pass
+	if currently_selected_slot == NO_SLOT_SELECTED:
+		return
+	var delete_popup = DELETE_POPUP_TEMPLATE.instantiate()
+	delete_popup.confirm_requested.connect(_on_delete_popup_confirm.bind(delete_popup))
+	delete_popup.cancel_requested.connect(_on_delete_popup_cancel.bind(delete_popup))
+	add_sibling(delete_popup)
+	# TODO: Get the name of the selected save slot and prefill
+	delete_popup.set_save_slot(currently_selected_slot, "TEMP")
 
 func _on_exit_button():
 	# TODO: Should there be any warnings?
@@ -101,5 +109,16 @@ func _on_load_popup_confirm(load_popup: LoadPopup):
 func _on_load_popup_cancel(load_popup: LoadPopup):
 	load_popup.get_parent().remove_child(load_popup)
 	load_popup.queue_free()
+	set_selected_slot(NO_SLOT_SELECTED)
+
+func _on_delete_popup_confirm(delete_popup: DeletePopup):
+	# Delete file
+	delete_popup.get_parent().remove_child(delete_popup)
+	delete_popup.queue_free()
+	set_selected_slot(NO_SLOT_SELECTED)
+
+func _on_delete_popup_cancel(delete_popup: DeletePopup):
+	delete_popup.get_parent().remove_child(delete_popup)
+	delete_popup.queue_free()
 	set_selected_slot(NO_SLOT_SELECTED)
 #endregion

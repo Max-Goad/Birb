@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg88gchtldihr"]
+
+[ext_resource type="Script" path="res://scripts/ui/delete_popup.gd" id="1_womy0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7gjl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qw37w"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ug6a"]
+font_size = 32
+
+[node name="Delete Popup" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -115.0
+offset_right = 320.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x7gjl")
+script = ExtResource("1_womy0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Delete this file?"
+label_settings = SubResource("LabelSettings_qw37w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Save Slot Name" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Example File Name"
+label_settings = SubResource("LabelSettings_8ug6a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="Confirm Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Confirm"
+
+[node name="Cancel Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Cancel"
