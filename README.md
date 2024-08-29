@@ -12,6 +12,7 @@ A silly little repository for silly little things by a silly little man
 	- Disappearing "Unlock Everything"
 		- Save -> Unlock Everything -> Load
 		- Unlock Everything should still persist, but it doesn't
+		- This was fixed before... but now it's back...
 - IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
@@ -23,7 +24,6 @@ A silly little repository for silly little things by a silly little man
 
 ## TODO (long-term):
 - Implement DAMAGE_DEPENDENT recoil type
-- Implement Save/Load
 - Abilities
 	- Hole?
 - Enemies
