@@ -30,13 +30,14 @@ func on_save(data: SaveData) -> void:
 	_update_persist_data(data)
 
 ## Called right after game loads from disk
-func on_load(_data: SaveData) -> void:
-	#var map_items: Dictionary = data.map_items.get(self.filename, {})
-	# Persist
-	#_remove_persist_nodes(_extract_persist_info(data))
-	pass
+## NOTE: on_load and on_enter are mutually exclusive, meaning
+##		 if one runs, the other will NOT RUN (unless otherwise specified)
+func on_load(data: SaveData) -> void:
+	_remove_persist_nodes(_extract_persist_info(data))
 
 ## Called right before game loads from disk
+## NOTE: on_unload and on_exit are mutually exclusive, meaning
+##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_unload() -> void:
 	# TODO: Put any logic in here that only happens when you
 	#		load the map from disk (not just leave and return)
@@ -44,11 +45,15 @@ func on_unload() -> void:
 
 ## Called each time this map is entered and loaded from memory
 ## 	- For example: Player walks or reenters a map
+## NOTE: on_load and on_enter are mutually exclusive, meaning
+##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_enter():
 	_remove_persist_nodes(_extract_persist_info(Data.current_save))
 
 ## Called each time this map is exited and unloaded into memory
 ## 	- For example: Player walks away from a map and into a new one
+## NOTE: on_unload and on_exit are mutually exclusive, meaning
+##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_exit():
 	_update_persist_data(Data.current_save)
 
