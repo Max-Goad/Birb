@@ -7,10 +7,16 @@ class_name SaveData extends Resource
 @export var active_ability_slots_unlocked := 1
 @export var passive_ability_slots_unlocked := 1
 
+## Stores the current map at time of save.
 @export var current_map := ""
-## { file_name : ??? }
-@export var map_items := {}
 
+## Map Data contains all the data necessary for saving and loading
+## map state, including all its persisting objects.
+##	Key: String (map filename)
+##	Value: MapData
+@export var map_data: Dictionary = {}
+
+## Stores the current player position at the time of save.
 @export var player_position := Vector2.ZERO
 
 ## JSON Version

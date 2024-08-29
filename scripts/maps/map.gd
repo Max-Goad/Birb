@@ -7,8 +7,6 @@ var transitions: Dictionary
 var layers: Array[TileMapLayer]
 var filename: String
 
-## { NodePath : bool }
-var persist_data: Dictionary
 #endregion
 
 #region Signals
@@ -19,21 +17,35 @@ signal transition_triggered(map_id, transition_id)
 func _ready() -> void:
 	assert(default_transition)
 	_collect_layers()
-	_collect_persist_objects()
 	_generate_transitions()
 #endregion
 
 #region Public Functions
 ## Called right before the game saves to disk
+## The "data" param is an in-out param, so write to it!
 func on_save(data: SaveData) -> void:
-	# Persist
-	_update_persist_data(data)
+	var map_data: MapData = data.map_data.get_or_add(filename, MapData.generate(filename)) as MapData
+	# TODO: Save other map data here?
+	# Overwrite instead of add to existing object data
+	map_data.object_data = _save_object_data()
 
 ## Called right after game loads from disk
 ## NOTE: on_load and on_enter are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_load(data: SaveData) -> void:
-	_remove_persist_nodes(_extract_persist_info(data))
+	# TODO: Is this possible?
+	if not data.map_data.has(filename):
+		return
+
+	var map_data: MapData = data.map_data[filename]
+	# TODO: Load other map data here?
+
+	# Check through list of existing objects to see whether
+	# they should continue to exist or be removed.
+	_remove_persist_objects(map_data)
+	# Let objects initialize themselves with the saved object data.
+	# If object data exists but no node is found, first init a new object.
+	_load_object_data(map_data)
 
 ## Called right before game loads from disk
 ## NOTE: on_unload and on_exit are mutually exclusive, meaning
@@ -48,14 +60,19 @@ func on_unload() -> void:
 ## NOTE: on_load and on_enter are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_enter():
-	_remove_persist_nodes(_extract_persist_info(Data.current_save))
+	if not Data.current_save.map_data.has(filename):
+		# This can occur the very first time the player enters this map
+		return
+	_remove_persist_objects(Data.current_save.map_data[filename])
 
 ## Called each time this map is exited and unloaded into memory
 ## 	- For example: Player walks away from a map and into a new one
 ## NOTE: on_unload and on_exit are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_exit():
-	_update_persist_data(Data.current_save)
+	var map_data: MapData = Data.current_save.map_data.get_or_add(filename, MapData.generate(filename)) as MapData
+	map_data.object_data = _save_object_data()
+
 
 func get_map_scale() -> Vector2:
 	var layer_scale = Vector2.ZERO
@@ -90,39 +107,52 @@ func get_transition(id: int) -> MapTransition:
 
 #region Private Functions
 func _collect_layers():
+	# TODO: Use groups instead?
 	for child in get_children():
 		if child is TileMapLayer:
 			layers.push_back(child)
 
-func _collect_persist_objects():
-	for persist_object in get_tree().get_nodes_in_group(Data.GROUP_PERSIST):
-		persist_data[persist_object.get_path()] = true
+func _save_object_data() -> Dictionary:
+	var output := {}
+	for object in _get_persist_objects():
+		# TODO: Possible?
+		if not object or object.is_queued_for_deletion():
+			continue
+		var object_data := {}
+		# TODO: Could we also check to see if the object
+		#		has a "SaveComponent" child? How would it work?
+		if object.has_method("on_save"):
+			object.on_save(object_data)
+		# Even if the object doesn't have an "on_save()", we still
+		# want to add it to the map data because its existence proves
+		# it should persist when the SaveData is loaded again.
+		output[object.get_path()] = object_data
+	return output
 
-func _update_persist_data(data: SaveData):
-	# Refresh tracked nodes to see if any have been removed
-	for path in persist_data.keys():
-		var node = get_node_or_null(path)
-		var should_persist = node != null and not node.is_queued_for_deletion()
-		persist_data[path] = should_persist
-		if not should_persist:
-			print("Map: (%s) Marking %s as removed" % [filename, path])
-	# Update save data with new persist data
-	data.map_items.get_or_add(self.filename, {})[Data.GROUP_PERSIST] = persist_data
+func _load_object_data(map_data: MapData):
+	for object_path in map_data.object_data:
+		if not has_node(object_path):
+			# TODO: This isn't implemented yet
+			pass
+		var object_data = map_data.object_data[object_path]
+		var object = get_node(object_path)
+		# TODO: Could we also check to see if the object
+		#		has a "SaveComponent" child? How would it work?
+		if object.has_method("on_load"):
+			object.on_load(object_data)
 
+func _get_persist_objects() -> Array[Node]:
+	return get_tree().get_nodes_in_group(Data.GROUP_PERSIST)
 
-func _remove_persist_nodes(persist: Dictionary):
-	for path in persist:
-		var should_persist = persist[path]
-		if not should_persist:
-			var node = get_node(path)
-			print("Map: (%s) Removing persistent %s" % [filename, node.name])
-			remove_child(node)
-			node.queue_free()
-
-func _extract_persist_info(data: SaveData) -> Dictionary:
-	return data.map_items.get(self.filename, {}).get(Data.GROUP_PERSIST, {})
+func _remove_persist_objects(map_data: MapData):
+	for object in _get_persist_objects():
+		if object.get_path() not in map_data.object_data:
+			print("Map: Object (%s) not found in loaded data; Removing from %s" % [object.name, filename])
+			object.get_parent().remove_child(object)
+			object.queue_free()
 
 func _generate_transitions():
+	# TODO: Use groups instead?
 	for child in get_children():
 		if child is MapTransition:
 			assert(child.id not in transitions, "map transition id overlap")
