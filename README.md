@@ -9,6 +9,9 @@ A silly little repository for silly little things by a silly little man
 		- Doesn't happen if no textbox
 		- ?????
 		- Does it even matter? Saving and loading in menus is better...
+	- Disappearing "Unlock Everything"
+		- Save -> Unlock Everything -> Load
+		- Unlock Everything should still persist, but it doesn't
 - IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
