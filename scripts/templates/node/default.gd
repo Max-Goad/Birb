@@ -1,7 +1,7 @@
 # meta-name: Default Script Template
 # meta-default: true
 
-extends _BASE_
+class_name _CLASS_ extends _BASE_
 
 #region Variables
 #endregion
@@ -11,9 +11,6 @@ extends _BASE_
 
 #region Engine Functions
 func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
 	pass
 #endregion
 

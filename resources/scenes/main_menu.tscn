@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" path="res://resources/scenes/main_menu.gd" id="1_563pd"]
 [ext_resource type="Texture2D" uid="uid://cuf02ptoowlck" path="res://resources/art/bg_test.jpg" id="2_dg3kc"]
-[ext_resource type="Theme" uid="uid://q5rrux06ucou" path="res://theme/test.theme" id="3_ax3ke"]
 [ext_resource type="PackedScene" uid="uid://btyswouont37q" path="res://resources/ui/settings.tscn" id="4_dcgf6"]
+[ext_resource type="PackedScene" uid="uid://c5sb6ewy7sym2" path="res://resources/ui/save_menu.tscn" id="5_1r7hj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkb5b"]
 font_size = 50
-font_color = Color(0, 0, 0, 1)
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -16,7 +15,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_ax3ke")
 script = ExtResource("1_563pd")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -53,39 +51,59 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Play Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Play"
 
 [node name="Mystery Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "???"
 
-[node name="Data Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+[node name="Save Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Data"
+text = "Save"
 
 [node name="Settings Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
+[node name="Save Menu" parent="." instance=ExtResource("5_1r7hj")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 1240.0
+offset_bottom = 660.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="Settings Menu" parent="." instance=ExtResource("4_dcgf6")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 40.0
-offset_top = 40.0
+offset_top = 60.0
 offset_right = 1240.0
-offset_bottom = 640.0
+offset_bottom = 660.0

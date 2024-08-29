@@ -5,7 +5,7 @@ class_name Settings extends PanelContainer
 #endregion
 
 #region Signals
-signal closed
+signal close_requested
 #endregion
 
 #region Engine Functions
@@ -16,7 +16,7 @@ func _ready() -> void:
 #region Public Functions
 func _on_save_and_quit():
 	# TODO: Save settings
-	closed.emit()
+	close_requested.emit()
 #endregion
 
 #region Private Functions

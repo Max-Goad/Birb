@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://btyswouont37q"]
+[gd_scene load_steps=5 format=3 uid="uid://btyswouont37q"]
 
 [ext_resource type="Script" path="res://scripts/ui/settings.gd" id="1_d36kb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lhot"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ryumi"]
 line_spacing = 5.0
@@ -19,6 +22,7 @@ offset_right = 1200.0
 offset_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lhot")
 script = ExtResource("1_d36kb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

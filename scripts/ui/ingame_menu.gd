@@ -26,7 +26,7 @@ func _ready() -> void:
 	self.set_tab_hidden(Tabs.SETTINGS, false)
 	# Settings is reusable and has its own close button
 	# Let's leverage it to close the menu too
-	settings_menu.closed.connect(func(): root.closed.emit())
+	settings_menu.close_requested.connect(func(): root.closed.emit())
 	Data.recipe_type_unlocked.connect(_on_recipe_type_unlocked)
 	Data.notify_available_components()
 	Data.notify_available_recipe_types()
