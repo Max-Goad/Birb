@@ -97,7 +97,7 @@ func load_file(slot: int):
 		assert(false, "bad load")
 		return
 	unload_requested.emit()
-	current_save = saves[slot]
+	current_save = saves[slot].duplicate()
 	load_requested.emit(current_save)
 	print("Data: loaded file from slot %d" % slot)
 
