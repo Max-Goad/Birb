@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk303tv0lwmd4"]
+[gd_scene load_steps=5 format=3 uid="uid://cctjetka24tew"]
 
-[ext_resource type="Script" path="res://scripts/ui/save_popup.gd" id="1_x5dur"]
-[ext_resource type="LabelSettings" uid="uid://h6jdcummsc6c" path="res://resources/ui/error_label_settings.tres" id="2_65tih"]
+[ext_resource type="Script" path="res://scripts/ui/load_popup.gd" id="1_crse7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7gjl"]
 bg_color = Color(0, 0, 0, 1)
@@ -9,7 +8,10 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_qw37w"]
 font_size = 40
 
-[node name="Save Popup" type="PanelContainer"]
+[sub_resource type="LabelSettings" id="LabelSettings_8ug6a"]
+font_size = 32
+
+[node name="Load Popup" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -22,7 +24,7 @@ offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x7gjl")
-script = ExtResource("1_x5dur")
+script = ExtResource("1_crse7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -38,36 +40,25 @@ theme_override_constants/separation = 10
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-text = "Input Save Name:"
+text = "Load this file?"
 label_settings = SubResource("LabelSettings_qw37w")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Input Text" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+[node name="Save Slot Name" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(600, 70)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-placeholder_text = "[type here]"
+text = "Example File Name"
+label_settings = SubResource("LabelSettings_8ug6a")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 2
-
-[node name="Error Text" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 32
-text = "Error: This is an example of an error. 2 lines are okay too but not too"
-label_settings = ExtResource("2_65tih")
-vertical_alignment = 1
-autowrap_mode = 3
-text_overrun_behavior = 4
 
 [node name="Confirm Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

@@ -10,7 +10,7 @@ const ERROR_TEXT_FORMAT := "Error: %s"
 #endregion
 
 #region Signals
-signal confirm_requested(text)
+signal confirm_requested
 signal cancel_requested
 #endregion
 

@@ -2,6 +2,7 @@
 class_name SaveMenu extends PanelContainer
 
 const SAVE_POPUP_TEMPLATE = preload("res://resources/ui/save_popup.tscn")
+const LOAD_POPUP_TEMPLATE = preload("res://resources/ui/load_popup.tscn")
 const NO_SLOT_SELECTED = -1
 
 #region Variables
@@ -32,10 +33,18 @@ func _ready() -> void:
 	for i in save_slots.size():
 		var save_slot = save_slots[i]
 		save_slot.set_slot(i)
-		save_slot.selected.connect(_on_save_slot_selected.bind(i))
+		save_slot.selected.connect(set_selected_slot.bind(i))
 #endregion
 
 #region Public Functions
+func set_selected_slot(index: int):
+	currently_selected_slot = index
+	for i in save_slots.size():
+		var save_slot = save_slots[i]
+		if i == index:
+			save_slot.mark_as_selected()
+		else:
+			save_slot.mark_as_deselected()
 #endregion
 
 #region Private Functions
@@ -43,16 +52,20 @@ func _on_save_button():
 	if currently_selected_slot == NO_SLOT_SELECTED:
 		return
 	var save_popup = SAVE_POPUP_TEMPLATE.instantiate()
-	# TODO: Get the name of the save game and prefill
 	save_popup.confirm_requested.connect(_on_save_popup_confirm.bind(save_popup))
 	save_popup.cancel_requested.connect(_on_save_popup_cancel.bind(save_popup))
 	add_sibling(save_popup)
-	# open save prompt
-	pass
+	# TODO: Get the name of the selected save slot and prefill
 
 func _on_load_button():
-	# open load prompt
-	pass
+	if currently_selected_slot == NO_SLOT_SELECTED:
+		return
+	var load_popup = LOAD_POPUP_TEMPLATE.instantiate()
+	load_popup.confirm_requested.connect(_on_load_popup_confirm.bind(load_popup))
+	load_popup.cancel_requested.connect(_on_load_popup_cancel.bind(load_popup))
+	add_sibling(load_popup)
+	# TODO: Get the name of the selected save slot and prefill
+	load_popup.set_save_slot(currently_selected_slot, "TEMP")
 
 func _on_delete_button():
 	# open delete prompt
@@ -61,15 +74,6 @@ func _on_delete_button():
 func _on_exit_button():
 	# TODO: Should there be any warnings?
 	close_requested.emit()
-
-func _on_save_slot_selected(index: int):
-	currently_selected_slot = index
-	for i in save_slots.size():
-		var save_slot = save_slots[i]
-		if i == index:
-			save_slot.mark_as_selected()
-		else:
-			save_slot.mark_as_deselected()
 
 func _on_save_popup_confirm(save_file_name: String, save_popup: SavePopup):
 	var save_name = save_file_name
@@ -81,9 +85,21 @@ func _on_save_popup_confirm(save_file_name: String, save_popup: SavePopup):
 		# Save file
 		save_popup.get_parent().remove_child(save_popup)
 		save_popup.queue_free()
+		set_selected_slot(NO_SLOT_SELECTED)
 
 func _on_save_popup_cancel(save_popup: SavePopup):
-	currently_selected_slot = NO_SLOT_SELECTED
 	save_popup.get_parent().remove_child(save_popup)
 	save_popup.queue_free()
+	set_selected_slot(NO_SLOT_SELECTED)
+
+func _on_load_popup_confirm(load_popup: LoadPopup):
+	# Load file
+	load_popup.get_parent().remove_child(load_popup)
+	load_popup.queue_free()
+	set_selected_slot(NO_SLOT_SELECTED)
+
+func _on_load_popup_cancel(load_popup: LoadPopup):
+	load_popup.get_parent().remove_child(load_popup)
+	load_popup.queue_free()
+	set_selected_slot(NO_SLOT_SELECTED)
 #endregion
