@@ -14,7 +14,10 @@ var currently_unlocked = 0
 
 #region Engine Functions
 func _ready() -> void:
-	Data.ability_slot_unlocked.connect(_on_unlocked)
+	Data.save_requested.connect(on_save)
+	Data.load_requested.connect(on_load)
+	Data.unload_requested.connect(on_unload)
+	Data.ability_slot_unlocked.connect(_unlock_new_slot)
 	clear()
 #endregion
 
@@ -22,22 +25,31 @@ func _ready() -> void:
 func clear():
 	for child in get_children():
 		child.queue_free()
+
+func on_save(_data: SaveData) -> void:
+	pass
+
+func on_load(data: SaveData) -> void:
+	for _i in data.active_ability_slots_unlocked:
+		_unlock_new_slot(Ability.Category.ACTIVE)
+	for _i in data.passive_ability_slots_unlocked:
+		_unlock_new_slot(Ability.Category.PASSIVE)
+
+func on_unload() -> void:
+	currently_unlocked = 0
+	clear()
 #endregion
 
 #region Private Functions
-func _on_unlocked(category: Ability.Category, new_total: int):
+func _unlock_new_slot(category: Ability.Category):
 	if category != self.category:
 		return
-	print("AbilitySlotGroup: ui handling ability slot unlocked (%s -> %s)" % [currently_unlocked, new_total])
-	var new_slots = new_total - currently_unlocked
-	for i in new_slots:
-		var new_slot = template.instantiate()
-		new_slot.slot_id = currently_unlocked + i
-		new_slot.category = category
-		if not selectable:
-			new_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(new_slot)
-		print("AbilitySlotGroup: new ability slot created")
-	currently_unlocked = new_total
+	var new_slot = template.instantiate()
+	new_slot.slot_id = currently_unlocked
+	new_slot.category = category
+	if not selectable:
+		new_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(new_slot)
+	print("AbilitySlotGroup: new ability slot created")
+	currently_unlocked += 1
 #endregion
-

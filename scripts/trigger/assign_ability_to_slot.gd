@@ -6,4 +6,3 @@ extends Trigger
 
 func execute():
 	Abilities.set_ability(self.category, self.slot, Data.components_by_name[label])
-

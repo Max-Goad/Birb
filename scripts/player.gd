@@ -116,10 +116,11 @@ func _process_velocity_deceleration():
 func _on_component_unlocked(component: CraftingComponent):
 	match component.label:
 		"口":
-			Data.unlock_ability_slot(Ability.Category.ACTIVE, 1)
+			Data.unlock_ability_slot(Ability.Category.ACTIVE)
 		"品":
-			Data.unlock_ability_slot(Ability.Category.ACTIVE, 2)
-			Data.unlock_ability_slot(Ability.Category.PASSIVE, 1)
+			Data.unlock_ability_slot(Ability.Category.ACTIVE)
+			Data.unlock_ability_slot(Ability.Category.ACTIVE)
+			Data.unlock_ability_slot(Ability.Category.PASSIVE)
 		_:
 			pass
 

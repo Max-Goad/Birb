@@ -37,7 +37,7 @@ signal unload_requested
 
 signal component_unlocked
 signal recipe_type_unlocked
-signal ability_slot_unlocked(category, total) # always emit total
+signal ability_slot_unlocked(category)
 #endregion
 
 #region Engine Functions
@@ -52,10 +52,12 @@ func _ready() -> void:
 		load_file(0)
 	else:
 		current_save = SaveData.new()
-
-	# We notify so that the initial slots are shown on screen
-	notify_ability_slots.call_deferred(Ability.Category.ACTIVE)
-	notify_ability_slots.call_deferred(Ability.Category.PASSIVE)
+		# Usually, file loads will properly unlock ability slots.
+		# In the case of a "new game", there is no load.
+		# Therefore we notify so that the initial slots are shown on screen.
+		# TODO: Shouldn't we always "load" something?
+		notify_ability_slot_unlock.call_deferred(Ability.Category.ACTIVE)
+		notify_ability_slot_unlock.call_deferred(Ability.Category.PASSIVE)
 #endregion
 
 #region Saving / Loading Functions
@@ -193,19 +195,19 @@ func ability_slots_unlocked(category: Ability.Category) -> int:
 	else:
 		return 0
 
-func unlock_ability_slot(category: Ability.Category, num_unlocked: int) -> void:
+func unlock_ability_slot(category: Ability.Category) -> void:
 	if category == Ability.Category.ACTIVE:
-		current_save.active_ability_slots_unlocked += num_unlocked
+		current_save.active_ability_slots_unlocked += 1
 	elif category == Ability.Category.PASSIVE:
-		current_save.passive_ability_slots_unlocked += num_unlocked
-	notify_ability_slots(category)
+		current_save.passive_ability_slots_unlocked += 1
+	notify_ability_slot_unlock(category)
 
-func notify_ability_slots(category: Ability.Category):
+func notify_ability_slot_unlock(category: Ability.Category):
 	match category:
 		Ability.Category.ACTIVE:
-			ability_slot_unlocked.emit(category, current_save.active_ability_slots_unlocked)
+			ability_slot_unlocked.emit(category)
 		Ability.Category.PASSIVE:
-			ability_slot_unlocked.emit(category, current_save.passive_ability_slots_unlocked)
+			ability_slot_unlocked.emit(category)
 #endregion
 
 #region Game-Specific Private Functions

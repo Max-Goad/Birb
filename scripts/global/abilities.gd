@@ -20,7 +20,10 @@ signal ability_canceled(slot) # TODO
 
 #region Engine Functions
 func _ready() -> void:
-	Data.ability_slot_unlocked.connect(_on_ability_slot_unlocked)
+	Data.save_requested.connect(on_save)
+	Data.load_requested.connect(on_load)
+	Data.unload_requested.connect(on_unload)
+	Data.ability_slot_unlocked.connect(unlock_ability_slot)
 #endregion
 
 #region Public Functions
@@ -33,6 +36,11 @@ func get_ability(category: Ability.Category, slot: int) -> Ability:
 
 func get_abilities(category: Ability.Category) -> Array[Ability]:
 	return _get_slots(category)
+
+func unlock_ability_slot(category: Ability.Category) -> void:
+	var slots = _get_slots(category)
+	slots.resize(slots.size() + 1)
+	set_ability(category, slots.size() - 1, CraftingComponent.new())
 
 func find_ability_slot(category: Ability.Category, ability: Ability) -> int:
 	var slots := _get_slots(category)
@@ -128,6 +136,21 @@ func unset_current_abilities():
 func set_current_abilities():
 	for ability in active_slots + passive_slots:
 		ability.on_set()
+
+func on_save(_data: SaveData) -> void:
+	pass
+
+func on_load(data: SaveData) -> void:
+	for _i in data.active_ability_slots_unlocked:
+		unlock_ability_slot(Ability.Category.ACTIVE)
+	assert(_get_slots(Ability.Category.ACTIVE).size() == data.active_ability_slots_unlocked)
+	for _i in data.passive_ability_slots_unlocked:
+		unlock_ability_slot(Ability.Category.PASSIVE)
+	assert(_get_slots(Ability.Category.PASSIVE).size() == data.passive_ability_slots_unlocked)
+
+func on_unload() -> void:
+	_clear_ability_slots()
+	_clear_current_active()
 #endregion
 
 #region Private Functions
@@ -147,17 +170,17 @@ func _on_ability_finished(_slot: int):
 func _clear_current_active():
 	current_active = NullAbility.new()
 
+func _clear_ability_slots():
+	for i in active_slots.size():
+		unset_ability(Ability.Category.ACTIVE, i, _DO_NOT_FILL_WITH_NULL)
+	for i in passive_slots.size():
+		unset_ability(Ability.Category.PASSIVE, i, _DO_NOT_FILL_WITH_NULL)
+	active_slots.clear()
+	passive_slots.clear()
+
 func _on_ability_cooldown(slot: int):
 	print("Abilities: ability %s cooldown finished" % slot)
 	ability_ready.emit(slot)
-
-func _on_ability_slot_unlocked(category: Ability.Category, total_slots: int):
-	var slots = _get_slots(category)
-	var existing_slots = slots.size()
-	var slots_unlocked = total_slots - existing_slots
-	slots.resize(total_slots)
-	for i in slots_unlocked:
-		set_ability(category, existing_slots + i, CraftingComponent.new())
 
 func _assign_ability_to_slot(category: Ability.Category, ability: Ability, slot: int):
 	ability.finished.connect(_on_ability_finished.bind(slot))
