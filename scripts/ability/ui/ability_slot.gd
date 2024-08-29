@@ -44,9 +44,9 @@ func _gui_input(event: InputEvent) -> void:
 
 #region Private Functions
 func _on_ability_set(category: Ability.Category, slot: int, ability: Ability):
-	if self.slot_id != slot or category != self.category:
+	if self.is_queued_for_deletion() or self.slot_id != slot or category != self.category:
 		return
-	print("AbilitySlot: on ability set to %s (slot %s)" % [ability.info.label, slot])
+	print("AbilitySlot: ability set to %s (%s)" % [ability.info.label, name])
 	color = CraftingComponent.color(ability.info.type)
 	self.ability = ability
 	self.modulate = color
@@ -57,7 +57,7 @@ func _on_ability_set(category: Ability.Category, slot: int, ability: Ability):
 func _on_ability_reset(category: Ability.Category, slot: int):
 	if self.slot_id != slot or category != self.category:
 		return
-	print("AbilitySlot:  on ability reset (slot %s)" % [slot])
+	print("AbilitySlot: on ability reset (%s)" % [name])
 	color = Color.WHITE
 	self.modulate = color
 	label.text = ""
@@ -66,7 +66,7 @@ func _on_ability_executed(slot: int, time: float):
 	if self.slot_id != slot or self.category != Ability.Category.ACTIVE:
 		return
 	progress_bar.value = 0
-	print("AbilitySlot: execute with time %s" % time)
+	# print("AbilitySlot: execute with time %s" % time)
 	cooldown.start(time)
 	self.modulate = color * Color.GRAY
 

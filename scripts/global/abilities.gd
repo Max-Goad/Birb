@@ -78,14 +78,14 @@ func set_ability(category: Ability.Category, slot: int, component: CraftingCompo
 	if not is_default_component and find_ability_slot(category, ability) != -1:
 		unset_ability(category, find_ability_slot(category, ability), _FILL_WITH_NULL)
 
-	print("Abilities: set ability %s as %s" % [slot, ability.info.label])
+	print("Abilities: set %s ability %s as %s" % [Ability.Category.keys()[category], slot, ability.info.label])
 	_assign_ability_to_slot(category, ability, slot)
 	ability.on_set()
 	ability_set.emit(category, slot, ability)
 
 # TODO: Should this be private?
 func unset_ability(category: Ability.Category, slot: int, fill_with_null: bool):
-	print("Abilities: unset ability %s" % [slot])
+	print("Abilities: unset %s ability %s" % [Ability.Category.keys()[category], slot])
 	var ability: Ability = _get_slots(category)[slot]
 	if ability == null:
 		pass

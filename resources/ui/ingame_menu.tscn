@@ -142,7 +142,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdssv")
 
-[node name="Hbox" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks"]
+[node name="Ingame Menu Active Ability Slots" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 75
@@ -150,25 +150,25 @@ alignment = 1
 script = ExtResource("3_tx680")
 selectable = true
 
-[node name="Ability Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Ability Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Ability Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Ability Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 2/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 2/Slot" index="2"]
 text = "B"
 
-[node name="Ability Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Ability Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 3/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 3/Slot" index="2"]
 text = "C"
 
-[node name="Ability Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Ability Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 4/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 4/Slot" index="2"]
 text = "D"
 
 [node name="Passives" type="PanelContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer"]
@@ -176,7 +176,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_i3ipu")
 
-[node name="Hbox" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives"]
+[node name="Ingame Menu Passive Ability Slots" type="HBoxContainer" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 75
@@ -185,25 +185,25 @@ script = ExtResource("3_tx680")
 selectable = true
 category = 1
 
-[node name="Passive Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Passive Slot 1" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Passive Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Passive Slot 2" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 2/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 2/Slot" index="2"]
 text = "B"
 
-[node name="Passive Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Passive Slot 3" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 3/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 3/Slot" index="2"]
 text = "C"
 
-[node name="Passive Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox" instance=ExtResource("3_xmwum")]
+[node name="Passive Slot 4" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots" instance=ExtResource("3_xmwum")]
 layout_mode = 2
 
-[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 4/Slot" index="2"]
+[node name="Label" parent="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 4/Slot" index="2"]
 text = "D"
 
 [node name="Right Side" type="PanelContainer" parent="Tab Menu/Abilities/HBox"]
@@ -233,7 +233,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Component Grid" parent="Tab Menu/Abilities/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+[node name="Ingame Menu Abilities Component Grid" parent="Tab Menu/Abilities/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
 layout_mode = 2
 columns = 1
 
@@ -447,7 +447,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Component Grid" parent="Tab Menu/L Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+[node name="Ingame Menu L Crafting Component Grid" parent="Tab Menu/L Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
 layout_mode = 2
 columns = 1
 
@@ -763,7 +763,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Component Grid" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
+[node name="Ingame Menu 3x3 Crafting Component Grid" parent="Tab Menu/3x3 Crafting/HBox/Right Side/VBox/Component Container/ScrollContainer" instance=ExtResource("6_ov8pu")]
 layout_mode = 2
 columns = 1
 
@@ -793,11 +793,11 @@ metadata/_tab_index = 4
 unique_name_in_owner = true
 layout_mode = 2
 
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 1"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 2"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 3"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Hbox/Ability Slot 4"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 1"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 2"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 3"]
-[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Hbox/Passive Slot 4"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 1"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 2"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 3"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Attacks/Ingame Menu Active Ability Slots/Ability Slot 4"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 1"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 2"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 3"]
+[editable path="Tab Menu/Abilities/HBox/Left Side/VBox/Ability Slot Area Margin/VBoxContainer/Passives/Ingame Menu Passive Ability Slots/Passive Slot 4"]

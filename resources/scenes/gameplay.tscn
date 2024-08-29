@@ -33,7 +33,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
 
-[node name="Group" type="HBoxContainer" parent="UI Canvas/Active Ability Slot UI"]
+[node name="UI Active Abilities" type="HBoxContainer" parent="UI Canvas/Active Ability Slot UI"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 1
@@ -48,25 +48,25 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 50
 script = ExtResource("17_5gbct")
 
-[node name="Ability Slot 1" parent="UI Canvas/Active Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 1" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Ability Slot 2" parent="UI Canvas/Active Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 2" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 2/Slot" index="2"]
 text = "B"
 
-[node name="Ability Slot 3" parent="UI Canvas/Active Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 3" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Active Ability Slot UI/Group/Ability Slot 3/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 3/Slot" index="2"]
 text = "C"
 
-[node name="Ability Slot 4" parent="UI Canvas/Active Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 4" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Active Ability Slot UI/Group/Ability Slot 4/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 4/Slot" index="2"]
 text = "D"
 
 [node name="Passive Ability Slot UI" type="Control" parent="UI Canvas"]
@@ -79,7 +79,7 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Group" type="HBoxContainer" parent="UI Canvas/Passive Ability Slot UI"]
+[node name="UI Passive Abilities" type="HBoxContainer" parent="UI Canvas/Passive Ability Slot UI"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 1
@@ -96,32 +96,32 @@ alignment = 2
 script = ExtResource("17_5gbct")
 category = 1
 
-[node name="Ability Slot 1" parent="UI Canvas/Passive Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 1" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Ability Slot 2" parent="UI Canvas/Passive Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 2" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 2/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 2/Slot" index="2"]
 text = "B"
 
-[node name="Ability Slot 3" parent="UI Canvas/Passive Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 3" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 3/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 3/Slot" index="2"]
 text = "C"
 
-[node name="Ability Slot 4" parent="UI Canvas/Passive Ability Slot UI/Group" instance=ExtResource("18_rhwno")]
+[node name="Ability Slot 4" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities" instance=ExtResource("18_rhwno")]
 layout_mode = 2
 
-[node name="Label" parent="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 4/Slot" index="2"]
+[node name="Label" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 4/Slot" index="2"]
 text = "D"
 
-[editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 1"]
-[editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 2"]
-[editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 3"]
-[editable path="UI Canvas/Active Ability Slot UI/Group/Ability Slot 4"]
-[editable path="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 1"]
-[editable path="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 2"]
-[editable path="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 3"]
-[editable path="UI Canvas/Passive Ability Slot UI/Group/Ability Slot 4"]
+[editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 1"]
+[editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 2"]
+[editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 3"]
+[editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 4"]
+[editable path="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 1"]
+[editable path="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 2"]
+[editable path="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 3"]
+[editable path="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 4"]

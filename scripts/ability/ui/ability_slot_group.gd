@@ -24,7 +24,10 @@ func _ready() -> void:
 #region Public Functions
 func clear():
 	for child in get_children():
+		remove_child(child)
 		child.queue_free()
+	currently_unlocked = 0
+	print("AbilitySlotGroup: cleared (\"%s\")" % [name])
 
 func on_save(_data: SaveData) -> void:
 	pass
@@ -36,7 +39,6 @@ func on_load(data: SaveData) -> void:
 		_unlock_new_slot(Ability.Category.PASSIVE)
 
 func on_unload() -> void:
-	currently_unlocked = 0
 	clear()
 #endregion
 
@@ -46,10 +48,11 @@ func _unlock_new_slot(category: Ability.Category):
 		return
 	var new_slot = template.instantiate()
 	new_slot.slot_id = currently_unlocked
+	new_slot.name = "%s %d" % [name, new_slot.slot_id]
 	new_slot.category = category
 	if not selectable:
 		new_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(new_slot)
-	print("AbilitySlotGroup: new ability slot created")
+	print("AbilitySlotGroup: new %s ability slot created (for slot group \"%s\")" % [Ability.Category.keys()[category], name])
 	currently_unlocked += 1
 #endregion

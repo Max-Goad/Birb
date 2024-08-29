@@ -168,6 +168,7 @@ func is_component_unlocked(id: int) -> bool:
 
 func unlock_component(component: CraftingComponent) -> void:
 	assert(not is_component_unlocked(component.id))
+	print("Data: Unlocked component %s" % [component])
 	current_save.components_unlocked[component.id] = null
 	component_unlocked.emit(component)
 
