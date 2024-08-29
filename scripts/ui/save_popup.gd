@@ -1,4 +1,4 @@
-class_name SaveInputBox extends PanelContainer
+class_name SavePopup extends PanelContainer
 
 const ERROR_TEXT_FORMAT := "Error: %s"
 
@@ -31,7 +31,7 @@ func reset_input_text():
 
 func set_error(s: String):
 	if s.is_empty():
-		push_warning("SaveInputBox: Attempting to set error with empty string. Calling reset_error() instead...")
+		push_warning("SavePopup: Attempting to set error with empty string. Calling reset_error() instead...")
 		reset_error()
 		return
 	error_text.text = ERROR_TEXT_FORMAT % s
