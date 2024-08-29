@@ -83,7 +83,9 @@ func save_file(slot: int, save_name = "Test"):
 		return
 
 	# The save data loaded into memory has to be updated too
-	saves[slot] = current_save
+	# The "duplicate()" call is necessary or updating current_save
+	# will also update the save in memory (desync with file)!
+	saves[slot] = current_save.duplicate()
 	print("Data: saved file to slot %d" % [slot])
 
 func can_load_file(slot: int):
