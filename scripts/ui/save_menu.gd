@@ -27,6 +27,9 @@ signal close_requested
 
 #region Engine Functions
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	save_button.pressed.connect(_on_save_button)
 	load_button.pressed.connect(_on_load_button)
 	delete_button.pressed.connect(_on_delete_button)
@@ -56,7 +59,7 @@ func _on_save_button():
 	var save_popup = SAVE_POPUP_TEMPLATE.instantiate()
 	save_popup.confirm_requested.connect(_on_save_popup_confirm.bind(save_popup))
 	save_popup.cancel_requested.connect(_on_save_popup_cancel.bind(save_popup))
-	add_sibling(save_popup)
+	Data.get_canvas().add_child(save_popup)
 	# TODO: Get the name of the selected save slot and prefill
 
 func _on_load_button():
@@ -65,7 +68,7 @@ func _on_load_button():
 	var load_popup = LOAD_POPUP_TEMPLATE.instantiate()
 	load_popup.confirm_requested.connect(_on_load_popup_confirm.bind(load_popup))
 	load_popup.cancel_requested.connect(_on_load_popup_cancel.bind(load_popup))
-	add_sibling(load_popup)
+	Data.get_canvas().add_child(load_popup)
 	# TODO: Get the name of the selected save slot and prefill
 	load_popup.set_save_slot(currently_selected_slot, "TEMP")
 
@@ -75,7 +78,7 @@ func _on_delete_button():
 	var delete_popup = DELETE_POPUP_TEMPLATE.instantiate()
 	delete_popup.confirm_requested.connect(_on_delete_popup_confirm.bind(delete_popup))
 	delete_popup.cancel_requested.connect(_on_delete_popup_cancel.bind(delete_popup))
-	add_sibling(delete_popup)
+	Data.get_canvas().add_child(delete_popup)
 	# TODO: Get the name of the selected save slot and prefill
 	delete_popup.set_save_slot(currently_selected_slot, "TEMP")
 

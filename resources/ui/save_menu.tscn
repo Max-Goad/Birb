@@ -19,18 +19,20 @@ shadow_offset = Vector2(3, 3)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -80.0
-offset_bottom = -120.0
+offset_right = -485.0
+offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_57nxv")
 script = ExtResource("1_lbyww")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 50
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -52,7 +54,7 @@ size_flags_vertical = 3
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Contents"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
@@ -82,7 +84,7 @@ alignment = 2
 [node name="Save Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.0833333, 1, 0, 1)
-custom_minimum_size = Vector2(150, 70)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 30
@@ -91,7 +93,7 @@ text = "Save"
 [node name="Load Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.5, 0.625, 1, 1)
-custom_minimum_size = Vector2(150, 70)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 30
@@ -100,7 +102,7 @@ text = "Load"
 [node name="Delete Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.75, 0.375, 0.375, 1)
-custom_minimum_size = Vector2(150, 70)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 30
@@ -108,7 +110,7 @@ text = "Delete"
 
 [node name="Exit Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 70)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 30
