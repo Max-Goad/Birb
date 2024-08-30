@@ -30,7 +30,7 @@ func _init(knockback_force, stun_time) -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	super.chain().run(_charge).wait(1.0).run(_push).wait(stun_time).run(_remove_damage_nodes).start_chain()
+	super.chain().run(_charge).wait(0.9).run(_apply_vfx.bind(0.3)).wait(0.1).run(_push).wait(stun_time).run(_remove_damage_nodes).start_chain()
 #endregion
 
 #region Private Functions
@@ -45,6 +45,12 @@ func _push():
 			enemy.knockback.apply_knockback(knockback_direction, knockback_force, stun_time)
 			_attach_damage_node(enemy)
 	finished.emit()
+
+func _apply_vfx(duration: float):
+	var vfx = VFXPressure.new()
+	vfx.duration = duration
+	vfx.center = parent.get_global_transform_with_canvas().origin
+	Data.get_canvas().add_child(vfx, true)
 
 func _attach_damage_node(character: CharacterBody2D):
 	var reactor = DamagingMovementReactor.new()
