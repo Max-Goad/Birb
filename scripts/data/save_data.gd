@@ -19,6 +19,25 @@ class_name SaveData extends Resource
 ## Stores the current player position at the time of save.
 @export var player_position := Vector2.ZERO
 
+func _to_string() -> String:
+	return "<SaveData(%s) current_map=%s ; map_data=%s ; player_position=%s >" % [save_name, current_map, map_data, player_position]
+
+## Creates a fully independant copy of the SaveData.
+## This function is necessary (instead of using duplicate())
+## because duplicate does not properly duplicate subresources
+## inside of Arrays or Dictionaries (like we have here).
+func make_copy() -> SaveData:
+	var new_copy: SaveData = duplicate(true)
+	# Manually make copy of map_data and insert into new copy
+	# NOTE: Do NOT modify map_data, as it will modify the original!
+	var copied_map_data = {}
+	for map_name in map_data:
+		var data: MapData = map_data[map_name]
+		copied_map_data[map_name] = data.make_copy()
+	new_copy.map_data = copied_map_data
+	return new_copy
+
+
 ## JSON Version
 #static func serialize(sd: SaveData) -> Dictionary:
 #	return {

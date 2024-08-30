@@ -12,6 +12,20 @@ class_name MapData extends Resource
 ## 	Value: Dictionary
 @export var object_data: Dictionary = {}
 
+func _to_string() -> String:
+	return "<MapData(%s) object_data=%s >" % [filename, object_data]
+
+## Creates a fully independant copy of the MapData.
+## This function is necessary (instead of using duplicate())
+## because duplicate does not properly duplicate subresources
+## inside of Arrays or Dictionaries.
+## This one is technically not necessary right now (duplicate would
+## work fine for MapData at time of writing) but... just in case.
+func make_copy() -> MapData:
+	var new_copy: MapData = duplicate(true)
+	return new_copy
+
+
 static func generate(filename: String) -> MapData:
 	var map_data := MapData.new()
 	map_data.filename = filename
