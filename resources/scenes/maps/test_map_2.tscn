@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://77l0j8miufi5"]
+[gd_scene load_steps=21 format=4 uid="uid://77l0j8miufi5"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_qwobg"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_lvifn"]
@@ -36,10 +36,6 @@ region = Rect2(112, 64, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iandm"]
 radius = 22.561
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q0oq4"]
-atlas = ExtResource("8_0ds2q")
-region = Rect2(112, 48, 16, 16)
 
 [node name="Test Map 2" type="Node2D" node_paths=PackedStringArray("default_transition")]
 z_index = -1
@@ -168,42 +164,6 @@ activate_pause = false
 script = ExtResource("13_bdfec")
 node = NodePath("../..")
 
-[node name="Load Flower" type="Node2D" parent="."]
-position = Vector2(1040, 832)
-
-[node name="Sprite2D" type="Sprite2D" parent="Load Flower"]
-scale = Vector2(3, 3)
-texture = SubResource("AtlasTexture_q0oq4")
-
-[node name="Area2D" type="Area2D" parent="Load Flower"]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Load Flower/Area2D"]
-position = Vector2(-2, -2)
-shape = SubResource("CircleShape2D_iandm")
-
-[node name="Triggers" type="Node" parent="Load Flower"]
-process_mode = 3
-script = ExtResource("9_3xwce")
-
-[node name="Pause" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("10_gilr3")
-
-[node name="Textbox" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("12_mpan3")
-text = "Loading from slot 1"
-
-[node name="Unpause" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("10_gilr3")
-activate_pause = false
-
-[node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("11_rp4ms")
-type = 1
-slot = 1
-
 [connection signal="on_death" from="Rock/HealthComponent" to="Rock" method="queue_free"]
 [connection signal="collision_detected" from="Rock/Hitbox" to="Han Spawner" method="spawn_enemy" flags=3 unbinds=2]
 [connection signal="body_entered" from="Save Flower/Area2D" to="Save Flower/Triggers" method="execute" unbinds=1]
-[connection signal="body_entered" from="Load Flower/Area2D" to="Load Flower/Triggers" method="execute" unbinds=1]

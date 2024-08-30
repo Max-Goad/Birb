@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://pfpql4wh5gp0"]
+[gd_scene load_steps=33 format=4 uid="uid://pfpql4wh5gp0"]
 
 [ext_resource type="TileSet" uid="uid://blnhyh0sivvt8" path="res://resources/tilesets/test.tres" id="1_841q2"]
 [ext_resource type="Script" path="res://scripts/maps/map.gd" id="2_fjbiv"]
@@ -19,7 +19,6 @@
 [ext_resource type="Script" path="res://scripts/trigger/free_trigger.gd" id="15_tgw5m"]
 [ext_resource type="Script" path="res://scripts/trigger/unlock_component.gd" id="16_2o6y2"]
 [ext_resource type="Script" path="res://scripts/trigger/debug_unlock_all_components.gd" id="17_bn86k"]
-[ext_resource type="Script" path="res://scripts/trigger/collision_trigger.gd" id="17_gtwkg"]
 [ext_resource type="Script" path="res://scripts/trigger/assign_ability_to_slot.gd" id="18_a8j0q"]
 [ext_resource type="FontFile" uid="uid://c4wugthwjh883" path="res://resources/fonts/TestFont.ttf" id="19_30db0"]
 [ext_resource type="Script" path="res://scripts/maps/map_transition.gd" id="20_k8dat"]
@@ -40,10 +39,6 @@ region = Rect2(112, 64, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hx3b"]
 radius = 22.561
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymgkn"]
-atlas = ExtResource("10_4a1io")
-region = Rect2(112, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_15p8w"]
 atlas = ExtResource("10_4a1io")
@@ -183,45 +178,6 @@ activate_pause = false
 script = ExtResource("15_tgw5m")
 node = NodePath("../..")
 
-[node name="Load Flower" type="Node2D" parent="."]
-position = Vector2(536, 200)
-
-[node name="Sprite2D" type="Sprite2D" parent="Load Flower"]
-scale = Vector2(3, 3)
-texture = SubResource("AtlasTexture_ymgkn")
-
-[node name="Area2D" type="Area2D" parent="Load Flower"]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Load Flower/Area2D"]
-position = Vector2(-2, -2)
-shape = SubResource("CircleShape2D_6hx3b")
-
-[node name="Triggers" type="Node" parent="Load Flower"]
-process_mode = 3
-script = ExtResource("11_qit74")
-
-[node name="Pause" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("12_6tihd")
-
-[node name="Disable Collision" type="Node" parent="Load Flower/Triggers" node_paths=PackedStringArray("collision_shape")]
-script = ExtResource("17_gtwkg")
-collision_shape = NodePath("../../Area2D/CollisionShape2D")
-
-[node name="Textbox" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("14_b5khe")
-text = "Loading from slot 1"
-
-[node name="Unpause" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("12_6tihd")
-activate_pause = false
-
-[node name="SaveLoadTrigger" type="Node" parent="Load Flower/Triggers"]
-script = ExtResource("15_m4aga")
-type = 1
-slot = 1
-
 [node name="Unlock Everything Jim" type="Node2D" parent="." groups=["persist"]]
 position = Vector2(472, 520)
 
@@ -351,8 +307,6 @@ debug_color = Color(0.7, 0, 0, 0.419608)
 [connection signal="on_damage" from="Mushroom/HealthComponent" to="Kyou Spawner" method="spawn_enemy" flags=3 unbinds=2]
 [connection signal="on_death" from="Mushroom/HealthComponent" to="Mushroom" method="queue_free"]
 [connection signal="body_entered" from="Save Flower/Area2D" to="Save Flower/Triggers" method="execute" unbinds=1]
-[connection signal="body_entered" from="Load Flower/Area2D" to="Load Flower/Triggers" method="print_something" flags=7]
-[connection signal="body_entered" from="Load Flower/Area2D" to="Load Flower/Triggers" method="execute" flags=7 unbinds=1]
 [connection signal="body_entered" from="Unlock Everything Jim/Area2D" to="Unlock Everything Jim/Triggers" method="execute" unbinds=1]
 [connection signal="area_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]
 [connection signal="body_entered" from="Language Jane/Area2D" to="Language Jane/Triggers" method="execute" unbinds=1]

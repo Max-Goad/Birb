@@ -25,6 +25,10 @@ func _ready() -> void:
 	self.set_tab_hidden(Tabs.L_CRAFTING, true)
 	self.set_tab_hidden(Tabs.TXT_CRAFTING, true)
 	self.set_tab_hidden(Tabs.SETTINGS, false)
+
+	save_menu.save_requested.connect(_on_save_requested)
+	save_menu.load_requested.connect(_on_load_requested)
+	save_menu.delete_requested.connect(_on_delete_requested)
 	# The Save/Settings menus are reusable and has their own close button
 	# Let's leverage them to close the menu too
 	save_menu.close_requested.connect(func(): root.closed.emit())
@@ -52,4 +56,18 @@ func _on_recipe_type_unlocked(type: CraftingRecipe.Type):
 			self.set_tab_hidden(Tabs.L_CRAFTING, false)
 		CraftingRecipe.Type.TXT_CRAFTING:
 			self.set_tab_hidden(Tabs.TXT_CRAFTING, false)
+
+func _on_save_requested(slot: int, save_name: String):
+	Data.save_file(slot, save_name)
+	save_menu.refresh_save_slot_data()
+
+func _on_load_requested(slot: int):
+	Data.load_file(slot)
+	# We close the whole menu on loads to avoid possible
+	# strange side-effects of keeping the menu open.
+	root.closed.emit()
+
+func _on_delete_requested(slot: int):
+	Data.erase_file(slot)
+	save_menu.refresh_save_slot_data()
 #endregion

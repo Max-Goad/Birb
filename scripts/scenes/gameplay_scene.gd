@@ -1,6 +1,7 @@
 class_name Gameplay extends Node2D
 
 const MAP_DIR = "res://resources/scenes/maps"
+const NEW_GAME_MAP_NAME = "test_map.tscn"
 
 #region Variables
 @onready var player: Player = $Player
@@ -18,14 +19,18 @@ var current_map: Map
 #region Engine Functions
 func _ready() -> void:
 	_load_all_maps(Gameplay.MAP_DIR)
-	# Temporary glue code
-	if not current_map:
-		current_map = _instantiate_map(Gameplay.get_map_names()[0])
-		current_map.on_enter()
-		Data.current_save.current_map = current_map.filename
+
 	Data.save_requested.connect(on_save)
 	Data.load_requested.connect(on_load)
 	Data.unload_requested.connect(on_unload)
+
+	if Data.save_slot_to_load == Data.CREATE_NEW_SAVE:
+		current_map = _instantiate_map(NEW_GAME_MAP_NAME)
+		#current_map.on_load(Data.current_save)
+		current_map.on_enter()
+		Data.current_save.current_map = current_map.filename
+	else:
+		Data.load_file(Data.save_slot_to_load)
 
 func _process(_delta: float) -> void:
 	pass
@@ -49,8 +54,9 @@ func on_load(data: SaveData) -> void:
 	Abilities.set_current_abilities()
 
 func on_unload() -> void:
-	current_map.on_unload()
-	_free_map(current_map)
+	if current_map:
+		current_map.on_unload()
+		_free_map(current_map)
 	player.on_unload()
 #endregion
 

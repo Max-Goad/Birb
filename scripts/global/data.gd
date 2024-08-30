@@ -3,6 +3,7 @@ extends Node
 #region Constants
 const MAX_SAVE_SLOT_SIZE: int = 3
 const MAX_SAVE_NAME_SIZE: int = 20
+const CREATE_NEW_SAVE: int = -1
 
 const GROUP_PLAYER: String = "player"
 const GROUP_SPAWNER: String = "spawner"
@@ -14,6 +15,9 @@ const GROUP_PERSIST: String = "persist"
 #region Save Data Variables
 var saves: Array[SaveData]
 var current_save: SaveData
+## This index will be used when Gameplay starts to determine
+## which saved data to load. Can also indicate to start a new one.
+var save_slot_to_load := CREATE_NEW_SAVE
 
 # Unrelated data loaded at game start regardless of save data
 var components_by_id: Dictionary	# {id:component}
@@ -42,22 +46,16 @@ signal ability_slot_unlocked(category)
 
 #region Engine Functions
 func _ready() -> void:
-	# saves.clear()
-	# saves.resize(MAX_SAVE_SLOT_SIZE)
-	# saves.fill(null)
 	# _test_language_conversion("res://resources/data/language.txt")
 	_load_game_references()
 	load_all_files()
-	if save_exists(0):
-		load_file(0)
-	else:
-		current_save = SaveData.new()
-		# Usually, file loads will properly unlock ability slots.
-		# In the case of a "new game", there is no load.
-		# Therefore we notify so that the initial slots are shown on screen.
-		# TODO: Shouldn't we always "load" something?
-		notify_ability_slot_unlock.call_deferred(Ability.Category.ACTIVE)
-		notify_ability_slot_unlock.call_deferred(Ability.Category.PASSIVE)
+	current_save = SaveData.new()
+	# Usually, file loads will properly unlock ability slots.
+	# In the case of a "new game", there is no load.
+	# Therefore we notify so that the initial slots are shown on screen.
+	# TODO: Shouldn't we always "load" something?
+	notify_ability_slot_unlock.call_deferred(Ability.Category.ACTIVE)
+	notify_ability_slot_unlock.call_deferred(Ability.Category.PASSIVE)
 #endregion
 
 #region Saving / Loading Functions
