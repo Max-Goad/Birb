@@ -68,6 +68,7 @@ func save_exists(slot: int) -> bool:
 	return FileAccess.file_exists(file_name(slot))
 
 func save_file(slot: int, save_name = "Test"):
+	print("Data: saving file to slot %d..." % slot)
 	save_requested.emit(current_save)
 	current_save.save_name = save_name
 
@@ -83,9 +84,9 @@ func save_file(slot: int, save_name = "Test"):
 		return
 
 	# The save data loaded into memory has to be updated too
-	# The "duplicate()" call is necessary or updating current_save
+	# The "make_copy()" call is necessary or updating current_save
 	# will also update the save in memory (desync with file)!
-	saves[slot] = current_save.duplicate()
+	saves[slot] = current_save.make_copy()
 	print("Data: saved file to slot %d" % [slot])
 
 func can_load_file(slot: int):
@@ -93,11 +94,16 @@ func can_load_file(slot: int):
 
 # Deserialize
 func load_file(slot: int):
-	if slot >= saves.size() or saves[slot] == null:
+	print("Data: loading file from slot %d..." % slot)
+	if not can_load_file(slot):
 		assert(false, "bad load")
 		return
+	print("Data: unload signal")
 	unload_requested.emit()
-	current_save = saves[slot].duplicate()
+	# The "make_copy()" call is necessary or updating current_save
+	# will also update the save in memory (desync with file)!
+	current_save = saves[slot].make_copy()
+	print("Data: load signal")
 	load_requested.emit(current_save)
 	print("Data: loaded file from slot %d" % slot)
 
@@ -126,6 +132,11 @@ func erase_file(slot: int):
 		return
 	DirAccess.remove_absolute(file_name(slot))
 	saves[slot] = null
+
+func debug_print_all_save_data():
+	print("current = %s" % current_save)
+	for i in saves.size():
+		print("slot %d  = %s" % [i, saves[i]])
 #endregion
 
 #region Character Queries
@@ -170,7 +181,7 @@ func is_component_unlocked(id: int) -> bool:
 
 func unlock_component(component: CraftingComponent) -> void:
 	assert(not is_component_unlocked(component.id))
-	print("Data: Unlocked component %s" % [component])
+	#print("Data: unlocked component %s" % [component])
 	current_save.components_unlocked[component.id] = null
 	component_unlocked.emit(component)
 
