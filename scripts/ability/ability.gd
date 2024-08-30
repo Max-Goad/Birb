@@ -118,7 +118,7 @@ static func from_component(component: CraftingComponent) -> Ability:
 			# multiplier
 			return Legs.new(1.1)
 		"川":
-			# knockback force
+			# knockback force, stun time
 			return River.new(3.0, 1.0)
 		"百":
 			# tf, pf, id, ed, pd, et
@@ -134,6 +134,9 @@ static func from_component(component: CraftingComponent) -> Ability:
 		"空":
 			# speed mod
 			return Empty.new(1.5)
+		"圧":
+			# knockback force, stun time
+			return Pressure.new(4.0, 1.0)
 		"王":
 			return King.new()
 		"囚":

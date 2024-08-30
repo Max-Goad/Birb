@@ -63,6 +63,7 @@ func _ready() -> void:
 
 #region Public Functions
 func apply_knockback(direction: Vector2, modifier: float = 1.0, stun_time: float = 0.0):
+	assert(direction.is_normalized())
 	movement.apply_direction(direction, MovementComponent.IGNORE_LOCK)
 	movement.apply_speed(movement.top_speed * knockback_factor * modifier, MovementComponent.IGNORE_LOCK)
 	if not movement.currently_locked:

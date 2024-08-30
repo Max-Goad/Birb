@@ -23,8 +23,6 @@ func _init() -> void:
 #region Public Functions
 func execute(parent: Player, direction: Vector2):
 	super.execute(parent, direction)
-	self.parent = parent
-	self.direction = direction
 	super.chain().run(_windup).wait(0.35).run(_lunge).wait(0.15).run(_spawn_hurtbox).start_chain()
 	# TODO: Damage? Damage modifier?
 #endregion
