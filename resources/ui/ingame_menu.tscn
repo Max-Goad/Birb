@@ -82,7 +82,6 @@ atlas = SubResource("CompressedTexture2D_wunoc")
 region = Rect2(64, 0, 16, 16)
 
 [node name="Menu Root" type="Control"]
-z_index = 2
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0

@@ -23,9 +23,6 @@ follow = NodePath("../Player")
 [node name="UI Canvas" type="CanvasLayer" parent="." groups=["canvas"]]
 process_mode = 3
 
-[node name="Menu Controller" type="Node" parent="UI Canvas"]
-script = ExtResource("16_6n8mp")
-
 [node name="Active Ability Slot UI" type="Control" parent="UI Canvas"]
 layout_mode = 3
 anchors_preset = 2
@@ -116,6 +113,9 @@ layout_mode = 2
 
 [node name="Label" parent="UI Canvas/Passive Ability Slot UI/UI Passive Abilities/Ability Slot 4/Slot" index="2"]
 text = "D"
+
+[node name="Menu Controller" type="Node" parent="UI Canvas"]
+script = ExtResource("16_6n8mp")
 
 [editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 1"]
 [editable path="UI Canvas/Active Ability Slot UI/UI Active Abilities/Ability Slot 2"]
