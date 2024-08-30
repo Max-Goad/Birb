@@ -39,6 +39,7 @@ func _ready() -> void:
 		var save_slot = save_slots[i]
 		save_slot.set_slot(i)
 		save_slot.selected.connect(set_selected_slot.bind(i))
+	_refresh_save_slot_data()
 #endregion
 
 #region Public Functions
@@ -60,27 +61,31 @@ func _on_save_button():
 	save_popup.confirm_requested.connect(_on_save_popup_confirm.bind(save_popup))
 	save_popup.cancel_requested.connect(_on_save_popup_cancel.bind(save_popup))
 	Data.get_canvas().add_child(save_popup)
-	# TODO: Get the name of the selected save slot and prefill
+	if Data.save_exists(currently_selected_slot):
+		save_popup.set_input_text(Data.get_save_data(currently_selected_slot).save_name)
 
 func _on_load_button():
 	if currently_selected_slot == NO_SLOT_SELECTED:
+		return
+	if not Data.save_exists(currently_selected_slot):
 		return
 	var load_popup = LOAD_POPUP_TEMPLATE.instantiate()
 	load_popup.confirm_requested.connect(_on_load_popup_confirm.bind(load_popup))
 	load_popup.cancel_requested.connect(_on_load_popup_cancel.bind(load_popup))
 	Data.get_canvas().add_child(load_popup)
-	# TODO: Get the name of the selected save slot and prefill
-	load_popup.set_save_slot(currently_selected_slot, "TEMP")
+	load_popup.set_save_slot(currently_selected_slot, Data.get_save_data(currently_selected_slot).save_name)
 
 func _on_delete_button():
 	if currently_selected_slot == NO_SLOT_SELECTED:
+		return
+	if not Data.save_exists(currently_selected_slot):
 		return
 	var delete_popup = DELETE_POPUP_TEMPLATE.instantiate()
 	delete_popup.confirm_requested.connect(_on_delete_popup_confirm.bind(delete_popup))
 	delete_popup.cancel_requested.connect(_on_delete_popup_cancel.bind(delete_popup))
 	Data.get_canvas().add_child(delete_popup)
-	# TODO: Get the name of the selected save slot and prefill
-	delete_popup.set_save_slot(currently_selected_slot, "TEMP")
+	delete_popup.set_save_slot(currently_selected_slot, Data.get_save_data(currently_selected_slot).save_name)
+
 
 func _on_exit_button():
 	# TODO: Should there be any warnings?
@@ -93,7 +98,8 @@ func _on_save_popup_confirm(save_file_name: String, save_popup: SavePopup):
 	elif not save_name:
 		save_popup.set_error("Name Too Short")
 	else:
-		# Save file
+		Data.save_file(currently_selected_slot, save_file_name)
+		_refresh_save_slot_data()
 		save_popup.get_parent().remove_child(save_popup)
 		save_popup.queue_free()
 		set_selected_slot(NO_SLOT_SELECTED)
@@ -104,10 +110,12 @@ func _on_save_popup_cancel(save_popup: SavePopup):
 	set_selected_slot(NO_SLOT_SELECTED)
 
 func _on_load_popup_confirm(load_popup: LoadPopup):
-	# Load file
+	Data.load_file(currently_selected_slot)
 	load_popup.get_parent().remove_child(load_popup)
 	load_popup.queue_free()
 	set_selected_slot(NO_SLOT_SELECTED)
+	# Close after loading to avoid bad menu side effects
+	close_requested.emit()
 
 func _on_load_popup_cancel(load_popup: LoadPopup):
 	load_popup.get_parent().remove_child(load_popup)
@@ -115,7 +123,7 @@ func _on_load_popup_cancel(load_popup: LoadPopup):
 	set_selected_slot(NO_SLOT_SELECTED)
 
 func _on_delete_popup_confirm(delete_popup: DeletePopup):
-	# Delete file
+	Data.erase_file(currently_selected_slot)
 	delete_popup.get_parent().remove_child(delete_popup)
 	delete_popup.queue_free()
 	set_selected_slot(NO_SLOT_SELECTED)
@@ -124,4 +132,12 @@ func _on_delete_popup_cancel(delete_popup: DeletePopup):
 	delete_popup.get_parent().remove_child(delete_popup)
 	delete_popup.queue_free()
 	set_selected_slot(NO_SLOT_SELECTED)
+
+func _refresh_save_slot_data():
+	for i in save_slots.size():
+		var save_slot = save_slots[i]
+		if Data.save_exists(i):
+			save_slot.apply_data(Data.get_save_data(i))
+		else:
+			save_slot.reset_to_empty()
 #endregion

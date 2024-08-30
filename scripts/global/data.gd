@@ -133,6 +133,9 @@ func erase_file(slot: int):
 	DirAccess.remove_absolute(file_name(slot))
 	saves[slot] = null
 
+func get_save_data(slot: int) -> SaveData:
+	return saves[slot]
+
 func debug_print_all_save_data():
 	print("current = %s" % current_save)
 	for i in saves.size():

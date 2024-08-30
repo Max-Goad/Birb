@@ -64,6 +64,7 @@ func on_load(data: SaveData) -> void:
 func on_unload() -> void:
 	hitbox.disabled = true
 	self.movement.stop_all_movement(MovementComponent.IGNORE_LOCK)
+	self.last_movement_direction = Vector2.DOWN
 #endregion
 
 #region Private Functions

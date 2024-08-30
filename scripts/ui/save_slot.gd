@@ -38,6 +38,14 @@ func mark_as_selected():
 
 func mark_as_deselected():
 	selected_icon.text = ""
+
+func apply_data(data: SaveData):
+	slot_name.text = data.save_name
+	# TODO: More ways to show the save data
+
+func reset_to_empty():
+	slot_name.text = "[No Data]"
+	# TODO: More ways to show the empty data
 #endregion
 
 #region Private Functions
