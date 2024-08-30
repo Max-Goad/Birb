@@ -24,6 +24,7 @@ func _ready() -> void:
 ## Called right before the game saves to disk
 ## The "data" param is an in-out param, so write to it!
 func on_save(data: SaveData) -> void:
+	print("Map: on_save() %s" % filename)
 	var map_data: MapData = data.map_data.get_or_add(filename, MapData.generate(filename)) as MapData
 	# TODO: Save other map data here?
 	# Overwrite instead of add to existing object data
@@ -33,6 +34,7 @@ func on_save(data: SaveData) -> void:
 ## NOTE: on_load and on_enter are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_load(data: SaveData) -> void:
+	print("Map: on_load() %s" % filename)
 	# TODO: Is this possible?
 	if not data.map_data.has(filename):
 		return
@@ -51,6 +53,7 @@ func on_load(data: SaveData) -> void:
 ## NOTE: on_unload and on_exit are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_unload() -> void:
+	print("Map: on_unload() %s" % filename)
 	# TODO: Put any logic in here that only happens when you
 	#		load the map from disk (not just leave and return)
 	pass
@@ -60,6 +63,7 @@ func on_unload() -> void:
 ## NOTE: on_load and on_enter are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_enter():
+	print("Map: on_enter() %s" % filename)
 	if not Data.current_save.map_data.has(filename):
 		# This can occur the very first time the player enters this map
 		return
@@ -70,9 +74,9 @@ func on_enter():
 ## NOTE: on_unload and on_exit are mutually exclusive, meaning
 ##		 if one runs, the other will NOT RUN (unless otherwise specified)
 func on_exit():
+	print("Map: on_exit() %s" % filename)
 	var map_data: MapData = Data.current_save.map_data.get_or_add(filename, MapData.generate(filename)) as MapData
 	map_data.object_data = _save_object_data()
-
 
 func get_map_scale() -> Vector2:
 	var layer_scale = Vector2.ZERO
@@ -130,6 +134,7 @@ func _save_object_data() -> Dictionary:
 	return output
 
 func _load_object_data(map_data: MapData):
+	print("Map: loading object data - %s" % map_data.object_data)
 	for object_path in map_data.object_data:
 		if not has_node(object_path):
 			# TODO: This isn't implemented yet

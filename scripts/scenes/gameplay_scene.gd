@@ -63,6 +63,7 @@ func _on_map_transition_trigger(map_name: String, transition_id: int):
 ## Transition to a new map, properly cleaning up the old map and
 ## setting up the player at the appropriate location to enter the new map.
 func _on_map_transition(map_name: String, transition_id: int):
+	print("Gameplay: Map transition triggered (%s -> %s) at transition %d" % [current_map.filename, map_name, transition_id])
 	Abilities.unset_current_abilities()
 	# Unload old map
 	current_map.on_exit()
