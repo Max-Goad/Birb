@@ -2,13 +2,8 @@
 A silly little repository for silly little things by a silly little man
 
 ## TODO (short-term):
-- BUGS: Save/Load
-	- Flowers
-		- WTF double load in same room WHY
-		- Doesn't happen if different room
-		- Doesn't happen if no textbox
-		- ?????
-		- Does it even matter? Saving and loading in menus is better...
+- IMPROVEMENT:
+	- Empty ability could reuse shockwave (smaller) to indicate drain?
 - IMPROVEMENT: Hurtbox
 	- How do we track its velocity?
 	- If it's the root, then it's no problem
