@@ -120,6 +120,13 @@ func apply_bit_data() -> void:
 		tile_data.set_collision_polygons_count(0, collision_polygon_points.size())
 		for i in collision_polygon_points.size():
 			tile_data.set_collision_polygon_points(0, i, collision_polygon_points[i])
+		# Occlusion Polygon(s)
+		# MAX TODO: Layer is a magic number (from EditorBitData but still)
+		# MAX TODO: Only the 1st layer is considered...
+		var occlusion_polygon_points = preview_bit_data.get_occlusion_polygons(coords)
+		tile_data.set_occlusion_polygons_count(0, occlusion_polygon_points.size())
+		for i in occlusion_polygon_points.size():
+			tile_data.set_occlusion_polygon_points(0, i, occlusion_polygon_points[i])
 
 
 
